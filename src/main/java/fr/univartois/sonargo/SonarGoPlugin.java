@@ -4,8 +4,7 @@ import org.sonar.api.Plugin;
 
 public class SonarGoPlugin implements Plugin{
 
-	public void define(Context arg0) {
-		// TODO Auto-generated method stub
+	public void define(Context context) {
 		
 	}
 
