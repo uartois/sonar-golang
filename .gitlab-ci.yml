@@ -1,8 +1,3 @@
-auditcode:
-   stage: test
-   script: "sonar-scanner -X"
-   tags:
-        - sonar
 artifact:
    script: "mvn install"
    artifacts:
@@ -10,3 +5,8 @@ artifact:
         - target/*.jar
    tags:
      - maven
+auditcode:
+   stage: test
+   script: "sonar-scanner -X"
+   tags:
+        - sonar
