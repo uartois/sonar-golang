@@ -1,0 +1,5 @@
+auditcode:
+   stage: test
+   script: "sonar-scanner -X"
+   tags:
+        - sonar	
