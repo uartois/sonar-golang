@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>YOUR_GROUP_ID</groupId>
+  <groupId>fr.univartois</groupId>
   <!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example "sonar-php-plugin" -->
-  <artifactId>YOUR_ARTIFACT_ID</artifactId>
-  <version>YOUR_VERSION</version>
+  <artifactId>sonar-golang-plugin</artifactId>
+  <version>1.0</version>
  
   <!-- this is important for sonar-packaging-maven-plugin -->
   <packaging>sonar-plugin</packaging>
@@ -29,8 +29,8 @@
         <extensions>true</extensions>
         <configuration>
           <!-- the entry-point class that extends org.sonar.api.SonarPlugin -->
-          <pluginClass>fr.univ-artois.sonargo.SonarGoPlugin</pluginClass>
-          
+          <pluginClass>fr.univartois.sonargo.SonarGoPlugin</pluginClass>
+          <pluginDescription>Sonarqube Plugin for Golang</pluginDescription>
           <!-- advanced properties can be set here. See paragraph "Advanced Build Properties". -->
         </configuration>
       </plugin>
