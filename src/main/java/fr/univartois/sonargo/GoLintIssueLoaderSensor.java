@@ -87,7 +87,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	    LOGGER.debug("inputFile null ? " + (inputFile == null));
 
 	    if (inputFile != null) {
-	      saveIssue(inputFile, error.getLine(), error.getType(), error.getMessage());
+	      //saveIssue(inputFile, error.getLine(), error.getType(), error.getMessage());
 	    } else {
 	      LOGGER.error("Not able to find a InputFile with " + error.getFilePath());
 	    }
@@ -130,9 +130,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 				for(int j=0;j<children.getLength();j++){
 					Element e=(Element)children.item(j);
 					GoError err=new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
-							GoLintResultParser.LINE_ATTRIBUTE,
-							GoLintResultParser.MESS_ATTRIBUTE,
-							GoLintResultParser.SEVER_ATTRIBUTE);
+							e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE),
+									e.getAttribute(GoLintResultParser.MESS_ATTRIBUTE),
+											e.getAttribute(GoLintResultParser.SEVER_ATTRIBUTE),file.getPath());
 					listError.add(err);
 				}
 				return listError;
