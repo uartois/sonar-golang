@@ -9,6 +9,11 @@
   <!-- this is important for sonar-packaging-maven-plugin -->
   <packaging>sonar-plugin</packaging>
  
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+ 
   <dependencies>
     <dependency>
       <groupId>org.sonarsource.sonarqube</groupId>
