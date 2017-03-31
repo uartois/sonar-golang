@@ -10,6 +10,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
 
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
@@ -28,11 +30,13 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	
 	protected static final String REPORT_PATH_KEY="sonar.golint.reportPath";
 	
-	private Settings settings;
+	private final Settings settings;
+	private final FileSystem fileSystem;
 	
 	
-	public GoLintIssueLoaderSensor(Settings se){
+	public GoLintIssueLoaderSensor(final Settings se,final FileSystem fileSystem){
 		this.settings=se;
+		this.fileSystem=fileSystem;
 	}
 	
 	public void describe(SensorDescriptor descriptor) {
@@ -64,12 +68,31 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		
 		GoLintResultParser parser=new GoLintResultParser();
 		
-		List<GoFileError> listError=parser.parse(file);
-		for(GoFileError e:listError){
-			
+		List<GoError> listError=parser.parse(file);
+		for(GoError e:listError){
+			 getResourceAndSaveIssue(e);
 		}
 		
 	}
+	
+	
+	private void getResourceAndSaveIssue(final GoError error) {
+	    LOGGER.debug(error.toString());
+
+	    InputFile inputFile = fileSystem.inputFile(
+	      fileSystem.predicates().and(
+	        fileSystem.predicates().hasRelativePath(error.getFilePath()),
+	        fileSystem.predicates().hasType(InputFile.Type.MAIN)));
+
+	    LOGGER.debug("inputFile null ? " + (inputFile == null));
+
+	    if (inputFile != null) {
+	      saveIssue(inputFile, error.getLine(), error.getType(), error.getMessage());
+	    } else {
+	      LOGGER.error("Not able to find a InputFile with " + error.getFilePath());
+	    }
+	}
+	
 	private class GoLintResultParser{
 		
 		private static final String COLUMN_ATTRIBUTE="column";
@@ -77,34 +100,42 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		private static final String MESS_ATTRIBUTE="message";
 		private static final String SEVER_ATTRIBUTE="severity";
 		
-		public List<GoFileError> parse(File file) throws XMLStreamException{
+		private Node searchFileTagWithNameOfFile(String name,NodeList list){
+			for(int i=0;i<list.getLength();i++){
+				String filePath=((Element)list.item(i)).getAttribute("name");
+				if(name.equals(filePath)){
+					return list.item(i);
+				}
+			}
+			return null;
+		}
+		public List<GoError> parse(File file) throws XMLStreamException{
 			LOGGER.info("Parsing file {}",file.getAbsolutePath());
 			DocumentBuilderFactory dbFactory=DocumentBuilderFactory.newInstance();
 			DocumentBuilder builde;
-			List<GoFileError> listFileError=new ArrayList<>();
 			try {
 				builde = dbFactory.newDocumentBuilder();
 				Document doc=builde.parse(file);
 				
 				NodeList nList = doc.getElementsByTagName("file");
 				
-				for(int i = 0; i < nList.getLength(); i++){
-					Node n=nList.item(i);
-					List<GoError> listError=new ArrayList<>();
-					String filePath=((Element)nList.item(i)).getAttribute("name");
-					NodeList children=n.getChildNodes();
-					for(int j=0;j<children.getLength();j++){
-						Element e=(Element)children.item(j);
-						GoError err=new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
-								GoLintResultParser.LINE_ATTRIBUTE,
-								GoLintResultParser.MESS_ATTRIBUTE,
-								GoLintResultParser.SEVER_ATTRIBUTE);
-						listError.add(err);
-					}
-					
-					listFileError.add(new GoFileError(listError, filePath));
+				Node n=searchFileTagWithNameOfFile(file.getName(),nList);
+				
+				if(n==null){
+					throw new XMLStreamException("The file "+file.getName()+" is not in the report file");
 				}
-				return listFileError;
+				
+				List<GoError> listError=new ArrayList<>();
+				NodeList children=n.getChildNodes();
+				for(int j=0;j<children.getLength();j++){
+					Element e=(Element)children.item(j);
+					GoError err=new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
+							GoLintResultParser.LINE_ATTRIBUTE,
+							GoLintResultParser.MESS_ATTRIBUTE,
+							GoLintResultParser.SEVER_ATTRIBUTE);
+					listError.add(err);
+				}
+				return listError;
 				
 			} catch (ParserConfigurationException e) {
 				LOGGER.error("Parser configuration", e);
