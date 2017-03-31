@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="5.0">
+  <file name="serverimage.go">
+    <error column="3" line="38" message="&#39;if errremove != nil { return errremove }; return nil&#39; can be simplified to &#39;return errremove&#39;" severity="warning" source="gosimple">
+    </error>
+    <error column="0" line="57" message="Binds to all network interfaces,MEDIUM,HIGH" severity="warning" source="gas">
+    </error>
+    <error column="6" line="13" message="exported type ImageService should have comment or be unexported" severity="warning" source="golint">
+    </error>
+    <error column="6" line="17" message="exported type ImageServiceArgsRes should have comment or be unexported" severity="warning" source="golint">
+    </error>
+    <error column="1" line="22" message="exported method ImageService.ApplyFilter should have comment or be unexported" severity="warning" source="golint">
+    </error>
+    <error column="2" line="9" message="could not import projectblackwhitego/encoding (can&#39;t find import: projectblackwhitego/encoding)" severity="error" source="gotype">
+    </error>
+    <error column="9" line="24" message="undeclared name: encoding" severity="error" source="gotype">
+    </error>
+    <error column="14" line="28" message="undeclared name: encoding" severity="error" source="gotype">
+    </error>
+    <error column="2" line="14" message="unused struct field projectblackwhitego.ImageService.req" severity="warning" source="structcheck">
+    </error>
+    <error column="13" line="45" message="error return value not checked (os.MkdirAll(&#34;./tmp&#34;, os.FileMode(0755)))" severity="warning" source="errcheck">
+    </error>
+    <error column="17" line="56" message="error return value not checked (server.Register(&amp;ss))" severity="warning" source="errcheck">
+    </error>
+  </file>
+  </checkstyle>

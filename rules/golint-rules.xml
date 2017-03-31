@@ -1,0 +1,16 @@
+<foolint-rules>
+	<rule>
+		<key>ExportedType</key>
+		<name>Exported Type</name>
+		<internalKey>ExportedType</internalKey>
+		<description>an exported type should have comment or be unexported
+		</description>
+		<severity>BLOCKER</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>BUG</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+        <remediationFunctionBaseEffort>2min</remediationFunctionBaseEffort>
+</rule>
+</foolint-rules>
