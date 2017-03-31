@@ -16,12 +16,20 @@ public class GoKeyRule{
 	public static final String PATH_FILE="config/key.properties";
 	private static final Logger LOGGER=Loggers.get(GoKeyRule.class);
 	private static Properties prop=new Properties();
-	private static void init() throws FileNotFoundException, IOException{
-		prop.load(new FileInputStream(new File(PATH_FILE)));
+	private static void init() {
+		try {
+			prop.load(new FileInputStream(new File(PATH_FILE)));
+		} catch (FileNotFoundException e) {
+			LOGGER.error("Unable to load the config file", e);
+			e.printStackTrace();
+		} catch (IOException e) {
+			LOGGER.error("Unable to load the config file", e);
+			e.printStackTrace();
+		}
 	}
 	
 	public static String getKeyFromDescription(String description) throws IllegalArgumentException{
-		try {
+	
 			init();
 			Pattern pattern;
 			Matcher matcher;
@@ -33,10 +41,6 @@ public class GoKeyRule{
 	        }
 			
 			throw new IllegalArgumentException("This description \""+description+"\" is not usable");
-			
-		} catch (IOException e) {
-			LOGGER.error("Unable to load the config file", e);
-		}
-		return null;
+
 	}
 }
