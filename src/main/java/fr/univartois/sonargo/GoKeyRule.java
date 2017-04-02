@@ -21,26 +21,25 @@ public class GoKeyRule{
 			prop.load(new FileInputStream(new File(PATH_FILE)));
 		} catch (FileNotFoundException e) {
 			LOGGER.error("Unable to load the config file", e);
-			e.printStackTrace();
 		} catch (IOException e) {
 			LOGGER.error("Unable to load the config file", e);
-			e.printStackTrace();
 		}
 	}
 	
-	public static String getKeyFromDescription(String description) throws IllegalArgumentException{
+	public static String getKeyFromError(GoError error) {
 	
 			init();
 			Pattern pattern;
 			Matcher matcher;
 			for(Entry<Object, Object> e : prop.entrySet()) {
 	           pattern=Pattern.compile((String) e.getValue());
-	           matcher=pattern.matcher(description);
+	           matcher=pattern.matcher(error.getMessage());
 	           if(!matcher.find()) continue;
 	           return (String) e.getKey();
 	        }
 			
-			throw new IllegalArgumentException("This description \""+description+"\" is not usable");
+			LOGGER.warn("This description \""+error.getMessage()+"\" is not usable");
+			return null;
 
 	}
 }

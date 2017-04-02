@@ -1,5 +1,6 @@
 package fr.univartois.sonargo;
 
+import org.sonar.api.config.Settings;
 import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
 
@@ -13,11 +14,18 @@ public class GoLanguage extends AbstractLanguage{
 	
 	public static final String NAME="GO";
 	public static final String KEY="go";
-	public GoLanguage(String key, String name) {
-		super(KEY, NAME);
-	}
+	
+	private Settings settings;
 
 	private static final String[] DEFAULT_FILE_SUFFIXES={"go"};
+	
+	
+	public GoLanguage(Settings settings) {
+	    super(KEY, NAME);
+	    this.settings = settings;
+	  }
+
+	
 	/**
 	 * {@inheritDoc}}
 	 */

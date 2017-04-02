@@ -15,8 +15,11 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.issue.NewIssue;
+import org.sonar.api.batch.sensor.issue.NewIssueLocation;
 import org.sonar.api.ce.measure.Settings;
 import org.sonar.api.internal.apachecommons.lang.StringUtils;
+import org.sonar.api.rule.RuleKey;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.w3c.dom.Document;
@@ -30,9 +33,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	
 	protected static final String REPORT_PATH_KEY="sonar.golint.reportPath";
 	
-	private final Settings settings;
-	private final FileSystem fileSystem;
-	
+	protected final Settings settings;
+	protected final FileSystem fileSystem;
+	protected SensorContext context;
 	
 	public GoLintIssueLoaderSensor(final Settings se,final FileSystem fileSystem){
 		this.settings=se;
@@ -55,11 +58,12 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	public void execute(SensorContext context) {
 		String reportPath=getReportPath();
 		if(!StringUtils.isEmpty(reportPath)){
+			this.context=context;
 			File analyse=new File(reportPath);
 			try{
 				parseAndSaveResults(analyse);
 			}catch(XMLStreamException e){
-				throw new IllegalStateException("Unable to parse the provided Golint file",e);
+				LOGGER.error("Unable to parse the provided Golint file",e);
 			}
 		}
 	}
@@ -87,11 +91,35 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	    LOGGER.debug("inputFile null ? " + (inputFile == null));
 
 	    if (inputFile != null) {
-	      //saveIssue(inputFile, error.getLine(), error.getType(), error.getMessage());
+	      saveIssue(inputFile, error.getLine(), GoKeyRule.getKeyFromError(error), error.getMessage());
 	    } else {
 	      LOGGER.error("Not able to find a InputFile with " + error.getFilePath());
 	    }
 	}
+	
+	private static String getRepositoryKeyForLanguage(String languageKey) {
+	    return languageKey.toLowerCase() + "-" + GoLintRulesDefinition.KEY;
+	}
+	
+	
+	private void saveIssue(final InputFile inputFile, int line, final String externalRuleKey, final String message) {
+	    RuleKey ruleKey = RuleKey.of(getRepositoryKeyForLanguage(inputFile.language()), externalRuleKey);
+
+	    NewIssue newIssue = context.newIssue()
+	      .forRule(ruleKey);
+
+	    NewIssueLocation primaryLocation = newIssue.newLocation()
+	      .on(inputFile)
+	      .message(message);
+	    if (line > 0) {
+	      primaryLocation.at(inputFile.selectLine(line));
+	    }
+	    newIssue.at(primaryLocation);
+
+	    newIssue.save();
+	}
+	
+	
 	
 	private class GoLintResultParser{
 		
@@ -130,7 +158,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 				for(int j=0;j<children.getLength();j++){
 					Element e=(Element)children.item(j);
 					GoError err=new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
-							e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE),
+							Integer.valueOf(e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE)),
 									e.getAttribute(GoLintResultParser.MESS_ATTRIBUTE),
 											e.getAttribute(GoLintResultParser.SEVER_ATTRIBUTE),file.getPath());
 					listError.add(err);

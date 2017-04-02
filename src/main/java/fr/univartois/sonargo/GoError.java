@@ -1,12 +1,12 @@
 package fr.univartois.sonargo;
 public class GoError{
 	private final String column;
-	private final String line;
+	private final int line;
 	private final String message;
 	private final String severity;
 	private final String filePath;
 	
-	public GoError(String column, String line, String message, String severity, String filePath) {
+	public GoError(String column, int line, String message, String severity, String filePath) {
 		super();
 		this.column = column;
 		this.line = line;
@@ -17,7 +17,7 @@ public class GoError{
 	public String getColumn() {
 		return column;
 	}
-	public String getLine() {
+	public int getLine() {
 		return line;
 	}
 	public String getMessage() {
@@ -35,7 +35,7 @@ public class GoError{
 		int result = 1;
 		result = prime * result + ((column == null) ? 0 : column.hashCode());
 		result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
-		result = prime * result + ((line == null) ? 0 : line.hashCode());
+		result = prime * result + line;
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
 		result = prime * result + ((severity == null) ? 0 : severity.hashCode());
 		return result;
@@ -59,10 +59,7 @@ public class GoError{
 				return false;
 		} else if (!filePath.equals(other.filePath))
 			return false;
-		if (line == null) {
-			if (other.line != null)
-				return false;
-		} else if (!line.equals(other.line))
+		if (line != other.line)
 			return false;
 		if (message == null) {
 			if (other.message != null)
@@ -76,5 +73,11 @@ public class GoError{
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "GoError [column=" + column + ", line=" + line + ", message=" + message + ", severity=" + severity
+				+ ", filePath=" + filePath + "]";
+	}
+	
 	
 }

@@ -1,4 +1,4 @@
-<foolint-rules>
+<go-rules>
   <rule>
     <key>ExportedType</key>
     <name>Exported Type</name>
@@ -11,6 +11,6 @@
     <type>ERROR</type>
     <tag>example</tag>
     <remediationFunction>CONSTANT_ISSUE</remediationFunction>
-    <remediationFunctionBaseEffort>2min</remediationFunctionBaseEffort>
+    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
   </rule>
-  </foolint-rules>
+</go-rules>
