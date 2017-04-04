@@ -1,0 +1,16 @@
+<go-rules>
+  <rule>
+    <key>ExportedType</key>
+    <name>Exported Type</name>
+    <internalKey>ExportedType</internalKey>
+    <description>an exported type should have comment or be unexported
+		</description>
+    <severity>MAJOR</severity>
+    <cardinality>SINGLE</cardinality>
+    <status>READY</status>
+    <type>CODE_SMELL</type>
+    <tag>example</tag>
+    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
+    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+  </rule>
+</go-rules>
