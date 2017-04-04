@@ -5,10 +5,12 @@ import java.nio.charset.StandardCharsets;
 
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 public class GoLintRulesDefinition implements RulesDefinition{
 	private static final String PATH_TO_RULES_XML = "/rules/golint-rules.xml";
-
+	private static final Logger LOGGER=Loggers.get(GoLintRulesDefinition.class);	
 	  protected static final String KEY = "go";
 	  protected static final String NAME = "Go";
 
@@ -21,14 +23,21 @@ public class GoLintRulesDefinition implements RulesDefinition{
 
 	  private void defineRulesForLanguage(Context context, String repositoryKey, String repositoryName, String languageKey) {
 	    NewRepository repository = context.createRepository(repositoryKey, languageKey).setName(repositoryName);
-
+	    
+	    LOGGER.info("Repository "+repositoryName+" created with the key "+repositoryKey+" "+repository);
+	    
 	    InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath());
 	    if (rulesXml != null) {
 	      RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
 	      rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
+	    }else{
+	    	LOGGER.warn("The file "+PATH_TO_RULES_XML+" is not loading ");
 	    }
 
 	    repository.done();
+	    
+	    LOGGER.info("Repository "+repositoryName+" done: "+repository.rules());
+	    
 	  }
 
 	  @Override
