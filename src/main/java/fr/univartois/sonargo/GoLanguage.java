@@ -1,6 +1,5 @@
 package fr.univartois.sonargo;
 
-import org.sonar.api.config.Settings;
 import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;
 
