@@ -54,6 +54,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	}
 	/**
 	 * Create the description of the sensor
+	 * @param descriptor A sensor descriptor @see {@link SensorDescriptor}
 	 */
 	public void describe(SensorDescriptor descriptor) {
 		descriptor.name("GoMetaLinter issues loader sensor");
@@ -67,9 +68,10 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		}
 		return null;
 	}
-	/*
-	 * (non-Javadoc)
+	
+	/**
 	 * @see org.sonar.api.batch.sensor.Sensor#execute(org.sonar.api.batch.sensor.SensorContext)
+	 * @param context @see {@link SensorContext}
 	 */
 	public void execute(SensorContext context) {
 		String reportPath=getReportPath();

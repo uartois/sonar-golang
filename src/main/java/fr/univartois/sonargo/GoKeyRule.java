@@ -10,7 +10,11 @@ import java.util.regex.Pattern;
 
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-
+/**
+ * This class load the file key.properties where there is a map that can correspond lint a internal key with a Pattern for match with the message of the report
+ * @author thibault
+ *
+ */
 public class GoKeyRule{
 	public static final String PATH_FILE="/key.properties";
 	private static final Logger LOGGER=Loggers.get(GoKeyRule.class);
@@ -20,7 +24,7 @@ public class GoKeyRule{
 		    throw new IllegalAccessError("Utility class");
 	 }
 	/**
-	 * Allow to load the key.properties file where there are a map that can correspondint a internal key with a Pattern for match with the message of the report
+	 * Allow to load the key.properties file where there is a map that can correspond lint a internal key with a Pattern for match with the message of the report
 	 */
 	private static void init() {
 		try {
@@ -56,7 +60,8 @@ public class GoKeyRule{
 	           
 	           
 	           matcher=pattern.matcher(error.getMessage());
-	           if(!matcher.find()) continue;
+	           if(!matcher.find()) 
+	        	   continue;
 	           return (String) e.getKey();
 	        }
 			

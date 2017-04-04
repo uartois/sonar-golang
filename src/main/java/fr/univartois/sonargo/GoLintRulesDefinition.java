@@ -7,7 +7,11 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-
+/**
+ * This class read the "/rules/golint-rules.xml" file and create all the rule than can detect by the Sensor
+ * @author thibault
+ *
+ */
 public class GoLintRulesDefinition implements RulesDefinition{
 	private static final String PATH_TO_RULES_XML = "/rules/golint-rules.xml";
 	private static final Logger LOGGER=Loggers.get(GoLintRulesDefinition.class);	
