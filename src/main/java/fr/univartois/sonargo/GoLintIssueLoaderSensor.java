@@ -188,7 +188,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 						Element e=(Element)children.item(j);
 						GoError err=new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
-								Integer.valueOf(e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE)),
+								Integer.parseInt(e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE)),
 								e.getAttribute(GoLintResultParser.MESS_ATTRIBUTE),
 								e.getAttribute(GoLintResultParser.SEVER_ATTRIBUTE),"./"+filename);
 						listError.add(err);
