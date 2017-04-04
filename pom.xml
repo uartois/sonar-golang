@@ -5,7 +5,15 @@
   <!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example "sonar-php-plugin" -->
   <artifactId>sonar-golang-plugin</artifactId>
   <version>1.0</version>
- 
+  
+  
+    <name>Golang Plugin for SonarQube</name>
+  <description>Golang Plugin for SonarQube: Golang, Golint </description>
+  <organization>
+  	<name>University of Artois</name>
+  </organization>
+  
+  
   <!-- this is important for sonar-packaging-maven-plugin -->
   <packaging>sonar-plugin</packaging>
  
@@ -23,6 +31,15 @@
       <!-- mandatory scope -->
       <scope>provided</scope>
     </dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-lang3</artifactId>
+    <version>3.5</version>
+</dependency>
+
+	
   </dependencies>
  
   <build>
@@ -41,4 +58,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>
