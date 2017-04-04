@@ -12,6 +12,10 @@ import org.sonar.api.utils.log.Loggers;
 
 public final class GoQualityProfile extends ProfileDefinition {
   private static final Logger LOGGER=Loggers.get(GoQualityProfile.class);
+  
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public RulesProfile createProfile(ValidationMessages validation) {
     

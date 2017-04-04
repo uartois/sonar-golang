@@ -15,6 +15,13 @@ public class GoKeyRule{
 	public static final String PATH_FILE="/key.properties";
 	private static final Logger LOGGER=Loggers.get(GoKeyRule.class);
 	private static Properties prop=new Properties();
+	
+	 private GoKeyRule() {
+		    throw new IllegalAccessError("Utility class");
+	 }
+	/**
+	 * Allow to load the key.properties file where there are a map that can correspondint a internal key with a Pattern for match with the message of the report
+	 */
 	private static void init() {
 		try {
 			
@@ -32,7 +39,11 @@ public class GoKeyRule{
 			LOGGER.error("Unable to load the config file", e);
 		}
 	}
-	
+	/**
+	 * Allow to get the corresponding key of the message of the error 
+	 * @param error
+	 * @return
+	 */
 	public static String getKeyFromError(GoError error) {
 	
 			init();

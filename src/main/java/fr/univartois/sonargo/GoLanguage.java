@@ -14,16 +14,15 @@ public class GoLanguage extends AbstractLanguage{
 	
 	public static final String NAME="GO";
 	public static final String KEY="go";
-	
-	private Settings settings;
 
 	private static final String[] DEFAULT_FILE_SUFFIXES={"go"};
 	
-	
-	public GoLanguage(Settings settings) {
+	/**
+	 * Create the GoLangage 
+	 */
+	public GoLanguage() {
 	    super(KEY, NAME);
-	    this.settings = settings;
-	  }
+	}
 
 	
 	/**

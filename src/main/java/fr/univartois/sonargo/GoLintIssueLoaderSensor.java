@@ -27,6 +27,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+
+
+/**
+ * GoLintIssueLoaderSensor
+ * This class can load a report file and create issue 
+ * @author thibault
+ */
 public class GoLintIssueLoaderSensor implements Sensor {
 	private static final Logger LOGGER=Loggers.get(GoLintIssueLoaderSensor.class);
 
@@ -35,12 +43,18 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	protected final Settings settings;
 	protected final FileSystem fileSystem;
 	protected SensorContext context;
-
+	/**
+	 * Allow to create a new GoLintIssueLoaderSensor
+	 * @param se @see {@link Settings}
+	 * @param fileSystem @see {@link FileSystem}
+	 */
 	public GoLintIssueLoaderSensor(final Settings se,final FileSystem fileSystem){
 		this.settings=se;
 		this.fileSystem=fileSystem;
 	}
-
+	/**
+	 * Create the description of the sensor
+	 */
 	public void describe(SensorDescriptor descriptor) {
 		descriptor.name("GoMetaLinter issues loader sensor");
 	}
@@ -53,7 +67,10 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		}
 		return null;
 	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see org.sonar.api.batch.sensor.Sensor#execute(org.sonar.api.batch.sensor.SensorContext)
+	 */
 	public void execute(SensorContext context) {
 		String reportPath=getReportPath();
 		if(!StringUtils.isEmpty(reportPath)){
@@ -134,7 +151,13 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		private static final String LINE_ATTRIBUTE="line";
 		private static final String MESS_ATTRIBUTE="message";
 		private static final String SEVER_ATTRIBUTE="severity";
-
+		/**
+		 * GoLintResultParser allow parse a checkstyle report file
+		 * @param file The path to checktyle report
+		 * @return A list of error 
+		 * @throws XMLStreamException 
+		 * @throws ParserConfigurationException throw if is not possible to parse the file 
+		 */
 		public List<GoError> parse(File file) throws XMLStreamException, ParserConfigurationException{
 			LOGGER.info("Parsing file {}",file.getAbsolutePath());
 			DocumentBuilderFactory dbFactory=DocumentBuilderFactory.newInstance();
