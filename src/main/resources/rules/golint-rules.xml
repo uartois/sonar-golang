@@ -13,4 +13,32 @@
     <remediationFunction>CONSTANT_ISSUE</remediationFunction>
     <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
   </rule>
+  <rule>
+    <key>ExportedMethod</key>
+    <name>Exported Method</name>
+    <internalKey>ExportedMethod</internalKey>
+    <description>an exported method should have comment or be unexported
+		</description>
+    <severity>MAJOR</severity>
+    <cardinality>SINGLE</cardinality>
+    <status>READY</status>
+    <type>CODE_SMELL</type>
+    <tag>example</tag>
+    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
+    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+  </rule>
+  <rule>
+    <key>SimplifiedTo</key>
+    <name>Simplified To</name>
+    <internalKey>SimplifiedTo</internalKey>
+    <description>can be simplified to
+		</description>
+    <severity>MAJOR</severity>
+    <cardinality>SINGLE</cardinality>
+    <status>READY</status>
+    <type>CODE_SMELL</type>
+    <tag>example</tag>
+    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
+    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+  </rule>
 </go-rules>

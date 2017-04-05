@@ -56,8 +56,7 @@ public class GoKeyRule{
 			for(Entry<Object, Object> e : prop.entrySet()) {
 	           pattern=Pattern.compile((String) e.getValue());
 	           
-	           LOGGER.info("Pattern: "+e.getValue().toString());
-	           
+	           LOGGER.info("Pattern: "+e.getValue().toString()+ ", error message: "+error.getMessage());
 	           
 	           matcher=pattern.matcher(error.getMessage());
 	           if(!matcher.find()) 

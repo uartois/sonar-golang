@@ -22,14 +22,18 @@ public final class GoQualityProfile extends ProfileDefinition {
    */
   @Override
   public RulesProfile createProfile(ValidationMessages validation) {
-    
+	
+	  
+	LOGGER.info("Golint Quality profile");  
 	RulesProfile profile = RulesProfile.create("Golint Rules", GoLanguage.KEY);
-    Rule rule=Rule.create(REPO_KEY, "ExportedType",REPO_NAME);
     
-    LOGGER.info("Active the rule ExportedType in "+REPO_KEY);
-    LOGGER.info("rule "+rule);
-
-    profile.activateRule(rule, null);
+    profile.activateRule(Rule.create(REPO_KEY, "ExportedType",REPO_NAME), null);
+    profile.activateRule(Rule.create(REPO_KEY, "ExportedMethod",REPO_NAME), null);
+    profile.activateRule(Rule.create(REPO_KEY, "SimplifiedTo",REPO_NAME), null);
+    
+    
+    LOGGER.info("Profil generate: "+profile.getActiveRules().toString());
+    
     return profile;
   }
 }
