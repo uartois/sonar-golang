@@ -7,6 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition.Context;
 
+import fr.univartois.sonargo.GoLintRulesDefinition;
+
 /**
  * @author thibault
  *
