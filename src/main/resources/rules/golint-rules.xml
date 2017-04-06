@@ -41,4 +41,18 @@
     <remediationFunction>CONSTANT_ISSUE</remediationFunction>
     <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
   </rule>
+   <rule>
+    <key>UnusedStructField</key>
+    <name>Unused Struct Field</name>
+    <internalKey>UnusedStructField</internalKey>
+    <description>unused struct field, remove it
+		</description>
+    <severity>MAJOR</severity>
+    <cardinality>SINGLE</cardinality>
+    <status>READY</status>
+    <type>CODE_SMELL</type>
+    <tag>example</tag>
+    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
+    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+  </rule>
 </go-rules>
