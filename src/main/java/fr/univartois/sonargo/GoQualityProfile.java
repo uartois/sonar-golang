@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.function.Predicate;
 import java.util.Map.Entry;
 
 import org.sonar.api.internal.apachecommons.lang.StringUtils;
@@ -25,7 +26,7 @@ import org.sonar.graph.StringEdgeFactory;
  */
 public final class GoQualityProfile extends ProfileDefinition {
 	private static final Logger LOGGER=Loggers.get(GoQualityProfile.class);
-	private static final String PROFILE_PATH="/profile.properties";
+	public static final String PROFILE_PATH="/profile.properties";
 	/**
 	 * {@inheritDoc}
 	 */
@@ -39,8 +40,9 @@ public final class GoQualityProfile extends ProfileDefinition {
 
 
 		Properties prop=new Properties();
+		
 		try {
-			prop.load(new FileInputStream(new File(PROFILE_PATH)));
+			prop.load(GoQualityProfile.class.getResourceAsStream(GoQualityProfile.PROFILE_PATH));
 
 			for (Entry<Object, Object> e : prop.entrySet()) {
 				if(Boolean.TRUE.equals(Boolean.parseBoolean((String) e.getValue()))){
