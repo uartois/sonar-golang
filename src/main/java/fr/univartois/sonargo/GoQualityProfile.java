@@ -45,7 +45,7 @@ public final class GoQualityProfile extends ProfileDefinition {
 			prop.load(GoQualityProfile.class.getResourceAsStream(GoQualityProfile.PROFILE_PATH));
 
 			for (Entry<Object, Object> e : prop.entrySet()) {
-				if(Boolean.TRUE.equals(Boolean.parseBoolean((String) e.getValue()))){
+				if(Boolean.TRUE.equals(Boolean.valueOf((String) e.getValue()))){
 					profile.activateRule(Rule.create(REPO_KEY,(String) e.getKey(),REPO_NAME), null);
 				}
 			}
