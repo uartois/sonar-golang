@@ -101,8 +101,8 @@ public class GoError{
 		result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
 		result = prime * result + line;
 		result = prime * result + ((message == null) ? 0 : message.hashCode());
-		result = prime * result + ((severity == null) ? 0 : severity.hashCode());
-		return result;
+		return prime * result + ((severity == null) ? 0 : severity.hashCode());
+		
 	}
 	@Override
 	public boolean equals(Object obj) {

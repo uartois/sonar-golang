@@ -1,69 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>fr.univartois</groupId>
-  <!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example "sonar-php-plugin" -->
-  <artifactId>sonar-golang-plugin</artifactId>
-  <version>1.0</version>
-  
-  
-    <name>Golang Plugin for SonarQube</name>
-  <description>Golang Plugin for SonarQube: Golang, Golint </description>
-  <organization>
-  	<name>University of Artois</name>
-  </organization>
-  
-  
-  <!-- this is important for sonar-packaging-maven-plugin -->
-  <packaging>sonar-plugin</packaging>
- 
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
- 
-  <dependencies>
-                <dependency>
-                        <groupId>junit</groupId>
-                        <artifactId>junit</artifactId>
-                        <version>4.12</version>
-                        <scope>test</scope>
-                </dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.univartois</groupId>
+	<!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example 
+		"sonar-php-plugin" -->
+	<artifactId>sonar-golang-plugin</artifactId>
+	<version>1.0</version>
 
-    <dependency>
-      <groupId>org.sonarsource.sonarqube</groupId>
-      <artifactId>sonar-plugin-api</artifactId>
-      <!-- minimal version of SonarQube to support. Note that the groupId was "org.codehaus.sonar" before version 5.2 -->
-      <version>6.3</version>
-      <!-- mandatory scope -->
-      <scope>provided</scope>
-    </dependency>
-	
-	<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-lang3</artifactId>
-    <version>3.5</version>
-</dependency>
 
-	
-  </dependencies>
- 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
-        <artifactId>sonar-packaging-maven-plugin</artifactId>
-        <version>1.17</version>
-        <extensions>true</extensions>
-        <configuration>
-          <!-- the entry-point class that extends org.sonar.api.SonarPlugin -->
-          <pluginClass>fr.univartois.sonargo.SonarGoPlugin</pluginClass>
-          <pluginDescription>Sonarqube Plugin for Golang</pluginDescription>
-          <!-- advanced properties can be set here. See paragraph "Advanced Build Properties". -->
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+	<name>Golang Plugin for SonarQube</name>
+	<description>Golang Plugin for SonarQube: Golang, Golint </description>
+	<organization>
+		<name>University of Artois</name>
+	</organization>
+
+
+	<!-- this is important for sonar-packaging-maven-plugin -->
+	<packaging>sonar-plugin</packaging>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-plugin-api</artifactId>
+			<!-- minimal version of SonarQube to support. Note that the groupId was 
+				"org.codehaus.sonar" before version 5.2 -->
+			<version>6.3</version>
+			<!-- mandatory scope -->
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+				<artifactId>sonar-packaging-maven-plugin</artifactId>
+				<version>1.17</version>
+				<extensions>true</extensions>
+				<configuration>
+					<!-- the entry-point class that extends org.sonar.api.SonarPlugin -->
+					<pluginClass>fr.univartois.sonargo.SonarGoPlugin</pluginClass>
+					<pluginDescription>Sonarqube Plugin for Golang</pluginDescription>
+					<!-- advanced properties can be set here. See paragraph "Advanced Build 
+						Properties". -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
