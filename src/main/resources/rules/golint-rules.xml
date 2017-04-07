@@ -1,58 +1,138 @@
 <go-rules>
-  <rule>
-    <key>ExportedType</key>
-    <name>Exported Type</name>
-    <internalKey>ExportedType</internalKey>
-    <description>an exported type should have comment or be unexported
+	<rule>
+		<key>ExportedType</key>
+		<name>Exported Type</name>
+		<internalKey>ExportedType</internalKey>
+		<description>an exported type should have comment or be unexported
 		</description>
-    <severity>MAJOR</severity>
-    <cardinality>SINGLE</cardinality>
-    <status>READY</status>
-    <type>CODE_SMELL</type>
-    <tag>example</tag>
-    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
-    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
-  </rule>
-  <rule>
-    <key>ExportedMethod</key>
-    <name>Exported Method</name>
-    <internalKey>ExportedMethod</internalKey>
-    <description>an exported method should have comment or be unexported
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>ExportedMethod</key>
+		<name>Exported Method</name>
+		<internalKey>ExportedMethod</internalKey>
+		<description>an exported method should have comment or be unexported
 		</description>
-    <severity>MAJOR</severity>
-    <cardinality>SINGLE</cardinality>
-    <status>READY</status>
-    <type>CODE_SMELL</type>
-    <tag>example</tag>
-    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
-    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
-  </rule>
-  <rule>
-    <key>SimplifiedTo</key>
-    <name>Simplified To</name>
-    <internalKey>SimplifiedTo</internalKey>
-    <description>can be simplified to
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>FormComment</key>
+		<name>Form comment of exported type</name>
+		<internalKey>FormComment</internalKey>
+		<description>
+			comment on exported type should be of the form \"Type...\""
 		</description>
-    <severity>MAJOR</severity>
-    <cardinality>SINGLE</cardinality>
-    <status>READY</status>
-    <type>CODE_SMELL</type>
-    <tag>example</tag>
-    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
-    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
-  </rule>
-   <rule>
-    <key>UnusedStructField</key>
-    <name>Unused Struct Field</name>
-    <internalKey>UnusedStructField</internalKey>
-    <description>unused struct field, remove it
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>AllCaps</key>
+		<name>don't use ALL_CAPS in Go names; use CamelCase</name>
+		<internalKey>AllCaps</internalKey>
+		<description>
+			don't use ALL_CAPS in Go names; use CamelCase
 		</description>
-    <severity>MAJOR</severity>
-    <cardinality>SINGLE</cardinality>
-    <status>READY</status>
-    <type>CODE_SMELL</type>
-    <tag>example</tag>
-    <remediationFunction>CONSTANT_ISSUE</remediationFunction>
-    <remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
-  </rule>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>UnderscoreInPackageName</key>
+		<name>don't use an underscore in package name</name>
+		<internalKey>UnderscoreInPackageName</internalKey>
+		<description>
+			don't use an underscore in package name
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>LeadingK</key>
+		<name>don't use leading k in Go names</name>
+		<internalKey>LeadingK</internalKey>
+		<description>
+			don't use leading k in Go names; kFoo or kfoo should be Foo or foo
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>UnderscoreInGoName</key>
+		<name>don't use underscores in Go names</name>
+		<internalKey>UnderscoreInGoName</internalKey>
+		<description>
+			don't use underscores in Go names
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>ErrorLastReturn</key>
+		<name>error should be the last type when returning multiple items
+		</name>
+		<internalKey>ErrorLastReturn</internalKey>
+		<description>
+			error should be the last type when returning multiple items
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>ErrorEndString</key>
+		<name>error strings should not be capitalized or end with punctuation
+			or a newline</name>
+		<internalKey>ErrorEndString</internalKey>
+		<description>
+			error strings should not be capitalized or end with punctuation or a
+			newline
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>example</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
 </go-rules>
