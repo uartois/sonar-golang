@@ -22,6 +22,9 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<sonar.host.url>https://forge.univ-artois.fr/sonar/</sonar.host.url>
+		<sonar.login>fb4936c70f155fd2929f4cae03140d2b6f97becd</sonar.login>
+		<sonar.java.source>${maven.compiler.source}</sonar.java.source>
 	</properties>
 
 	<dependencies>
