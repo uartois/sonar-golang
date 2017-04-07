@@ -147,7 +147,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 
 
-	private class GoLintResultParser{
+	private static class GoLintResultParser{
 
 		private static final String COLUMN_ATTRIBUTE="column";
 		private static final String LINE_ATTRIBUTE="line";

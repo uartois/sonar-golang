@@ -35,7 +35,7 @@ public final class GoQualityProfile extends ProfileDefinition {
     profile.activateRule(Rule.create(REPO_KEY, "SimplifiedTo",REPO_NAME), null);
     profile.activateRule(Rule.create(REPO_KEY, "UnusedStructField",REPO_NAME), null);
     
-    LOGGER.info((new StringBuilder()).append("Profil generate: ").append(profile.getActiveRules().toString()).toString());
+    LOGGER.info((new StringBuilder()).append("Profil generate: ").append(profile.getActiveRules()).toString());
     
     return profile;
   }
