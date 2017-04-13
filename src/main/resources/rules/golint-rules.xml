@@ -182,4 +182,212 @@
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
+	<rule>
+		<key>PackageCommentForm</key>
+		<name>package comment</name>
+		<internalKey>PackageCommentForm</internalKey>
+		<description>
+			package comment should be of the form \"NamePackage...\"
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>PackageCommentSpace</key>
+		<name>package not have leading space</name>
+		<internalKey>PackageCommentSpace</internalKey>
+		<description>
+			package comment should not have leading space
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+
+	<rule>
+		<key>ReceiverNameConsistent</key>
+		<name>receiver name should be consistent</name>
+		<internalKey>ReceiverNameConsistent</internalKey>
+		<description>
+			receiver name %s should be consistent with previous receiver name %s for %s
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>ReceiverNameReflection</key>
+		<name>receiver name should be a reflection</name>
+		<internalKey>ReceiverNameReflection</internalKey>
+		<description>
+			receiver name should be a reflection of its identity; don't use generic names such as \"this\" or \"self\""
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>ReceiverNameNotUnderscore</key>
+		<name>receiver name should not be an underscore</name>
+		<internalKey>ReceiverNameNotUnderscore</internalKey>
+		<description>
+			receiver name should not be an underscore
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>DropAssignment</key>
+		<name>drop assignment</name>
+		<internalKey>DropAssignment</internalKey>
+		<description>
+			should drop assignment; it is the zero value
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>HavePackageComment</key>
+		<name>Should have a package comment</name>
+		<internalKey>HavePackageComment</internalKey>
+		<description>
+			should have a package comment, unless it's in another file for this package
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>NotUseBasicType</key>
+		<name>should not use basic type</name>
+		<internalKey>NotUseBasicType</internalKey>
+		<description>
+			should not use basic type %s as key in context.WithValue
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>NotUseDotImport</key>
+		<name>should not use dot imports</name>
+		<internalKey>NotUseDotImport</internalKey>
+		<description>
+			should not use dot imports
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>Omit2ndValueFromRange</key>
+		<name>should omit 2nd value from range</name>
+		<internalKey>Omit2ndValueFromRange</internalKey>
+		<description>
+			should omit 2nd value from range; this loop is equivalent to `for %s %s range ...`
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>OmitType</key>
+		<name>should omit type %s from declaration of var %s</name>
+		<internalKey>OmitType</internalKey>
+		<description>
+	    should omit type %s from declaration of var %s; it will be inferred from the right-hand side
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>Replace</key>
+		<name>should replace</name>
+		<internalKey>Replace</internalKey>
+		<description>
+	  should replace %s with %s%s
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>ReplaceSprintf</key>
+		<name>should replace Sprintf by Errorf</name>
+		<internalKey>ReplaceSprintf</internalKey>
+		<description>
+		should replace %s(fmt.Sprintf(...)) with %s.Errorf(...)
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
 </go-rules>
