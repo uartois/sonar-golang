@@ -14,3 +14,7 @@ Daniel Leberre
 
 # Installation 
 
+* Download the last version of artifact
+* Stop sonarqube server
+* Extract the jar file in $SONAR_PATH/extensions/plugins
+* Start sonarqube server 
