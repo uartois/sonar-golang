@@ -59,7 +59,6 @@ gometalinter --install
 ```
 
 * Generate a gometalinter report using the checkstyle format:
-
 ```shell
 gometalinter --checkstyle > report.xml
 ```
