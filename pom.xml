@@ -40,7 +40,7 @@
 			<artifactId>sonar-plugin-api</artifactId>
 			<!-- minimal version of SonarQube to support. Note that the groupId was 
 				"org.codehaus.sonar" before version 5.2 -->
-			<version>6.3</version>
+			<version>6.0</version>
 			<!-- mandatory scope -->
 			<scope>provided</scope>
 		</dependency>
