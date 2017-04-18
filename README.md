@@ -53,19 +53,21 @@ sonar.sources=./
 ```
 
 * Second step: install [gometalinter](https://github.com/alecthomas/gometalinter)
-
-```
+```shell
 go get -u gopkg.in/alecthomas/gometalinter.v1
 gometalinter --install
 ```
 
 * Generate a gometalinter report using the checkstyle format:
 
-`gometalinter --checkstyle > report.xml`
+```shell
+gometalinter --checkstyle > report.xml
+```
 
 * Start the analysis
-
-`sonar-scanner `
+```shell
+sonar-scanner
+```
 
 It is assumed that you have the sonar scanner executable on your path and
 to run it at the root of your go project.
