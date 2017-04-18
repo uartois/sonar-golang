@@ -18,3 +18,15 @@ Daniel Leberre
 * Stop sonarqube server
 * Extract the jar file in $SONAR_PATH/extensions/plugins
 * Start sonarqube server 
+
+# Case of update 
+
+If you have already install the plugin and you want use the new profile of the new version of plugin, follow these steps: 
+
+* Go on the Quality Profiles page
+* Click on the arrow near the "Create" button
+* Click on "Restore Built-In Profiles"
+* Choose the language 
+* Click on "Restore"
+
+
