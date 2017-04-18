@@ -16,7 +16,7 @@ Daniel Le Berre
 
 * Download the latest version of the artifact
 * Stop sonarqube server
-* Put the jar file in $SONAR_PATH/extensions/plugins
+* Put the jar file in `$SONAR_PATH/extensions/plugins`
 * Start sonarqube server 
 
 # Enabling all latest rules 
