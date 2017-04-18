@@ -4,104 +4,109 @@
 		<name>Exported Type</name>
 		<internalKey>ExportedType</internalKey>
 		<description>an exported type should have comment or be unexported
+			More explain here:https://github.com/golang/lint/blob/master/lint.go#L761
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>comments</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
-	<rule>
-		<key>ExportedMethod</key>
-		<name>Exported Method</name>
-		<internalKey>ExportedMethod</internalKey>
-		<description>an exported method should have comment or be unexported
-		</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>bad-practice</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
-	</rule>
+
+
 	<rule>
 		<key>FormComment</key>
 		<name>Form comment of exported type</name>
 		<internalKey>FormComment</internalKey>
 		<description>
 			comment on exported type should be of the form \"Type...\""
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L761
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>comments</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>AllCaps</key>
 		<name>don't use ALL_CAPS in Go names; use CamelCase</name>
 		<internalKey>AllCaps</internalKey>
 		<description>
 			don't use ALL_CAPS in Go names; use CamelCase
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>UnderscoreInPackageName</key>
 		<name>don't use an underscore in package name</name>
 		<internalKey>UnderscoreInPackageName</internalKey>
 		<description>
 			don't use an underscore in package name
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>LeadingK</key>
 		<name>don't use leading k in Go names</name>
 		<internalKey>LeadingK</internalKey>
 		<description>
 			don't use leading k in Go names; kFoo or kfoo should be Foo or foo
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>UnderscoreInGoName</key>
 		<name>don't use underscores in Go names</name>
 		<internalKey>UnderscoreInGoName</internalKey>
 		<description>
 			don't use underscores in Go names
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>ErrorLastReturn</key>
 		<name>error should be the last type when returning multiple items
@@ -109,15 +114,18 @@
 		<internalKey>ErrorLastReturn</internalKey>
 		<description>
 			error should be the last type when returning multiple items
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1263
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>arg-order</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>ErrorEndString</key>
 		<name>error strings should not be capitalized or end with punctuation
@@ -126,43 +134,50 @@
 		<description>
 			error strings should not be capitalized or end with punctuation or a
 			newline
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1169
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>errors</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>ErrorVarName</key>
 		<name>error var err should have name of the form errFoo</name>
 		<internalKey>ErrorVarName</internalKey>
 		<description>
 			error var err should have name of the form errFoo
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1115
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
 
 	<rule>
 		<key>AnnoyingUseExportedType</key>
-		<name>exported %s %s returns unexported type %s, which can be annoying to use</name>
+		<name>exported function returns unexported type</name>
 		<internalKey>AnnoyingUseExportedType</internalKey>
 		<description>
-			exported %s %s returns unexported type %s, which can be annoying to use
+			exported function returns unexported type, which can be annoying to use
+			More explain: https://github.com/golang/lint/blob/master/lint.go#L1287
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>unexported-type-in-api</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -173,12 +188,14 @@
 		<internalKey>IfBlockReturn</internalKey>
 		<description>
 			if block ends with a return statement, so drop this else and outdent its block
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1007
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>indent</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -189,12 +206,14 @@
 		<internalKey>PackageCommentForm</internalKey>
 		<description>
 			package comment should be of the form \"NamePackage...\"
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L352
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>comments</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -205,12 +224,14 @@
 		<internalKey>PackageCommentSpace</internalKey>
 		<description>
 			package comment should not have leading space
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L352
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>comments</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -222,12 +243,14 @@
 		<internalKey>ReceiverNameConsistent</internalKey>
 		<description>
 			receiver name %s should be consistent with previous receiver name %s for %s
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1202
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -238,12 +261,14 @@
 		<internalKey>ReceiverNameReflection</internalKey>
 		<description>
 			receiver name should be a reflection of its identity; don't use generic names such as \"this\" or \"self\""
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1202
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -254,12 +279,14 @@
 		<internalKey>ReceiverNameNotUnderscore</internalKey>
 		<description>
 			receiver name should not be an underscore
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1202
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>naming</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -270,12 +297,13 @@
 		<internalKey>DropAssignment</internalKey>
 		<description>
 			should drop assignment; it is the zero value
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L929
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>bad-practice</tag>
+		<tag>zero-value</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -286,6 +314,7 @@
 		<internalKey>HavePackageComment</internalKey>
 		<description>
 			should have a package comment, unless it's in another file for this package
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L352
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -301,13 +330,15 @@
 		<name>should not use basic type</name>
 		<internalKey>NotUseBasicType</internalKey>
 		<description>
-			should not use basic type %s as key in context.WithValue
+			should not use basic type (https://tour.golang.org/basics/11) as key in context.WithValue
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1400
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>context</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -318,12 +349,14 @@
 		<internalKey>NotUseDotImport</internalKey>
 		<description>
 			should not use dot imports
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L440
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>bad-practice</tag>
+		<tag>imports</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
@@ -334,11 +367,13 @@
 		<internalKey>Omit2ndValueFromRange</internalKey>
 		<description>
 			should omit 2nd value from range; this loop is equivalent to `for %s %s range ...`
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L1051
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
+		<tag>range-loop</tag>
 		<tag>bad-practice</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
@@ -350,21 +385,23 @@
 		<internalKey>OmitType</internalKey>
 		<description>
 	    should omit type %s from declaration of var %s; it will be inferred from the right-hand side
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L929
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
-		<tag>bad-practice</tag>
+		<tag>type-inference</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>Replace</key>
+		<key>ReplaceLintIncDec</key>
 		<name>should replace</name>
-		<internalKey>Replace</internalKey>
+		<internalKey>ReplaceLintIncDec</internalKey>
 		<description>
-	  should replace %s with %s%s
+	  should replace x=x+1(respectively x=x-1) with x++ (respectively x--)
+		More explain here: https://github.com/golang/lint/blob/master/lint.go#L1235
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -381,6 +418,9 @@
 		<internalKey>ReplaceSprintf</internalKey>
 		<description>
 		should replace %s(fmt.Sprintf(...)) with %s.Errorf(...)
+
+		More explain here: https://github.com/golang/lint/blob/master/lint.go#L1077
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -390,4 +430,169 @@
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
+	<rule>
+		<key>Initialisms</key>
+		<name>Initialisms</name>
+		<internalKey>Initialisms</internalKey>
+		<description>
+			Words in names that are initialisms or acronyms (e.g. "URL" or "NATO") have a consistent case. For example, "URL" should appear as "URL" or "url" (as in "urlPony", or "URLPony"), never as "Url". Here's an example: ServeHTTP not ServeHttp.
+			More explain here: https://github.com/golang/go/wiki/CodeReviewComments#initialisms
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>naming</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>PackageNames</key>
+		<name>Package names</name>
+		<internalKey>PackageNames</internalKey>
+		<description>
+			All references to names in your package will be done using the package name, so you can omit that name from the identifiers.
+			More explain here: https://github.com/golang/go/wiki/CodeReviewComments#package-names and https://github.com/golang/lint/blob/master/lint.go#L887
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>naming</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>BlankImport</key>
+		<name>a non-main package has blank imports</name>
+		<internalKey>BlankImport</internalKey>
+		<description>
+			a blank import should be only in a main or test package, or have a comment justifying it
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L408 and https://github.com/golang/go/wiki/CodeReviewComments#package-comments
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>CommentExportedType</key>
+		<name>comment on exported type</name>
+		<internalKey>CommentExportedType</internalKey>
+		<description>
+			comment on exported type should be of the form \"Type ...\" (with optional leading article)
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L761 and https://github.com/golang/go/wiki/CodeReviewComments#doc-comments
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>comments</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+
+	<rule>
+		<key>ContextContextFirstArg</key>
+		<name>context.Context should be the first argument</name>
+		<internalKey>ContextContextFirstArgs</internalKey>
+		<description>
+			context.Context should be the first parameter of a function
+					More explain here: https://github.com/golang/lint/blob/master/lint.go#L1426 and https://golang.org/pkg/context/
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>arg-order</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>ExportedHaveComment</key>
+		<name>exported * should have comment</name>
+		<internalKey>ExportedHaveComment</internalKey>
+		<description>
+			exported %s %s should have comment or be unexported
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L794
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>comments</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>ExportedHaveComment2</key>
+		<name>exported * should have comment</name>
+		<internalKey>ExportedHaveComment2</internalKey>
+		<description>
+			exported %s %s should have comment or be unexported
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L834
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>comments</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+	<rule>
+		<key>ExportedDeclaration</key>
+		<name>exported * should have its own declaration</name>
+		<internalKey>ExportedDeclaration</internalKey>
+		<description>
+			exported %s %s should have its own declaration
+			More explain here: https://github.com/golang/lint/blob/master/lint.go#L834
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>comments</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+
+	<rule>
+		<key>SpecificSuffix</key>
+		<name>don't use unit-specific suffix</name>
+		<internalKey>SpecificSuffix</internalKey>
+		<description>
+       var %s is of type %v; don't use unit-specific suffix %q
+			More explain here:https://github.com/golang/lint/blob/master/lint.go#L1343
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>bad-practice</tag>
+		<tag>time</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
 </go-rules>
