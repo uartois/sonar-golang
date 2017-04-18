@@ -35,8 +35,8 @@ the new version of the plugin, follow those steps after the installation:
 
 * First step create the sonar project properties.
 ```
-sonar.host.url=http://localhost:9000 //change for your url
-sonar.projectName=Projet SPD
+sonar.host.url=http://localhost:9000 //change to your url
+sonar.projectName=name of project 
 sonar.projectVersion=1.0
 sonar.login=yourtoken
 sonar.projectKey=yourprojectid
