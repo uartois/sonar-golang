@@ -5,11 +5,21 @@
 
 This project is a SonarQube plugin for the langage [Golang](https://golang.org/).
 
+It integrates [GoMetaLinter](https://github.com/alecthomas/gometalinter) reports 
+within SonarQube dashboard.
+
+The user must generate a GoMetaLinter report for his code using the checkstyle
+format. The report is thus integrated to SonarQube using 
+[sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
+
+Release 1.0 only provides golint support. Upcoming releases will bring support 
+for additional linters.
+
+
 # Author
 
-Thibault Falque
-
-Daniel Le Berre
++ Thibault Falque
++ Daniel Le Berre
 
 
 # Installation
@@ -31,29 +41,31 @@ the new version of the plugin, follow those steps after the installation:
 * Click on "Restore"
 
 
-# Use the plugin
+# Using the plugin
 
-* First step create the sonar project properties.
+* First step: create a `sonar-project.properties` file.
 ```
-sonar.host.url=http://localhost:9000 //change to your url
+sonar.projectKey=yourprojectid
 sonar.projectName=name of project 
 sonar.projectVersion=1.0
-sonar.login=yourtoken
-sonar.projectKey=yourprojectid
 sonar.golint.reportPath=report.xml //default
 sonar.sources=./
 ```
 
-* Second step: Install gometalinter beacause the plugin use a report of gometalinter.
+* Second step: install [gometalinter](https://github.com/alecthomas/gometalinter)
 
-`go get -u gopkg.in/alecthomas/gometalinter.v1`
+```
+go get -u gopkg.in/alecthomas/gometalinter.v1
+gometalinter --install
+```
 
-* Generate a gometalinter report:
+* Generate a gometalinter report using the checkstyle format:
 
 `gometalinter --checkstyle > report.xml`
 
 * Start the analysis
 
-`./sonar-runner `
+`sonar-scanner `
 
-Agree you have the sonar runner executable at root of your project.
+It is assumed that you have the sonar scanner executable on your path and
+to run it at the root of your go project.
