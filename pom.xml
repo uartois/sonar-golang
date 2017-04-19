@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 - Université d'Artois This file is part of SonarQube 
+	Golang plugin (sonar-golang). Sonar-golang is free software: you can redistribute 
+	it and/or modify it under the terms of the GNU Lesser General Public License 
+	as published by the Free Software Foundation, either version 3 of the License, 
+	or (at your option) any later version. Sonar-golang is distributed in the 
+	hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+	GNU Lesser General Public License for more details. You should have received 
+	a copy of the GNU Lesser General Public License along with Sonar-golang. 
+	If not, see <http://www.gnu.org/licenses/>. Contributors: Thibault Falque 
+	(thibault_falque@ens.univ-artois.fr) -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.univartois</groupId>
+	<!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example 
+		"sonar-php-plugin" -->
+	<artifactId>sonar-golang-plugin</artifactId>
+	<version>1.0</version>
+
+
+	<name>Golang</name>
+	<description>Golang Plugin for SonarQube: Golang, Golint </description>
+	<organization>
+		<name>University of Artois</name>
+		<url>http://www.univ-artois.fr/</url>
+	</organization>
+	<url>https://github.com/uartois/sonar-golang</url>
+	<issueManagement>
+		<url>https://github.com/uartois/sonar-golang/issues</url>
+	</issueManagement>
+	<licenses>
+		<license>
+			<name>GNU Lesser GPL 3.0</name>
+			<url>https://www.gnu.org/licenses/lgpl-3.0.en.html</url>
+			<distribution>manual</distribution>
+		</license>
+	</licenses>
+
+	<!-- this is important for sonar-packaging-maven-plugin -->
+	<packaging>sonar-plugin</packaging>
+
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<sonar.host.url>https://forge.univ-artois.fr/sonar/</sonar.host.url>
+		<sonar.login>fb4936c70f155fd2929f4cae03140d2b6f97becd</sonar.login>
+		<sonar.java.source>${maven.compiler.source}</sonar.java.source>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.sonarsource.sonarqube</groupId>
+			<artifactId>sonar-plugin-api</artifactId>
+			<!-- minimal version of SonarQube to support. Note that the groupId was 
+				"org.codehaus.sonar" before version 5.2 -->
+			<version>6.0</version>
+			<!-- mandatory scope -->
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sslr/sslr-core -->
+		<dependency>
+			<groupId>org.sonarsource.sslr</groupId>
+			<artifactId>sslr-core</artifactId>
+			<version>1.21</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
+				<artifactId>sonar-packaging-maven-plugin</artifactId>
+				<version>1.17</version>
+				<extensions>true</extensions>
+				<configuration>
+					<!-- the entry-point class that extends org.sonar.api.SonarPlugin -->
+					<pluginClass>fr.univartois.sonargo.SonarGoPlugin</pluginClass>
+					<pluginDescription>Sonarqube Plugin for Golang</pluginDescription>
+					<!-- advanced properties can be set here. See paragraph "Advanced Build 
+						Properties". -->
+					<sonarLintSupported>true</sonarLintSupported>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>
