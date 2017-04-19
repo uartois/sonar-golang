@@ -35,9 +35,10 @@
 	<description>Golang Plugin for SonarQube: Golang, Golint </description>
 	<organization>
 		<name>University of Artois</name>
+		<url>https://github.com/uartois/sonar-golang</url>
 	</organization>
 
-
+	
 	<!-- this is important for sonar-packaging-maven-plugin -->
 	<packaging>sonar-plugin</packaging>
 
@@ -73,6 +74,13 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.5</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sslr/sslr-core -->
+<dependency>
+    <groupId>org.sonarsource.sslr</groupId>
+    <artifactId>sslr-core</artifactId>
+    <version>1.21</version>
+</dependency>
 
 
 	</dependencies>
@@ -90,9 +98,13 @@
 					<pluginDescription>Sonarqube Plugin for Golang</pluginDescription>
 					<!-- advanced properties can be set here. See paragraph "Advanced Build 
 						Properties". -->
+					<sonarLintSupported>true</sonarLintSupported>		
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
+	<issueManagement>
+		<url>https://github.com/uartois/sonar-golang/issues</url>
+	</issueManagement>
 </project>
