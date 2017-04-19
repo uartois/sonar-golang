@@ -31,7 +31,7 @@
 	<version>1.0</version>
 
 
-	<name>Golang Plugin for SonarQube</name>
+	<name>Golang</name>
 	<description>Golang Plugin for SonarQube: Golang, Golint </description>
 	<organization>
 		<name>University of Artois</name>
