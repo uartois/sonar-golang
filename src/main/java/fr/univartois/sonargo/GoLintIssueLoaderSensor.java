@@ -49,83 +49,91 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
-
 /**
- * GoLintIssueLoaderSensor
- * This class can load a report file and create issue 
+ * GoLintIssueLoaderSensor This class can load a report file and create issue
+ * 
  * @author thibault
  */
 public class GoLintIssueLoaderSensor implements Sensor {
-	private static final Logger LOGGER=Loggers.get(GoLintIssueLoaderSensor.class);
+	private static final Logger LOGGER = Loggers.get(GoLintIssueLoaderSensor.class);
 
-	protected static final String REPORT_PATH_KEY="sonar.golint.reportPath";
+	protected static final String REPORT_PATH_KEY = "sonar.golint.reportPath";
 
 	protected final Settings settings;
 	protected final FileSystem fileSystem;
 	protected SensorContext context;
+
 	/**
 	 * Allow to create a new GoLintIssueLoaderSensor
-	 * @param se @see {@link Settings}
-	 * @param fileSystem @see {@link FileSystem}
+	 * 
+	 * @param se
+	 * @see {@link Settings}
+	 * @param fileSystem
+	 * @see {@link FileSystem}
 	 */
-	public GoLintIssueLoaderSensor(final Settings se,final FileSystem fileSystem){
-		this.settings=se;
-		this.fileSystem=fileSystem;
+	public GoLintIssueLoaderSensor(final Settings se, final FileSystem fileSystem) {
+		this.settings = se;
+		this.fileSystem = fileSystem;
 	}
+
 	/**
 	 * Create the description of the sensor
-	 * @param descriptor A sensor descriptor @see {@link SensorDescriptor}
+	 * 
+	 * @param descriptor
+	 *            A sensor descriptor @see {@link SensorDescriptor}
 	 */
+	@Override
 	public void describe(SensorDescriptor descriptor) {
 		descriptor.name("GoMetaLinter issues loader sensor");
 	}
 
-
-	private String getReportPath(){
-		String reportPath=settings.getString(REPORT_PATH_KEY);
-		if(!StringUtils.isEmpty(reportPath)){
+	private String getReportPath() {
+		String reportPath = settings.getString(REPORT_PATH_KEY);
+		if (!StringUtils.isEmpty(reportPath)) {
 			return reportPath;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @see org.sonar.api.batch.sensor.Sensor#execute(org.sonar.api.batch.sensor.SensorContext)
-	 * @param context @see {@link SensorContext}
+	 * @param context
+	 * 			@see {@link SensorContext}
 	 */
+	@Override
 	public void execute(SensorContext context) {
-		String reportPath=getReportPath();
-		if(!StringUtils.isEmpty(reportPath)){
-			this.context=context;
-			File analyse=new File(reportPath);
-			try{
-				LOGGER.info("Parse the file "+reportPath);
+		String reportPath = getReportPath();
+		if (!StringUtils.isEmpty(reportPath)) {
+			this.context = context;
+			// context.newHighlighting().highlight(range, typeOfText)
+
+			File analyse = new File(reportPath);
+			try {
+				LOGGER.info("Parse the file " + reportPath);
 				parseAndSaveResults(analyse);
-			}catch(XMLStreamException | ParserConfigurationException e){
-				LOGGER.error("Unable to parse the provided Golint file",e);
+			} catch (XMLStreamException | ParserConfigurationException e) {
+				LOGGER.error("Unable to parse the provided Golint file", e);
 			}
 		}
 	}
-	protected void parseAndSaveResults(final File file) throws XMLStreamException, ParserConfigurationException{
+
+	protected void parseAndSaveResults(final File file) throws XMLStreamException, ParserConfigurationException {
 		LOGGER.info("Parsing 'GoLint' Analysis Results");
 
-		GoLintResultParser parser=new GoLintResultParser();
+		GoLintResultParser parser = new GoLintResultParser();
 
-		List<GoError> listError=parser.parse(file);
-		for(GoError e:listError){
+		List<GoError> listError = parser.parse(file);
+		for (GoError e : listError) {
 			getResourceAndSaveIssue(e);
 		}
 
 	}
 
-
 	private void getResourceAndSaveIssue(final GoError error) {
 		LOGGER.info(error.toString());
 
-		InputFile inputFile = fileSystem.inputFile(
-				fileSystem.predicates().and(
-						fileSystem.predicates().hasRelativePath(error.getFilePath()),
+		InputFile inputFile = fileSystem
+				.inputFile(fileSystem.predicates().and(fileSystem.predicates().hasRelativePath(error.getFilePath()),
 						fileSystem.predicates().hasType(InputFile.Type.MAIN)));
 
 		LOGGER.info("inputFile null ? " + (inputFile == null));
@@ -141,23 +149,18 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		return languageKey.toLowerCase() + "-" + GoLintRulesDefinition.KEY;
 	}
 
-
 	private void saveIssue(final InputFile inputFile, int line, final String externalRuleKey, final String message) {
-		
-		if(externalRuleKey==null){
-			LOGGER.warn("The key for the message "+message+ " is null, issue not saved");
+
+		if (externalRuleKey == null) {
+			LOGGER.warn("The key for the message " + message + " is null, issue not saved");
 			return;
 		}
-		
-		
+
 		RuleKey ruleKey = RuleKey.of(getRepositoryKeyForLanguage(inputFile.language()), externalRuleKey);
 
-		NewIssue newIssue = context.newIssue()
-				.forRule(ruleKey);
+		NewIssue newIssue = context.newIssue().forRule(ruleKey);
 
-		NewIssueLocation primaryLocation = newIssue.newLocation()
-				.on(inputFile)
-				.message(message);
+		NewIssueLocation primaryLocation = newIssue.newLocation().on(inputFile).message(message);
 		if (line > 0) {
 			primaryLocation.at(inputFile.selectLine(line));
 		}
@@ -166,53 +169,54 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		newIssue.save();
 	}
 
+	private static class GoLintResultParser {
 
+		private static final String COLUMN_ATTRIBUTE = "column";
+		private static final String LINE_ATTRIBUTE = "line";
+		private static final String MESS_ATTRIBUTE = "message";
+		private static final String SEVER_ATTRIBUTE = "severity";
 
-	private static class GoLintResultParser{
-
-		private static final String COLUMN_ATTRIBUTE="column";
-		private static final String LINE_ATTRIBUTE="line";
-		private static final String MESS_ATTRIBUTE="message";
-		private static final String SEVER_ATTRIBUTE="severity";
 		/**
 		 * GoLintResultParser allow parse a checkstyle report file
-		 * @param file The path to checktyle report
-		 * @return A list of error 
-		 * @throws XMLStreamException 
-		 * @throws ParserConfigurationException throw if is not possible to parse the file 
+		 * 
+		 * @param file
+		 *            The path to checktyle report
+		 * @return A list of error
+		 * @throws XMLStreamException
+		 * @throws ParserConfigurationException
+		 *             throw if is not possible to parse the file
 		 */
-		public List<GoError> parse(File file) throws XMLStreamException, ParserConfigurationException{
-			LOGGER.info("Parsing file {}",file.getAbsolutePath());
-			DocumentBuilderFactory dbFactory=DocumentBuilderFactory.newInstance();
+		public List<GoError> parse(File file) throws XMLStreamException, ParserConfigurationException {
+			LOGGER.info("Parsing file {}", file.getAbsolutePath());
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builde;
 			try {
 				builde = dbFactory.newDocumentBuilder();
-				Document doc=builde.parse(file);
+				Document doc = builde.parse(file);
 
 				NodeList nList = doc.getElementsByTagName("file");
-				
 
-				List<GoError> listError=new ArrayList<>();
-				for (int i=0;i<nList.getLength();i++){
+				List<GoError> listError = new ArrayList<>();
+				for (int i = 0; i < nList.getLength(); i++) {
 
-					Element n=(Element)nList.item(i);
+					Element n = (Element) nList.item(i);
 
-					String filename=n.getAttribute("name");
+					String filename = n.getAttribute("name");
 
-					LOGGER.info("error for the file "+filename);
+					LOGGER.info("error for the file " + filename);
 
-					NodeList children=n.getChildNodes();
+					NodeList children = n.getChildNodes();
 
-					for(int j=0;j<children.getLength();j++){
+					for (int j = 0; j < children.getLength(); j++) {
 
-						if(children.item(j).getNodeType()==Node.ELEMENT_NODE){
+						if (children.item(j).getNodeType() == Node.ELEMENT_NODE) {
 
-						Element e=(Element)children.item(j);
-						GoError err=new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
-								Integer.parseInt(e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE)),
-								e.getAttribute(GoLintResultParser.MESS_ATTRIBUTE),
-								e.getAttribute(GoLintResultParser.SEVER_ATTRIBUTE),"./"+filename);
-						listError.add(err);
+							Element e = (Element) children.item(j);
+							GoError err = new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
+									Integer.parseInt(e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE)),
+									e.getAttribute(GoLintResultParser.MESS_ATTRIBUTE),
+									e.getAttribute(GoLintResultParser.SEVER_ATTRIBUTE), "./" + filename);
+							listError.add(err);
 						}
 
 					}
@@ -220,7 +224,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 				return listError;
 
-			}catch (SAXException e) {
+			} catch (SAXException e) {
 				LOGGER.error("SAX Exception", e);
 				throw new XMLStreamException(e);
 			} catch (IOException e) {
@@ -231,4 +235,3 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		}
 	}
 }
-
