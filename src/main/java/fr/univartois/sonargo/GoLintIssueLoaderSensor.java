@@ -145,7 +145,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	private void saveIssue(final InputFile inputFile, int line, final String externalRuleKey, final String message) {
 		
 		if(externalRuleKey==null){
-			LOGGER.warn("The key for the message "+message+ " are null, issue not save");
+			LOGGER.warn("The key for the message "+message+ " is null, issue not saved");
 			return;
 		}
 		
