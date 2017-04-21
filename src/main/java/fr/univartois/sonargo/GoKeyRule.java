@@ -54,7 +54,7 @@ public class GoKeyRule {
 	 * correspond lint a internal key with a Pattern for match with the message
 	 * of the report
 	 */
-	private synchronized static void init() {
+	private static synchronized void init() {
 		if (prop == null) {
 			prop = new Properties();
 			try {
@@ -85,8 +85,6 @@ public class GoKeyRule {
 		Matcher matcher;
 		for (Entry<Object, Object> e : prop.entrySet()) {
 			pattern = Pattern.compile((String) e.getValue());
-			LOGGER.info((new StringBuilder()).append("Pattern: ").append(e.getValue()).append(", error message: ")
-					.append(error.getMessage()).toString());
 			matcher = pattern.matcher(error.getMessage());
 			if (!matcher.matches())
 				continue;

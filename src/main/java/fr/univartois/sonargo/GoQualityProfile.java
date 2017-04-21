@@ -24,22 +24,17 @@ package fr.univartois.sonargo;
 import static fr.univartois.sonargo.GoLintRulesDefinition.REPO_KEY;
 import static fr.univartois.sonargo.GoLintRulesDefinition.REPO_NAME;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Properties;
-import java.util.function.Predicate;
 import java.util.Map.Entry;
+import java.util.Properties;
 
-import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.api.profiles.ProfileDefinition;
 import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.Rule;
 import org.sonar.api.utils.ValidationMessages;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-import org.sonar.graph.StringEdgeFactory;
+
 /**
  * The class define all rules that will detect by the sensor, it's not the same of {@link GoLintRulesDefinition}
  * @author thibault
