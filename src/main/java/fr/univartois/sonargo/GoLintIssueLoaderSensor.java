@@ -57,8 +57,6 @@ import org.xml.sax.SAXException;
 public class GoLintIssueLoaderSensor implements Sensor {
 	private static final Logger LOGGER = Loggers.get(GoLintIssueLoaderSensor.class);
 
-	protected static final String REPORT_PATH_KEY = "sonar.golint.reportPath";
-
 	protected final Settings settings;
 	protected final FileSystem fileSystem;
 	protected SensorContext context;
@@ -84,11 +82,11 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	 */
 	@Override
 	public void describe(SensorDescriptor descriptor) {
-		descriptor.name("GoMetaLinter issues loader sensor");
+		descriptor.onlyOnLanguage(GoLanguage.KEY).name("GoMetaLinter issues loader sensor");
 	}
 
 	private String getReportPath() {
-		String reportPath = settings.getString(REPORT_PATH_KEY);
+		String reportPath = settings.getString(GoProperties.REPORT_PATH_KEY);
 		if (!StringUtils.isEmpty(reportPath)) {
 			return reportPath;
 		}
@@ -98,15 +96,13 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	/**
 	 * @see org.sonar.api.batch.sensor.Sensor#execute(org.sonar.api.batch.sensor.SensorContext)
 	 * @param context
-	 * 			@see {@link SensorContext}
+	 * @see {@link SensorContext}
 	 */
 	@Override
 	public void execute(SensorContext context) {
 		String reportPath = getReportPath();
 		if (!StringUtils.isEmpty(reportPath)) {
 			this.context = context;
-			// context.newHighlighting().highlight(range, typeOfText)
-
 			File analyse = new File(reportPath);
 			try {
 				LOGGER.info("Parse the file " + reportPath);
@@ -146,7 +142,8 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	}
 
 	private static String getRepositoryKeyForLanguage(String languageKey) {
-		return languageKey.toLowerCase() + "-" + GoLintRulesDefinition.KEY;
+		return languageKey == null ? GoLanguage.NAME.toLowerCase()
+				: languageKey.toLowerCase() + "-" + GoLintRulesDefinition.KEY;
 	}
 
 	private void saveIssue(final InputFile inputFile, int line, final String externalRuleKey, final String message) {
