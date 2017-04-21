@@ -142,8 +142,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	}
 
 	private static String getRepositoryKeyForLanguage(String languageKey) {
-		return languageKey == null ? GoLanguage.NAME.toLowerCase()
-				: languageKey.toLowerCase() + "-" + GoLintRulesDefinition.KEY;
+		return languageKey.toLowerCase() + "-" + GoLintRulesDefinition.KEY;
 	}
 
 	private void saveIssue(final InputFile inputFile, int line, final String externalRuleKey, final String message) {
@@ -153,7 +152,11 @@ public class GoLintIssueLoaderSensor implements Sensor {
 			return;
 		}
 
-		RuleKey ruleKey = RuleKey.of(getRepositoryKeyForLanguage(inputFile.language()), externalRuleKey);
+		String language = inputFile.language();
+		if (language == null)
+			language = GoLanguage.KEY;
+
+		RuleKey ruleKey = RuleKey.of(getRepositoryKeyForLanguage(language), externalRuleKey);
 
 		NewIssue newIssue = context.newIssue().forRule(ruleKey);
 
