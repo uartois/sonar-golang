@@ -107,7 +107,6 @@
 				<version>2.19.1</version>
 				<configuration>
 					<enableAssertions>true</enableAssertions>
-					<argLine>-Xmx1024M ${argLine}</argLine> 
 					<includes>
 						<include>**/*Test*</include>
 					</includes>
