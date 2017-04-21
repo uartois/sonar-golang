@@ -26,6 +26,8 @@ import org.sonar.api.Plugin;
 /**
  * This class is the entry point of the plugin
  * 
+ * 
+ * 
  * @author thibault
  *
  */

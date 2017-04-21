@@ -100,7 +100,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	 */
 	@Override
 	public void execute(SensorContext context) {
+
 		String reportPath = getReportPath();
+
 		if (!StringUtils.isEmpty(reportPath)) {
 			this.context = context;
 			File analyse = new File(reportPath);
@@ -110,6 +112,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 			} catch (XMLStreamException | ParserConfigurationException e) {
 				LOGGER.error("Unable to parse the provided Golint file", e);
 			}
+		} else {
+			LOGGER.warn("No report file ");
+
 		}
 	}
 
