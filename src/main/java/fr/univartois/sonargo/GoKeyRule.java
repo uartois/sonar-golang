@@ -54,7 +54,7 @@ public class GoKeyRule {
 	 * correspond lint a internal key with a Pattern for match with the message
 	 * of the report
 	 */
-	private static synchronized void init() {
+	public static synchronized void init() {
 		if (prop == null) {
 			prop = new Properties();
 			try {
@@ -67,10 +67,16 @@ public class GoKeyRule {
 				}
 
 				prop.load(input);
+
+				LOGGER.info("loaded " + prop.keySet().size());
 			} catch (IOException e) {
 				LOGGER.error("Unable to load the config file", e);
 			}
 		}
+	}
+
+	public static Properties getProp() {
+		return prop;
 	}
 
 	/**
@@ -80,7 +86,6 @@ public class GoKeyRule {
 	 * @return
 	 */
 	public static String getKeyFromError(GoError error) {
-		init();
 		Pattern pattern;
 		Matcher matcher;
 		for (Entry<Object, Object> e : prop.entrySet()) {
