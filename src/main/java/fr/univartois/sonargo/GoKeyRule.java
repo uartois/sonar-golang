@@ -54,7 +54,7 @@ public class GoKeyRule {
 	 * correspond lint a internal key with a Pattern for match with the message
 	 * of the report
 	 */
-	private synchronized static void init() {
+	private static synchronized void init() {
 		if (prop == null) {
 			prop = new Properties();
 			try {
