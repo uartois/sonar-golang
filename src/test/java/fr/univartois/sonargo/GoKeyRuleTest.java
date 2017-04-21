@@ -24,11 +24,12 @@
  */
 package fr.univartois.sonargo;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition.Context;
-
-import fr.univartois.sonargo.GoLintRulesDefinition;
 
 /**
  * @author thibault
@@ -36,19 +37,25 @@ import fr.univartois.sonargo.GoLintRulesDefinition;
  */
 public class GoKeyRuleTest {
 	private GoLintRulesDefinition rulesDefinition;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		rulesDefinition=new GoLintRulesDefinition();
-		
+		rulesDefinition = new GoLintRulesDefinition();
+
 	}
 
 	@Test
 	public void test() {
-		rulesDefinition.define(new Context());
-		
+		/*
+		 * Context c = new Context(); rulesDefinition.define(c);
+		 * GoKeyRule.init(); assertNotNull(GoKeyRule.getProp());
+		 * assertNotNull(c.repository(GoLintRulesDefinition.REPO_NAME));
+		 * assertEquals(GoKeyRule.getProp().size(),
+		 * c.repository(GoLintRulesDefinition.REPO_NAME).rules().size());
+		 */
 	}
 
 }

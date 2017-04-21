@@ -21,7 +21,9 @@
  *******************************************************************************/
 package fr.univartois.sonargo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -33,29 +35,29 @@ import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.utils.ValidationMessages;
 
 public class GoQualityProfileTest {
-	private GoQualityProfile goprofile=new GoQualityProfile();
+	private GoQualityProfile goprofile = new GoQualityProfile();
+
 	@Test
 	public void testLoadingQualityProfile() {
-		
-		RulesProfile rule=goprofile.createProfile(ValidationMessages.create());
+
+		RulesProfile rule = goprofile.createProfile(ValidationMessages.create());
 		assertFalse(rule.getActiveRules().isEmpty());
-		Properties prop=new Properties();
+		Properties prop = new Properties();
 
 		try {
 			prop.load(GoQualityProfileTest.class.getResourceAsStream(GoQualityProfile.PROFILE_PATH));
-			Predicate<? super Object> predicate = s-> Boolean.TRUE.equals(Boolean.parseBoolean((String) s));
-			assertEquals(prop.values().stream().filter(predicate).count(),rule.getActiveRules().size());
-		
-			for(ActiveRule r:rule.getActiveRules()){
+			Predicate<? super Object> predicate = s -> Boolean.TRUE.equals(Boolean.parseBoolean((String) s));
+			assertEquals(prop.values().stream().filter(predicate).count(), rule.getActiveRules().size());
+
+			for (ActiveRule r : rule.getActiveRules()) {
 				assertTrue(r.isEnabled());
 				assertTrue(r.getRule().isEnabled());
-				
 			}
-		
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	
+
 		assertTrue(rule.getDefaultProfile());
 	}
 
