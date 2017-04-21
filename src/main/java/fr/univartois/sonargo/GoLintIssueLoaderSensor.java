@@ -82,7 +82,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	 */
 	@Override
 	public void describe(SensorDescriptor descriptor) {
-        descriptor.onlyOnLanguage(GoLanguage.KEY).name("GoMetaLinter issues loader sensor");
+		descriptor.onlyOnLanguage(GoLanguage.KEY).name("GoMetaLinter issues loader sensor");
 	}
 
 	private String getReportPath() {
@@ -100,7 +100,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	 */
 	@Override
 	public void execute(SensorContext context) {
+
 		String reportPath = getReportPath();
+
 		if (!StringUtils.isEmpty(reportPath)) {
 			this.context = context;
 			File analyse = new File(reportPath);
@@ -110,6 +112,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 			} catch (XMLStreamException | ParserConfigurationException e) {
 				LOGGER.error("Unable to parse the provided Golint file", e);
 			}
+		} else {
+			LOGGER.warn("No report file ");
+
 		}
 	}
 
@@ -133,7 +138,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 						fileSystem.predicates().hasType(InputFile.Type.MAIN)));
 
 		LOGGER.info("inputFile null ? " + (inputFile == null));
-
+		GoKeyRule.init();
 		if (inputFile != null) {
 			saveIssue(inputFile, error.getLine(), GoKeyRule.getKeyFromError(error), error.getMessage());
 		} else {
@@ -171,7 +176,6 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 	private static class GoLintResultParser {
 
-		private static final String COLUMN_ATTRIBUTE = "column";
 		private static final String LINE_ATTRIBUTE = "line";
 		private static final String MESS_ATTRIBUTE = "message";
 		private static final String SEVER_ATTRIBUTE = "severity";
@@ -212,7 +216,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 						if (children.item(j).getNodeType() == Node.ELEMENT_NODE) {
 
 							Element e = (Element) children.item(j);
-							GoError err = new GoError(e.getAttribute(GoLintResultParser.COLUMN_ATTRIBUTE),
+							GoError err = new GoError(
 									Integer.parseInt(e.getAttribute(GoLintResultParser.LINE_ATTRIBUTE)),
 									e.getAttribute(GoLintResultParser.MESS_ATTRIBUTE),
 									e.getAttribute(GoLintResultParser.SEVER_ATTRIBUTE), "./" + filename);

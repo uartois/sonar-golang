@@ -1,6 +1,5 @@
 # SonarQube Plugin for the Go language
 
-This project is a SonarQube plugin for the language [Golang](https://golang.org/).
 
 It integrates [GoMetaLinter](https://github.com/alecthomas/gometalinter) reports 
 within SonarQube dashboard.
