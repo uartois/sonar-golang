@@ -81,6 +81,19 @@
 			<artifactId>sslr-core</artifactId>
 			<version>1.21</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.10.19</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.7.22</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -118,9 +131,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.9</version>
+				<configuration>
+					<dataFile>${basedir}/target/jacoco.exec</dataFile>
+				</configuration>
 				<executions>
 					<execution>
-						<phase>pre-integration-test</phase>
+						<phase>process-test-classes</phase>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
@@ -145,6 +161,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
-
 
 </project>
