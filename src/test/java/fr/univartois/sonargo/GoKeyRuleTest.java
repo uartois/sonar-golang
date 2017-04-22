@@ -25,18 +25,35 @@
 package fr.univartois.sonargo;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.sonar.api.server.rule.RulesDefinition.Context;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.sonar.api.server.rule.RulesDefinition;
 
 /**
  * @author thibault
  *
  */
+@RunWith(Parameterized.class)
 public class GoKeyRuleTest {
 	private GoLintRulesDefinition rulesDefinition;
+	private RulesDefinition.Repository repository;
+
+	private GoError error;
+
+	private String expected;
+
+	public GoKeyRuleTest(GoError error, String expected) {
+		super();
+		this.error = error;
+		this.expected = expected;
+	}
 
 	/**
 	 * @throws java.lang.Exception
@@ -44,18 +61,23 @@ public class GoKeyRuleTest {
 	@Before
 	public void setUp() throws Exception {
 		rulesDefinition = new GoLintRulesDefinition();
+		RulesDefinition.Context context = new RulesDefinition.Context();
+		rulesDefinition.define(context);
+		repository = context.repository(GoLintRulesDefinition.REPO_KEY);
+		GoKeyRule.init();
+	}
 
+	@Parameters
+	public static Collection<Object[]> data() {
+		return Arrays.asList(new Object[][] {
+				{ new GoError(10, "exported method ImageService.ApplyFilter should have comment or be unexported",
+						"warning", "serverImage.go"), "ExportedHaveComment" },
+				{ new GoError(10, "not found message", "warning", "test.go"), null } });
 	}
 
 	@Test
-	public void test() {
-		/*
-		 * Context c = new Context(); rulesDefinition.define(c);
-		 * GoKeyRule.init(); assertNotNull(GoKeyRule.getProp());
-		 * assertNotNull(c.repository(GoLintRulesDefinition.REPO_NAME));
-		 * assertEquals(GoKeyRule.getProp().size(),
-		 * c.repository(GoLintRulesDefinition.REPO_NAME).rules().size());
-		 */
+	public void testGetKey() {
+		assertEquals(expected, GoKeyRule.getKeyFromError(error));
 	}
 
 }

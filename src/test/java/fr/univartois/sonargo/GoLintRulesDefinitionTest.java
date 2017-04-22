@@ -25,12 +25,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
-import org.sonar.api.utils.Version;
 
 public class GoLintRulesDefinitionTest {
-	private Version sqVersion60 = Version.create(6, 0);
-	private Version sqVersion56 = Version.create(5, 6);
-
 	@Test
 	public void testForVersion6() {
 		GoLintRulesDefinition definition = new GoLintRulesDefinition();

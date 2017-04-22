@@ -20,6 +20,9 @@ public class GoErrorTest {
 		assertEquals("un message", error.getMessage());
 		assertEquals("warning", error.getSeverity());
 		assertEquals("test.go", error.getFilePath());
+
+		assertEquals("GoError [line=10, message=un message, severity=warning, filePath=test.go]", error.toString());
+
 	}
 
 }
