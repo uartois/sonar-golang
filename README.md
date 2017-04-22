@@ -51,12 +51,12 @@ sonar.sources=./
 * Second step: install [gometalinter](https://github.com/alecthomas/gometalinter)
 ```shell
 go get -u gopkg.in/alecthomas/gometalinter.v1
-gometalinter --install
+gometalinter.v1 --install
 ```
 
 * Generate a gometalinter report using the checkstyle format:
 ```shell
-gometalinter --checkstyle > report.xml
+gometalinter.v1 ./... --checkstyle > report.xml
 ```
 
 * Start the analysis

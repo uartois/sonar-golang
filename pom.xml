@@ -18,7 +18,7 @@
 	<!-- it's recommended to follow the pattern "sonar-{key}-plugin", for example 
 		"sonar-php-plugin" -->
 	<artifactId>sonar-golang-plugin</artifactId>
-	<version>1.0</version>
+	<version>1.0.1</version>
 
 
 	<name>Golang</name>
