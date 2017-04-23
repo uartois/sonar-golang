@@ -1,4 +1,4 @@
-package fr.univartois.sonargo.functionnaltest;
+package fr.univartois.sonargo;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -26,7 +26,7 @@ public class ReportEval {
 
 	@Then("the result should be $expectedValue")
 	public void checkValue(String expectedValue) {
-		assertThat(eval, equalTo(expectedValue));
+		assertThat(String.valueOf(eval), equalTo(expectedValue));
 	}
 
 }

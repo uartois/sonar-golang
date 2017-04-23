@@ -133,6 +133,7 @@
 				<version>2.19.1</version>
 				<configuration>
 					<enableAssertions>true</enableAssertions>
+					<testFailureIgnore>true</testFailureIgnore>
 					<includes>
 						<include>**/*Test*</include>
 					</includes>
@@ -144,14 +145,34 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.9</version>
-				<configuration>
-					<dataFile>${basedir}/target/jacoco.exec</dataFile>
-				</configuration>
+
 				<executions>
 					<execution>
 						<phase>process-test-classes</phase>
 						<goals>
 							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<dataFile>${basedir}/target/jacoco.exec</dataFile>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>pre-integration-test</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<dataFile>${basedir}/target/jacoco-it.exec</dataFile>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>post-integration-test</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>report</goal>
 						</goals>
 					</execution>
 				</executions>

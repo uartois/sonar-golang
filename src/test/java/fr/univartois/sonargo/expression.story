@@ -14,7 +14,7 @@ Then the result should be <result>
 Examples:
 
 |expression  |result|
-||ExportedType|
+|exported type Foo should have comment or be unexported|ExportedType|
 |comment on exported type Foo should be of the form "Foo ..."|FormComment|
 |comment on exported type Foo should be of the form "Foo..."|FormComment|
 |comment on exported method Foo.Bar should be of the form "Foo.Bar ..."|FormComment|
@@ -41,15 +41,16 @@ Examples:
 |should not use basic type uintptr as key in context.WithValue|NotUseBasicType|
 |should not use dot imports|NotUseDotImport|
 |should omit 2nd value from range; this loop is equivalent to `for x := range ...`|Omit2ndValueFromRange|
-|should omit type %s from declaration of var [a-zA-Z0-9]+; it will be inferred from the right-hand side|OmitType|
-|should replace [a-zA-Z0-9\-\+]+ with [a-zA-Z0-9\-\+]+|ReplaceLintIncDec|
+|should omit type int from declaration of var myZeroInt; it will be inferred from the right-hand side|OmitType|
+|should replace x=x+1 with x++|ReplaceLintIncDec|
 |should replace %s(fmt.Sprintf(...)) with %s.Errorf(...)|ReplaceSprintf|
 |var Serverhttp should be ServerHTTP|Initialisms|
 |func name will be used as foo.FooMulti by other packages, and that stutters; consider calling this Multi|PackageNames|
 |a blank import should be only in a main or test package, or have a comment justifying it|BlankImport|
-|comment on exported type [a-zA-Z0-9]+ should be of the form \"[a-zA-Z0-9]+ ...\" (with optional leading article)|CommentExportedType|
+|comment on exported type Foo should be of the form "Foo ..." (with optional leading article)|CommentExportedType|
 |context.Context should be the first parameter of a function|ContextContextFirstArg|
 |exported method FooMethod should have comment or be unexported|ExportedHaveComment|
 |exported const FooType should have comment (or a comment on this block) or be unexported|ExportedHaveComment2|
-|exported [a-zA-Z0-9]+ [a-zA-Z0-9]+ should have its own declaration|ExportedDeclaration|
-|var [a-zA-Z0-9]+ is of type [a-zA-Z0-9]+; don't use unit-specific suffix [a-zA-Z0-9]+|SpecificSuffix|
+|exported const Hello4 should have its own declaration|ExportedDeclaration|//more info https://github.com/go-lang-plugin-org/go-lang-idea-plugin/issues/2049
+|var timeoutSecs is of type time.Second; don't use unit-specific suffix Secs|SpecificSuffix|
+|a message error not found|null|

@@ -1,4 +1,4 @@
-package fr.univartois.sonargo.functionnaltest;
+package fr.univartois.sonargo;
 
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 
@@ -35,7 +35,7 @@ public class EvalTest extends JUnitStories {
 	@Override
 	public InjectableStepsFactory stepsFactory() {
 		// varargs, can have more that one steps classes
-		return new InstanceStepsFactory(configuration(), new ReportEval(), new JschemeEval());
+		return new InstanceStepsFactory(configuration(), new ReportEval());
 	}
 
 	@Override
