@@ -1,14 +1,15 @@
-
 # SonarQube Plugin for the Go language
 
-It integrates [GoMetaLinter](https://github.com/alecthomas/gometalinter) reports 
+![Sonarque for GoLang Logo](SonarQube Golang V1.jpeg)
+
+It integrates [GoMetaLinter](https://github.com/alecthomas/gometalinter) reports
 within SonarQube dashboard.
 
 The user must generate a GoMetaLinter report for his code using the checkstyle
-format. The report is thus integrated to SonarQube using 
+format. The report is thus integrated to SonarQube using
 [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
 
-Release 1.0 only provides golint support. Upcoming releases will bring support 
+Release 1.0 only provides golint support. Upcoming releases will bring support
 for additional linters.
 
 
@@ -42,7 +43,7 @@ the new version of the plugin, follow those steps after the installation:
 * First step: create a `sonar-project.properties` file.
 ```
 sonar.projectKey=yourprojectid
-sonar.projectName=name of project 
+sonar.projectName=name of project
 sonar.projectVersion=1.0
 sonar.golint.reportPath=report.xml //default
 sonar.sources=./
