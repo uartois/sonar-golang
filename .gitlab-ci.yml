@@ -1,8 +1,0 @@
-artifact:
-   script: "mvn clean install && mvn clean verify sonar:sonar"
-   stage: build
-   artifacts:
-      paths:
-        - target/*.jar
-   tags:
-     - maven
