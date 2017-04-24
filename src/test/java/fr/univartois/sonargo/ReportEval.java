@@ -7,9 +7,6 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
-import fr.univartois.sonargo.GoError;
-import fr.univartois.sonargo.GoKeyRule;
-
 public class ReportEval {
 	private String eval;
 
@@ -27,6 +24,7 @@ public class ReportEval {
 	@Then("the result should be $expectedValue")
 	public void checkValue(String expectedValue) {
 		assertThat(String.valueOf(eval), equalTo(expectedValue));
+		System.out.println(String.valueOf(eval));
 	}
 
 }
