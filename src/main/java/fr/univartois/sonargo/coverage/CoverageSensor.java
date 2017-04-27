@@ -1,6 +1,13 @@
 package fr.univartois.sonargo.coverage;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
@@ -9,6 +16,7 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+import org.xml.sax.SAXException;
 
 import fr.univartois.sonargo.GoLanguage;
 import fr.univartois.sonargo.GoProperties;
@@ -24,19 +32,32 @@ public class CoverageSensor implements Sensor {
 
 	@Override
 	public void execute(SensorContext context) {
-		String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
 
-		if (reportPath != null) {
-			File coverFile = getIOFile(context.fileSystem(), reportPath);
-			CoverageReportParser parser = new CoverageReportParser(coverFile, context);
-			if (coverFile.exists()) {
-				LOGGER.info("Analyzing Coverage report: " + reportPath);
-				parser.parseReport();
-			} else {
-				LOGGER.info("Coverage report not found: " + reportPath);
-			}
-		} else {
-			LOGGER.info("No Coverage report provided (see '" + GoProperties.COVERAGE_REPORT_PATH_KEY + "' property)");
+		try (Stream<Path> paths = Files.walk(Paths.get(context.fileSystem().baseDir().getPath()))) {
+			paths.filter(p -> !p.startsWith(".") || p.getFileName().startsWith(".")).forEach(filePath -> {
+				if (Files.isDirectory(filePath)) {
+					String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
+					File f = new File(filePath + File.separator + reportPath);
+					if (f.exists()) {
+						LOGGER.info("Analyse for " + f.getPath());
+
+						CoverageParser coverParser = new CoverageParser();
+						try {
+							coverParser.parse(f.getPath());
+
+							CoverageRecorder.save(context, coverParser.getList(), coverParser.getFilepath());
+
+						} catch (ParserConfigurationException | SAXException | IOException e) {
+							LOGGER.error("Exception: ", e);
+						}
+
+					} else {
+						LOGGER.info("no coverage file in package " + filePath);
+					}
+				}
+			});
+		} catch (IOException e) {
+			LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
 		}
 	}
 
