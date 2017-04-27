@@ -23,6 +23,9 @@ package fr.univartois.sonargo;
 
 import org.sonar.api.Plugin;
 
+import fr.univartois.sonargo.coverage.CoverageSensor;
+import fr.univartois.sonargo.test.TestSensor;
+
 /**
  * This class is the entry point of the plugin
  * 
@@ -39,6 +42,9 @@ public class SonarGoPlugin implements Plugin {
 
 		context.addExtensions(GoLanguage.class, GoQualityProfile.class);
 		context.addExtensions(GoLintRulesDefinition.class, GoLintIssueLoaderSensor.class);
+
+		context.addExtension(CoverageSensor.class);
+		context.addExtension(TestSensor.class);
 
 	}
 
