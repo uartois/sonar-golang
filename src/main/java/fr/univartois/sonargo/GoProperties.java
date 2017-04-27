@@ -11,7 +11,10 @@ public class GoProperties {
 	public static final String REPORT_PATH_DEFAULT = "report.xml";
 
 	public static final String COVERAGE_REPORT_PATH_KEY = "sonar.coverage.reportPath";
-	public static final String COVERAGE_REPORT_PATH_DEFAULT = "coverage.out";
+	public static final String COVERAGE_REPORT_PATH_DEFAULT = "coverage.xml";
+
+	public static final String JUNIT_REPORT_PATH_KEY = "sonar.test.reportPath";
+	public static final String JUNIT_REPORT_PATH_DEFAULT = "test.xml";
 
 	private GoProperties() {
 
