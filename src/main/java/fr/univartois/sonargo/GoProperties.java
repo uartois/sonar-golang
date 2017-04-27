@@ -26,6 +26,8 @@ public class GoProperties {
 						.name("Report path of Golint").description("relative path for golint report").build(),
 				PropertyDefinition.builder(COVERAGE_REPORT_PATH_KEY).defaultValue(COVERAGE_REPORT_PATH_DEFAULT)
 						.category("Go").name("Report path of coverage report")
-						.description("relative path for coverage report").build());
+						.description("relative path for coverage report").build(),
+				PropertyDefinition.builder(JUNIT_REPORT_PATH_KEY).defaultValue(JUNIT_REPORT_PATH_DEFAULT).category("Go")
+						.name("Report path of JUnit report").description("relative path for JUnit report").build());
 	}
 }
