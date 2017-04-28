@@ -78,7 +78,7 @@ public class CoverageSensor implements Sensor {
 						}
 
 					} else {
-						LOGGER.info("no coverage file in package " + filePath);
+						LOGGER.info("no coverage file in package " + f.getPath());
 					}
 				}
 			});

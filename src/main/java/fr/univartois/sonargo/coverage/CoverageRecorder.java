@@ -28,6 +28,7 @@ import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
+import org.sonar.api.batch.sensor.coverage.CoverageType;
 import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -45,12 +46,18 @@ public class CoverageRecorder {
 				.inputFile(predicates.and(predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
 						predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
 
+		if (inputFile == null) {
+			LOGGER.warn("unable to create InputFile object: " + filePath);
+			return;
+		}
+
 		NewCoverage coverage = context.newCoverage().onFile(inputFile);
 
 		for (LineCoverage line : lines) {
 			coverage.lineHits(line.getLineNumber(), line.getHits());
 			LOGGER.info(line.toString());
 		}
+		coverage.ofType(CoverageType.UNIT);
 		coverage.save();
 	}
 }

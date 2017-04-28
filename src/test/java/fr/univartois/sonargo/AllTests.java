@@ -25,6 +25,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import fr.univartois.sonargo.coverage.CoverageParser;
+import fr.univartois.sonargo.coverage.CoverageSensor;
 import fr.univartois.sonargo.language.GoLanguageTest;
 import fr.univartois.sonargo.language.GoQualityProfileTest;
 import fr.univartois.sonargo.rules.EvalTest;
@@ -35,7 +37,7 @@ import fr.univartois.sonargo.settings.GoPropertiesTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ EvalTest.class, GoErrorTest.class, GoLanguageTest.class, GoQualityProfileTest.class,
-		GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class,
-		GoPropertiesTest.class, })
+		GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class, GoPropertiesTest.class,
+		CoverageParser.class, CoverageSensor.class })
 public class AllTests {
 }

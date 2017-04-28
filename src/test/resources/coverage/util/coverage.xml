@@ -1,32 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    Copyright 2017 - Université d'Artois
-   
-    This file is part of SonarQube Golang plugin (sonar-golang).
-   
-    Sonar-golang is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-   
-    Sonar-golang is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-   
-    You should have received a copy of the GNU Lesser General Public License
-    along with Sonar-golang.  If not, see <http://www.gnu.org/licenses/>.
-   
-    Contributors:
-               Thibault Falque (thibault_falque@ens.univ-artois.fr)
- -->
-
 <!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-03.dtd">
 <coverage line-rate="0" branch-rate="0" version="" timestamp="1493217424599">
 	<packages>
 		<package name="projectblackwhitego/util" line-rate="0" branch-rate="0" complexity="0">
 			<classes>
-				<class name="Format" filename="/home/thibault/workspace/go/src/projectblackwhitego/util/util.go" line-rate="0" branch-rate="0" complexity="0">
+				<class name="Format" filename="util/util.go" line-rate="0" branch-rate="0" complexity="0">
 					<methods>
 						<method name="String" signature="" line-rate="0" branch-rate="0">
 							<lines>
@@ -50,7 +28,7 @@
 						<line number="43" hits="0"></line>
 					</lines>
 				</class>
-				<class name="-" filename="/home/thibault/workspace/go/src/projectblackwhitego/util/util.go" line-rate="0" branch-rate="0" complexity="0">
+				<class name="-" filename="util/util.go" line-rate="0" branch-rate="0" complexity="0">
 					<methods>
 						<method name="Min" signature="" line-rate="0" branch-rate="0">
 							<lines>
