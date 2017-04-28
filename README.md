@@ -1,6 +1,6 @@
 # SonarQube Plugin for the Go language
 
-![Sonarque for GoLang Logo](SonarQube Golang V1.jpeg)
+![Sonarque for GoLang Logo](logo.jpeg)
 
 It integrates [GoMetaLinter](https://github.com/alecthomas/gometalinter) reports
 within SonarQube dashboard.
