@@ -50,11 +50,17 @@ public class CoverageSensor implements Sensor {
 		descriptor.name("Go Coverage").onlyOnFileType(InputFile.Type.MAIN).onlyOnLanguage(GoLanguage.KEY);
 	}
 
+	public Stream<Path> createStream(SensorContext context) throws IOException {
+		return Files.walk(Paths.get(context.fileSystem().baseDir().getPath()))
+				.filter(p -> !p.getFileName().toString().startsWith("."));
+
+	}
+
 	@Override
 	public void execute(SensorContext context) {
 
-		try (Stream<Path> paths = Files.walk(Paths.get(context.fileSystem().baseDir().getPath()))) {
-			paths.filter(p -> !p.startsWith(".") || p.getFileName().startsWith(".")).forEach(filePath -> {
+		try (Stream<Path> paths = createStream(context)) {
+			paths.forEach(filePath -> {
 				if (Files.isDirectory(filePath)) {
 					String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
 					File f = new File(filePath + File.separator + reportPath);
