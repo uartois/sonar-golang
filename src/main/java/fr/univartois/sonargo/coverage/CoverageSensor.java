@@ -1,3 +1,24 @@
+/*******************************************************************************
+ * Copyright 2017 - Université d'Artois
+ *
+ * This file is part of SonarQube Golang plugin (sonar-golang).
+ *
+ * Sonar-golang is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Sonar-golang is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Sonar-golang.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Contributors:
+ *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
+ *******************************************************************************/
 package fr.univartois.sonargo.coverage;
 
 import java.io.File;
@@ -9,7 +30,6 @@ import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -59,19 +79,6 @@ public class CoverageSensor implements Sensor {
 		} catch (IOException e) {
 			LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
 		}
-	}
-
-	/**
-	 * Returns a java.io.File for the given path. If path is not absolute,
-	 * returns a File with module base directory as parent path.
-	 */
-	private static File getIOFile(FileSystem fileSystem, String path) {
-		File file = new File(path);
-		if (!file.isAbsolute()) {
-			file = new File(fileSystem.baseDir(), path);
-		}
-
-		return file;
 	}
 
 }

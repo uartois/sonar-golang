@@ -21,12 +21,19 @@
  *******************************************************************************/
 package fr.univartois.sonargo;
 
-import java.io.IOException;
+import java.io.File;
 
-import javax.xml.parsers.ParserConfigurationException;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 
-import org.xml.sax.SAXException;
+public class TestUtils {
+	private static final String COVERAGE_REPORT_PATH = "coverage";
 
-public interface Parser {
-	public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException;
+	public static DefaultFileSystem getDefaultFileSystem() {
+		return new DefaultFileSystem(getModuleBaseDir());
+	}
+
+	public static File getModuleBaseDir() {
+		return new File("src/test/resources");
+	}
+
 }

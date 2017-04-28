@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017 - Université d'Artois
+   
+    This file is part of SonarQube Golang plugin (sonar-golang).
+   
+    Sonar-golang is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+   
+    Sonar-golang is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+   
+    You should have received a copy of the GNU Lesser General Public License
+    along with Sonar-golang.  If not, see <http://www.gnu.org/licenses/>.
+   
+    Contributors:
+               Thibault Falque (thibault_falque@ens.univ-artois.fr)
+ -->
+
+<!DOCTYPE coverage SYSTEM "http://cobertura.sourceforge.net/xml/coverage-03.dtd">
+<coverage line-rate="0" branch-rate="0" version="" timestamp="1493217424599">
+	<packages>
+		<package name="projectblackwhitego/util" line-rate="0" branch-rate="0" complexity="0">
+			<classes>
+				<class name="Format" filename="/home/thibault/workspace/go/src/projectblackwhitego/util/util.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="String" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="31" hits="0"></line>
+								<line number="33" hits="0"></line>
+								<line number="35" hits="0"></line>
+								<line number="37" hits="0"></line>
+								<line number="39" hits="0"></line>
+								<line number="41" hits="0"></line>
+								<line number="43" hits="0"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="31" hits="0"></line>
+						<line number="33" hits="0"></line>
+						<line number="35" hits="0"></line>
+						<line number="37" hits="0"></line>
+						<line number="39" hits="0"></line>
+						<line number="41" hits="0"></line>
+						<line number="43" hits="0"></line>
+					</lines>
+				</class>
+				<class name="-" filename="/home/thibault/workspace/go/src/projectblackwhitego/util/util.go" line-rate="0" branch-rate="0" complexity="0">
+					<methods>
+						<method name="Min" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="54" hits="1"></line>
+								<line number="55" hits="1"></line>
+								<line number="57" hits="0"></line>
+							</lines>
+						</method>
+						<method name="Max" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="62" hits="1"></line>
+								<line number="63" hits="0"></line>
+								<line number="65" hits="1"></line>
+							</lines>
+						</method>
+						<method name="Uint32toUint8" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="69" hits="0"></line>
+							</lines>
+						</method>
+						<method name="CompareImage" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="75" hits="1"></line>
+								<line number="76" hits="0"></line>
+								<line number="79" hits="1"></line>
+								<line number="80" hits="1"></line>
+								<line number="81" hits="1"></line>
+								<line number="82" hits="1"></line>
+								<line number="83" hits="1"></line>
+								<line number="84" hits="1"></line>
+								<line number="85" hits="1"></line>
+								<line number="86" hits="1"></line>
+								<line number="87" hits="0"></line>
+								<line number="91" hits="1"></line>
+							</lines>
+						</method>
+						<method name="OpenPng" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="96" hits="1"></line>
+								<line number="97" hits="1"></line>
+								<line number="98" hits="0"></line>
+								<line number="100" hits="1"></line>
+								<line number="101" hits="1"></line>
+								<line number="102" hits="0"></line>
+								<line number="105" hits="1"></line>
+							</lines>
+						</method>
+						<method name="IsInBoundaries" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="109" hits="0"></line>
+							</lines>
+						</method>
+						<method name="WriteImage" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="132" hits="0"></line>
+								<line number="133" hits="0"></line>
+								<line number="135" hits="0"></line>
+								<line number="136" hits="0"></line>
+								<line number="137" hits="0"></line>
+								<line number="138" hits="0"></line>
+								<line number="145" hits="0"></line>
+								<line number="146" hits="0"></line>
+								<line number="148" hits="0"></line>
+								<line number="152" hits="0"></line>
+								<line number="154" hits="0"></line>
+								<line number="156" hits="0"></line>
+								<line number="158" hits="0"></line>
+								<line number="160" hits="0"></line>
+								<line number="162" hits="0"></line>
+							</lines>
+						</method>
+						<method name="Save" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="168" hits="0"></line>
+								<line number="178" hits="0"></line>
+								<line number="179" hits="0"></line>
+								<line number="180" hits="0"></line>
+								<line number="181" hits="0"></line>
+								<line number="184" hits="0"></line>
+								<line number="185" hits="0"></line>
+								<line number="186" hits="0"></line>
+								<line number="188" hits="0"></line>
+								<line number="190" hits="0"></line>
+							</lines>
+						</method>
+						<method name="Exists" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="194" hits="0"></line>
+								<line number="195" hits="0"></line>
+								<line number="196" hits="0"></line>
+								<line number="198" hits="0"></line>
+								<line number="199" hits="0"></line>
+								<line number="201" hits="0"></line>
+							</lines>
+						</method>
+						<method name="RemoveContents" signature="" line-rate="0" branch-rate="0">
+							<lines>
+								<line number="205" hits="0"></line>
+								<line number="206" hits="0"></line>
+								<line number="207" hits="0"></line>
+								<line number="209" hits="0"></line>
+								<line number="210" hits="0"></line>
+								<line number="211" hits="0"></line>
+								<line number="212" hits="0"></line>
+								<line number="214" hits="0"></line>
+								<line number="215" hits="0"></line>
+								<line number="216" hits="0"></line>
+								<line number="217" hits="0"></line>
+								<line number="220" hits="0"></line>
+							</lines>
+						</method>
+					</methods>
+					<lines>
+						<line number="54" hits="1"></line>
+						<line number="55" hits="1"></line>
+						<line number="57" hits="0"></line>
+						<line number="62" hits="1"></line>
+						<line number="63" hits="0"></line>
+						<line number="65" hits="1"></line>
+						<line number="69" hits="0"></line>
+						<line number="75" hits="1"></line>
+						<line number="76" hits="0"></line>
+						<line number="79" hits="1"></line>
+						<line number="80" hits="1"></line>
+						<line number="81" hits="1"></line>
+						<line number="82" hits="1"></line>
+						<line number="83" hits="1"></line>
+						<line number="84" hits="1"></line>
+						<line number="85" hits="1"></line>
+						<line number="86" hits="1"></line>
+						<line number="87" hits="0"></line>
+						<line number="91" hits="1"></line>
+						<line number="96" hits="1"></line>
+						<line number="97" hits="1"></line>
+						<line number="98" hits="0"></line>
+						<line number="100" hits="1"></line>
+						<line number="101" hits="1"></line>
+						<line number="102" hits="0"></line>
+						<line number="105" hits="1"></line>
+						<line number="109" hits="0"></line>
+						<line number="132" hits="0"></line>
+						<line number="133" hits="0"></line>
+						<line number="135" hits="0"></line>
+						<line number="136" hits="0"></line>
+						<line number="137" hits="0"></line>
+						<line number="138" hits="0"></line>
+						<line number="145" hits="0"></line>
+						<line number="146" hits="0"></line>
+						<line number="148" hits="0"></line>
+						<line number="152" hits="0"></line>
+						<line number="154" hits="0"></line>
+						<line number="156" hits="0"></line>
+						<line number="158" hits="0"></line>
+						<line number="160" hits="0"></line>
+						<line number="162" hits="0"></line>
+						<line number="168" hits="0"></line>
+						<line number="178" hits="0"></line>
+						<line number="179" hits="0"></line>
+						<line number="180" hits="0"></line>
+						<line number="181" hits="0"></line>
+						<line number="184" hits="0"></line>
+						<line number="185" hits="0"></line>
+						<line number="186" hits="0"></line>
+						<line number="188" hits="0"></line>
+						<line number="190" hits="0"></line>
+						<line number="194" hits="0"></line>
+						<line number="195" hits="0"></line>
+						<line number="196" hits="0"></line>
+						<line number="198" hits="0"></line>
+						<line number="199" hits="0"></line>
+						<line number="201" hits="0"></line>
+						<line number="205" hits="0"></line>
+						<line number="206" hits="0"></line>
+						<line number="207" hits="0"></line>
+						<line number="209" hits="0"></line>
+						<line number="210" hits="0"></line>
+						<line number="211" hits="0"></line>
+						<line number="212" hits="0"></line>
+						<line number="214" hits="0"></line>
+						<line number="215" hits="0"></line>
+						<line number="216" hits="0"></line>
+						<line number="217" hits="0"></line>
+						<line number="220" hits="0"></line>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>
