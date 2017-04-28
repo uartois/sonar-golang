@@ -1,4 +1,4 @@
-package fr.univartois.sonargo;
+package fr.univartois.sonargo.rules;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;

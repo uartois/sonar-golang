@@ -1,4 +1,4 @@
-package fr.univartois.sonargo;
+package fr.univartois.sonargo.settings;
 
 import static org.junit.Assert.assertEquals;
 

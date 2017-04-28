@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo;
+package fr.univartois.sonargo.language;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -1,4 +1,4 @@
-package fr.univartois.sonargo;
+package fr.univartois.sonargo.rules;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
