@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import fr.univartois.sonargo.language.GoLanguage;
+
 public class GoLanguageTest {
 
 	@Test

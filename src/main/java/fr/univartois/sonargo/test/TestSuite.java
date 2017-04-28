@@ -5,7 +5,7 @@ public class TestSuite {
 	private int nbFailureTest = 0;
 	private int skipped = 0;
 	private String file;
-	private double time = 0L;
+	private Double time;
 
 	public TestSuite(int nbTotalTest, int nbFailureTest, int skipped, String file, double time) {
 		super();
@@ -48,8 +48,8 @@ public class TestSuite {
 		this.file = file;
 	}
 
-	public Double getTime() {
-		return time;
+	public long getTime() {
+		return (long) (time * 1000);
 	}
 
 	public void setTime(Double time) {

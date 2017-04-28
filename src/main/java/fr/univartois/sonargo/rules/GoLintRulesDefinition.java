@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo;
+package fr.univartois.sonargo.rules;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -28,6 +28,8 @@ import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.api.server.rule.RulesDefinitionXmlLoader;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+
+import fr.univartois.sonargo.language.GoLanguage;
 
 /**
  * This class read the "/rules/golint-rules.xml" file and create all the rule
@@ -43,7 +45,7 @@ public class GoLintRulesDefinition implements RulesDefinition {
 	protected static final String NAME = "Go";
 
 	public static final String REPO_KEY = GoLanguage.KEY + "-" + KEY;
-	protected static final String REPO_NAME = GoLanguage.KEY + "-" + NAME;
+	public static final String REPO_NAME = GoLanguage.KEY + "-" + NAME;
 
 	protected String rulesDefinitionFilePath() {
 		return PATH_TO_RULES_XML;

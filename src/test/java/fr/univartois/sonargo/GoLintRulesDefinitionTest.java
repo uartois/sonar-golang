@@ -26,6 +26,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 
+import fr.univartois.sonargo.language.GoLanguage;
+import fr.univartois.sonargo.rules.GoKeyRule;
+import fr.univartois.sonargo.rules.GoLintRulesDefinition;
+
 public class GoLintRulesDefinitionTest {
 	@Test
 	public void testForVersion6() {
@@ -38,31 +42,5 @@ public class GoLintRulesDefinitionTest {
 		assertEquals(GoLanguage.KEY, repository.language());
 		GoKeyRule.init();
 		assertEquals(GoKeyRule.getProp().size(), repository.rules().size());
-
-		// assertThat(repository.rules()).hasSize(CheckList.getChecks().size());
-		//
-		// RulesDefinition.Rule unusedLabelRule = repository.rule("S1065");
-		// assertThat(unusedLabelRule).isNotNull();
-		// assertThat(unusedLabelRule.type()).isEqualTo(RuleType.CODE_SMELL);
-		// assertThat(unusedLabelRule.internalKey()).isNull();
-		// assertThat(unusedLabelRule.name()).isEqualTo("Unused labels should be
-		// removed");
-		// assertThat(repository.rule("S2095").type()).isEqualTo(RuleType.BUG);
-		// assertThat(repository.rule("S2095").activatedByDefault())
-		// .isEqualTo(version.isGreaterThanOrEqual(Version.create(6, 0)));
-		// RulesDefinition.Rule magicNumber = repository.rule("S109");
-		// assertThat(magicNumber.params()).isNotEmpty();
-		// assertThat(magicNumber.activatedByDefault()).isFalse();
-		//
-		// // check if a rule using a legacy key is also enabled
-		// RulesDefinition.Rule unusedPrivateMethodRule =
-		// repository.rule("UnusedPrivateMethod");
-		// assertThat(unusedPrivateMethodRule.activatedByDefault())
-		// .isEqualTo(version.isGreaterThanOrEqual(Version.create(6, 0)));
-		//
-		// // Calling definition multiple time should not lead to failure:
-		// thanks
-		// // C# plugin !
-		// definition.define(new RulesDefinition.Context());
 	}
 }

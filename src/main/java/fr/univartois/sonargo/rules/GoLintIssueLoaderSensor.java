@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo;
+package fr.univartois.sonargo.rules;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +48,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import fr.univartois.sonargo.language.GoLanguage;
+import fr.univartois.sonargo.settings.GoProperties;
 
 /**
  * GoLintIssueLoaderSensor This class can load a report file and create issue

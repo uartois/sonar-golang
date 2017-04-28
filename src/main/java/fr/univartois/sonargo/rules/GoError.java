@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo;
+package fr.univartois.sonargo.rules;
 
 /**
  * GoError Represents an Error from a gometalinter checkstyle report

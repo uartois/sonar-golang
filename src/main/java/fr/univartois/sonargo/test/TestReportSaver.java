@@ -34,13 +34,12 @@ public class TestReportSaver {
 		saveMeasure(context, file, CoreMetrics.SKIPPED_TESTS, t.getSkipped());
 		saveMeasure(context, file, CoreMetrics.TESTS, t.getNbTotalTest());
 		saveMeasure(context, file, CoreMetrics.TEST_FAILURES, t.getNbFailureTest());
-		saveMeasure(context, file, CoreMetrics.TEST_EXECUTION_TIME, t.getTime().longValue());
+		saveMeasure(context, file, CoreMetrics.TEST_EXECUTION_TIME, t.getTime());
 	}
 
 	private static <T extends Serializable> void saveMeasure(SensorContext context, InputFile inputFile,
 			Metric<T> metric, T value) {
-		LOGGER.info("Save measure: " + metric.toString() + " " + inputFile.path().toFile().getPath() + " "
-				+ value.toString());
+
 		context.<T>newMeasure().forMetric(metric).on(inputFile).withValue(value).save();
 	}
 }

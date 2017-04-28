@@ -35,7 +35,7 @@ public class EvalTest extends JUnitStories {
 	@Override
 	public InjectableStepsFactory stepsFactory() {
 		// varargs, can have more that one steps classes
-		return new InstanceStepsFactory(configuration(), new ReportEval());
+		return new InstanceStepsFactory(configuration(), new ReportEvalStoryTest());
 	}
 
 	@Override

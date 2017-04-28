@@ -11,6 +11,8 @@ import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.config.Settings;
 
+import fr.univartois.sonargo.rules.GoLintIssueLoaderSensor;
+
 public class GoLintIssueLoaderSendorTest {
 	private DefaultFileSystem fileSystem;
 	private GoLintIssueLoaderSensor sensor;
@@ -24,6 +26,7 @@ public class GoLintIssueLoaderSendorTest {
 	@Test
 	public void describe() {
 		SensorDescriptor sensorDescriptor = mock(SensorDescriptor.class);
+
 		assertNotNull(sensorDescriptor);
 		assertNotNull(sensor);
 

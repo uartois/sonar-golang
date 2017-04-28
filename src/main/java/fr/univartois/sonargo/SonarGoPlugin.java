@@ -24,6 +24,11 @@ package fr.univartois.sonargo;
 import org.sonar.api.Plugin;
 
 import fr.univartois.sonargo.coverage.CoverageSensor;
+import fr.univartois.sonargo.language.GoLanguage;
+import fr.univartois.sonargo.language.GoQualityProfile;
+import fr.univartois.sonargo.rules.GoLintIssueLoaderSensor;
+import fr.univartois.sonargo.rules.GoLintRulesDefinition;
+import fr.univartois.sonargo.settings.GoProperties;
 import fr.univartois.sonargo.test.TestSensor;
 
 /**
