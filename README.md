@@ -41,6 +41,7 @@ the new version of the plugin, follow those steps after the installation:
 # Using the plugin
 
 * First step: create a `sonar-project.properties` file.
+
 ```
 sonar.projectKey=yourprojectid
 sonar.projectName=name of project
@@ -67,3 +68,41 @@ sonar-scanner
 
 It is assumed that you have the sonar scanner executable on your path and
 to run it at the root of your go project.
+
+
+* Coverage
+
+For coverage you must have a "coverage.xml" (it's cobertura format xml) file per package
+
+First install the tools for convert a coverprofile in cobertura file:
+```shell
+go get github.com/axw/gocov/...
+go get github.com/AlekSi/gocov-xml
+```
+
+After for all package execute this commands:
+```shell
+go test -coverprofile=cover.out
+gocov convert cover.out | gocov-xml > coverage.xml
+```
+You must have:
+```
+pkg1/coverage.xml
+pkg2/coverage.xml
+pkg3/coverage.xml
+...
+```
+
+* Test
+
+For analysis test you must have a junit report file.
+
+Install the tools:
+```shell
+go get -u github.com/jstemmer/go-junit-report
+```
+
+And from the root of your project:
+```shell
+go test -v ./... | go-junit-report > test.xml
+```
