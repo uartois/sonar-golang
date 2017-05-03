@@ -25,6 +25,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -63,6 +65,10 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	protected final Settings settings;
 	protected final FileSystem fileSystem;
 	protected SensorContext context;
+
+	private static final String[] LIST_OF_BAD_ISSUE = { "undeclared name: [a-zA-Z0-9]+",
+			"unused variable or constant undeclared name: \\w",
+			"could not import \\w(\\-\\w)* \\(" + "cannot find package \\w(\\-\\w)* in any of:" };
 
 	/**
 	 * Allow to create a new GoLintIssueLoaderSensor
@@ -153,10 +159,28 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		return languageKey.toLowerCase() + "-" + GoLintRulesDefinition.KEY;
 	}
 
+	private boolean isAnErrorConfigOrImport(String message) {
+		Pattern pattern;
+		Matcher matcher;
+
+		for (String s : LIST_OF_BAD_ISSUE) {
+
+			pattern = Pattern.compile(s);
+			matcher = pattern.matcher(message);
+			if (matcher.matches())
+				return true;
+		}
+		return false;
+	}
+
 	private void saveIssue(final InputFile inputFile, int line, final String externalRuleKey, final String message) {
 
 		if (externalRuleKey == null) {
-			LOGGER.warn("The key for the message " + message + " is null, issue not saved");
+			if (isAnErrorConfigOrImport(message)) {
+				LOGGER.warn("This issue is create because there is a problem with gometalinter analyse: " + message);
+			} else {
+				LOGGER.warn("The key for the message " + message + " is null, issue not saved");
+			}
 			return;
 		}
 

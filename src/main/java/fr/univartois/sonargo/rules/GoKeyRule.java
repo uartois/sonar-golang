@@ -88,7 +88,9 @@ public class GoKeyRule {
 	public static String getKeyFromError(GoError error) {
 		Pattern pattern;
 		Matcher matcher;
+
 		for (Entry<Object, Object> e : prop.entrySet()) {
+
 			pattern = Pattern.compile((String) e.getValue());
 			matcher = pattern.matcher(error.getMessage());
 			if (!matcher.matches())
