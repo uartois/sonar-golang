@@ -20,28 +20,28 @@
                Thibault Falque (thibault_falque@ens.univ-artois.fr)
  -->
 <go-rules>
-	<rule>
-		<key>ExportedType</key>
-		<name>Exported Type</name>
-		<internalKey>ExportedType</internalKey>
-		<description>an exported type should have comment or be unexported.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L761
-		</description>
-		<severity>MAJOR</severity>
-		<cardinality>SINGLE</cardinality>
-		<status>READY</status>
-		<type>CODE_SMELL</type>
-		<tag>bad-practice</tag>
-		<tag>comments</tag>
-		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
-		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
-	</rule>
+<!-- 	<rule> -->
+<!-- 		<key>golint:ExportedType</key> -->
+<!-- 		<name>Exported Type</name> -->
+<!-- 		<internalKey>golint:ExportedType</internalKey> -->
+<!-- 		<description>an exported type should have comment or be unexported. -->
+<!-- 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L761 -->
+<!-- 		</description> -->
+<!-- 		<severity>MINOR</severity> -->
+<!-- 		<cardinality>SINGLE</cardinality> -->
+<!-- 		<status>READY</status> -->
+<!-- 		<type>CODE_SMELL</type> -->
+<!-- 		<tag>bad-practice</tag> -->
+<!-- 		<tag>comments</tag> -->
+<!-- 		<remediationFunction>CONSTANT_ISSUE</remediationFunction> -->
+<!-- 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort> -->
+<!-- 	</rule> -->
 
 
 	<rule>
-		<key>FormComment</key>
+		<key>golint:FormComment</key>
 		<name>Form comment of exported type</name>
-		<internalKey>FormComment</internalKey>
+		<internalKey>golint:FormComment</internalKey>
 		<description>
 			comment on exported type should be of the form \"Type...\"".
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L761
@@ -57,9 +57,9 @@
 	</rule>
 
 	<rule>
-		<key>AllCaps</key>
+		<key>golint:AllCaps</key>
 		<name>don't use ALL_CAPS in Go names; use CamelCase</name>
-		<internalKey>AllCaps</internalKey>
+		<internalKey>golint:AllCaps</internalKey>
 		<description>
 			don't use ALL_CAPS in Go names; use CamelCase.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
@@ -75,9 +75,9 @@
 	</rule>
 
 	<rule>
-		<key>UnderscoreInPackageName</key>
+		<key>golint:UnderscoreInPackageName</key>
 		<name>don't use an underscore in package name</name>
-		<internalKey>UnderscoreInPackageName</internalKey>
+		<internalKey>golint:UnderscoreInPackageName</internalKey>
 		<description>
 			don't use an underscore in package name.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
@@ -93,9 +93,9 @@
 	</rule>
 
 	<rule>
-		<key>LeadingK</key>
+		<key>golint:LeadingK</key>
 		<name>don't use leading k in Go names</name>
-		<internalKey>LeadingK</internalKey>
+		<internalKey>golint:LeadingK</internalKey>
 		<description>
 			don't use leading k in Go names; kFoo or kfoo should be Foo or foo.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
@@ -111,9 +111,9 @@
 	</rule>
 
 	<rule>
-		<key>UnderscoreInGoName</key>
+		<key>golint:UnderscoreInGoName</key>
 		<name>don't use underscores in Go names</name>
-		<internalKey>UnderscoreInGoName</internalKey>
+		<internalKey>golint:UnderscoreInGoName</internalKey>
 		<description>
 			don't use underscores in Go names.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
@@ -129,10 +129,10 @@
 	</rule>
 
 	<rule>
-		<key>ErrorLastReturn</key>
+		<key>golint:ErrorLastReturn</key>
 		<name>error should be the last type when returning multiple items
 		</name>
-		<internalKey>ErrorLastReturn</internalKey>
+		<internalKey>golint:ErrorLastReturn</internalKey>
 		<description>
 			error should be the last type when returning multiple items.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1263
@@ -148,10 +148,10 @@
 	</rule>
 
 	<rule>
-		<key>ErrorEndString</key>
+		<key>golint:ErrorEndString</key>
 		<name>error strings should not be capitalized or end with punctuation
 			or a newline</name>
-		<internalKey>ErrorEndString</internalKey>
+		<internalKey>golint:ErrorEndString</internalKey>
 		<description>
 			error strings should not be capitalized or end with punctuation or a
 			newline.
@@ -168,9 +168,9 @@
 	</rule>
 
 	<rule>
-		<key>ErrorVarName</key>
+		<key>golint:ErrorVarName</key>
 		<name>error var err should have name of the form errFoo</name>
-		<internalKey>ErrorVarName</internalKey>
+		<internalKey>golint:ErrorVarName</internalKey>
 		<description>
 			error var err should have name of the form errFoo.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1115
@@ -186,9 +186,9 @@
 	</rule>
 
 	<rule>
-		<key>AnnoyingUseExportedType</key>
+		<key>golint:AnnoyingUseExportedType</key>
 		<name>exported function returns unexported type</name>
-		<internalKey>AnnoyingUseExportedType</internalKey>
+		<internalKey>golint:AnnoyingUseExportedType</internalKey>
 		<description>
 			exported function returns unexported type, which can be annoying to use.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1287
@@ -204,9 +204,9 @@
 	</rule>
 
 	<rule>
-		<key>IfBlockReturn</key>
+		<key>golint:IfBlockReturn</key>
 		<name>if block ends with a return statement, so drop this else and outdent its block</name>
-		<internalKey>IfBlockReturn</internalKey>
+		<internalKey>golint:IfBlockReturn</internalKey>
 		<description>
 			if block ends with a return statement, so drop this else and outdent its block.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1007
@@ -222,9 +222,9 @@
 	</rule>
 
 	<rule>
-		<key>PackageCommentForm</key>
+		<key>golint:PackageCommentForm</key>
 		<name>package comment</name>
-		<internalKey>PackageCommentForm</internalKey>
+		<internalKey>golint:PackageCommentForm</internalKey>
 		<description>
 			package comment should be of the form \"NamePackage...\".
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L352
@@ -240,9 +240,9 @@
 	</rule>
 
 	<rule>
-		<key>PackageCommentSpace</key>
+		<key>golint:PackageCommentSpace</key>
 		<name>package not have leading space</name>
-		<internalKey>PackageCommentSpace</internalKey>
+		<internalKey>golint:PackageCommentSpace</internalKey>
 		<description>
 			package comment should not have leading space.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L352
@@ -259,9 +259,9 @@
 
 
 	<rule>
-		<key>ReceiverNameConsistent</key>
+		<key>golint:ReceiverNameConsistent</key>
 		<name>receiver name should be consistent</name>
-		<internalKey>ReceiverNameConsistent</internalKey>
+		<internalKey>golint:ReceiverNameConsistent</internalKey>
 		<description>
 			receiver name %s should be consistent with previous receiver name %s for %s.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1202
@@ -277,9 +277,9 @@
 	</rule>
 
 	<rule>
-		<key>ReceiverNameReflection</key>
+		<key>golint:ReceiverNameReflection</key>
 		<name>receiver name should be a reflection</name>
-		<internalKey>ReceiverNameReflection</internalKey>
+		<internalKey>golint:ReceiverNameReflection</internalKey>
 		<description>
 			receiver name should be a reflection of its identity; don't use generic names such as \"this\" or \"self\"".
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1202
@@ -295,9 +295,9 @@
 	</rule>
 
 	<rule>
-		<key>ReceiverNameNotUnderscore</key>
+		<key>golint:ReceiverNameNotUnderscore</key>
 		<name>receiver name should not be an underscore</name>
-		<internalKey>ReceiverNameNotUnderscore</internalKey>
+		<internalKey>golint:ReceiverNameNotUnderscore</internalKey>
 		<description>
 			receiver name should not be an underscore.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1202
@@ -313,9 +313,9 @@
 	</rule>
 
 	<rule>
-		<key>DropAssignment</key>
+		<key>golint:DropAssignment</key>
 		<name>drop assignment</name>
-		<internalKey>DropAssignment</internalKey>
+		<internalKey>golint:DropAssignment</internalKey>
 		<description>
 			should drop assignment; it is the zero value.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L929
@@ -330,9 +330,9 @@
 	</rule>
 
 	<rule>
-		<key>HavePackageComment</key>
+		<key>golint:HavePackageComment</key>
 		<name>Should have a package comment</name>
-		<internalKey>HavePackageComment</internalKey>
+		<internalKey>golint:HavePackageComment</internalKey>
 		<description>
 			should have a package comment, unless it's in another file for this package.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L352
@@ -347,9 +347,9 @@
 	</rule>
 
 	<rule>
-		<key>NotUseBasicType</key>
+		<key>golint:NotUseBasicType</key>
 		<name>should not use basic type</name>
-		<internalKey>NotUseBasicType</internalKey>
+		<internalKey>golint:NotUseBasicType</internalKey>
 		<description>
 			should not use basic type (https://tour.golang.org/basics/11) as key in context.WithValue.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1400
@@ -365,9 +365,9 @@
 	</rule>
 
 	<rule>
-		<key>NotUseDotImport</key>
+		<key>golint:NotUseDotImport</key>
 		<name>should not use dot imports</name>
-		<internalKey>NotUseDotImport</internalKey>
+		<internalKey>golint:NotUseDotImport</internalKey>
 		<description>
 			should not use dot imports.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L440
@@ -383,9 +383,9 @@
 	</rule>
 
 	<rule>
-		<key>Omit2ndValueFromRange</key>
+		<key>golint:Omit2ndValueFromRange</key>
 		<name>should omit 2nd value from range</name>
-		<internalKey>Omit2ndValueFromRange</internalKey>
+		<internalKey>golint:Omit2ndValueFromRange</internalKey>
 		<description>
 			should omit 2nd value from range; this loop is equivalent to `for %s %s range ...`.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1051
@@ -401,9 +401,9 @@
 	</rule>
 
 	<rule>
-		<key>OmitType</key>
+		<key>golint:OmitType</key>
 		<name>should omit type %s from declaration of var %s</name>
-		<internalKey>OmitType</internalKey>
+		<internalKey>golint:OmitType</internalKey>
 		<description>
 	    should omit type %s from declaration of var %s; it will be inferred from the right-hand side.
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L929
@@ -417,9 +417,9 @@
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
-		<key>ReplaceLintIncDec</key>
+		<key>golint:ReplaceLintIncDec</key>
 		<name>should replace</name>
-		<internalKey>ReplaceLintIncDec</internalKey>
+		<internalKey>golint:ReplaceLintIncDec</internalKey>
 		<description>
 	  should replace x=x+1(respectively x=x-1) with x++ (respectively x--).
 		Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1235
@@ -434,9 +434,9 @@
 	</rule>
 
 	<rule>
-		<key>ReplaceSprintf</key>
+		<key>golint:ReplaceSprintf</key>
 		<name>should replace Sprintf by Errorf</name>
-		<internalKey>ReplaceSprintf</internalKey>
+		<internalKey>golint:ReplaceSprintf</internalKey>
 		<description>
 		should replace %s(fmt.Sprintf(...)) with %s.Errorf(...).
 
@@ -453,9 +453,9 @@
 	</rule>
 
 	<rule>
-		<key>Initialisms</key>
+		<key>golint:Initialisms</key>
 		<name>Initialisms</name>
-		<internalKey>Initialisms</internalKey>
+		<internalKey>golint:Initialisms</internalKey>
 		<description>
 			Words in names that are initialisms or acronyms (e.g. "URL" or "NATO") have a consistent case. For example, "URL" should appear as "URL" or "url" (as in "urlPony", or "URLPony"), never as "Url". Here's an example: ServeHTTP not ServeHttp.
 			Additional information can be found at https://github.com/golang/go/wiki/CodeReviewComments#initialisms
@@ -471,9 +471,9 @@
 	</rule>
 
 	<rule>
-		<key>PackageNames</key>
+		<key>golint:PackageNames</key>
 		<name>Package names</name>
-		<internalKey>PackageNames</internalKey>
+		<internalKey>golint:PackageNames</internalKey>
 		<description>
 			All references to names in your package will be done using the package name, so you can omit that name from the identifiers.
 			Additional information can be found at https://github.com/golang/go/wiki/CodeReviewComments#package-names and https://github.com/golang/lint/blob/master/lint.go#L887
@@ -489,9 +489,9 @@
 	</rule>
 
 	<rule>
-		<key>BlankImport</key>
+		<key>golint:BlankImport</key>
 		<name>a non-main package has blank imports</name>
-		<internalKey>BlankImport</internalKey>
+		<internalKey>golint:BlankImport</internalKey>
 		<description>
 			a blank import should be only in a main or test package, or have a comment justifying it
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L408 and https://github.com/golang/go/wiki/CodeReviewComments#package-comments
@@ -507,9 +507,9 @@
 	</rule>
 
 	<rule>
-		<key>CommentExportedType</key>
+		<key>golint:CommentExportedType</key>
 		<name>comment on exported type</name>
-		<internalKey>CommentExportedType</internalKey>
+		<internalKey>golint:CommentExportedType</internalKey>
 		<description>
 			comment on exported type should be of the form \"Type ...\" (with optional leading article)
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L761 and https://github.com/golang/go/wiki/CodeReviewComments#doc-comments
@@ -526,9 +526,9 @@
 
 
 	<rule>
-		<key>ContextContextFirstArg</key>
+		<key>golint:ContextContextFirstArg</key>
 		<name>context.Context should be the first argument</name>
-		<internalKey>ContextContextFirstArgs</internalKey>
+		<internalKey>golint:ContextContextFirstArgs</internalKey>
 		<description>
 			context.Context should be the first parameter of a function
 					Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1426 and https://golang.org/pkg/context/
@@ -544,9 +544,9 @@
 	</rule>
 
 	<rule>
-		<key>ExportedHaveComment</key>
+		<key>golint:ExportedHaveComment</key>
 		<name>exported * should have comment</name>
-		<internalKey>ExportedHaveComment</internalKey>
+		<internalKey>golint:ExportedHaveComment</internalKey>
 		<description>
 			exported %s %s should have comment or be unexported
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L794
@@ -562,9 +562,9 @@
 	</rule>
 
 	<rule>
-		<key>ExportedHaveComment2</key>
+		<key>golint:ExportedHaveComment2</key>
 		<name>exported * should have comment</name>
-		<internalKey>ExportedHaveComment2</internalKey>
+		<internalKey>golint:ExportedHaveComment2</internalKey>
 		<description>
 			exported %s %s should have comment or be unexported
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L834
@@ -580,7 +580,7 @@
 	</rule>
 
 	<rule>
-		<key>ExportedDeclaration</key>
+		<key>golint:ExportedDeclaration</key>
 		<name>exported * should have its own declaration</name>
 		<internalKey>ExportedDeclaration</internalKey>
 		<description>
@@ -599,9 +599,9 @@
 
 
 	<rule>
-		<key>SpecificSuffix</key>
+		<key>golint:SpecificSuffix</key>
 		<name>don't use unit-specific suffix</name>
-		<internalKey>SpecificSuffix</internalKey>
+		<internalKey>golint:SpecificSuffix</internalKey>
 		<description>
        var %s is of type %v; don't use unit-specific suffix %q
 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1343
@@ -615,5 +615,69 @@
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
-
+	
+	<rule>
+		<key>gocyclo:CyclomaticComplexity</key>
+		<name>Cyclomatic complexity is hight</name>
+		<internalKey>gocyclo:CyclomaticComplexity</internalKey>
+		<description>
+      		The cyclomatic complexity is greater than 10
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>complexity</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>errcheck:ValueNotChecked</key>
+		<name>Return value not checked</name>
+		<internalKey>errcheck:ValueNotChecked</internalKey>
+		<description>
+      		The return  value of the function is not checked
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>BUG</type>
+		<tag>check</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>unconvert:UnnecessaryConversion</key>
+		<name>Unnecessary Conversion</name>
+		<internalKey>unconvert:UnnecessaryConversion</internalKey>
+		<description>
+      		Unnecessary Conversion
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>simple</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>structcheck:UnusedStructField</key>
+		<name>unused struct field</name>
+		<internalKey>structcheck:UnusedStructField</internalKey>
+		<description>
+      		unused struct field
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>check</tag>
+		<tag>unused</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+	
+	
+	
 </go-rules>
