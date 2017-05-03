@@ -22,13 +22,12 @@
 package fr.univartois.sonargo.rules;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 
 import fr.univartois.sonargo.language.GoLanguage;
-import fr.univartois.sonargo.rules.GoKeyRule;
-import fr.univartois.sonargo.rules.GoLintRulesDefinition;
 
 public class GoLintRulesDefinitionTest {
 	@Test
@@ -42,5 +41,9 @@ public class GoLintRulesDefinitionTest {
 		assertEquals(GoLanguage.KEY, repository.language());
 		GoKeyRule.init();
 		assertEquals(GoKeyRule.getProp().size(), repository.rules().size());
+
+		for (Object key : GoKeyRule.getProp().keySet()) {
+			assertNotNull(repository.rule((String) key));
+		}
 	}
 }
