@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -14,13 +15,13 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 public class Colorizer {
-	private final SensorContext context;
+
 	private static final Logger LOGGER = Loggers.get(Colorizer.class);
 	private final NewHighlighting highlighting;
 
 	public Colorizer(SensorContext context) {
 		super();
-		this.context = context;
+
 		highlighting = context.newHighlighting();
 	}
 
@@ -29,7 +30,8 @@ public class Colorizer {
 		LOGGER.info("Color the file: " + f.getPath());
 		highlighting.onFile(i);
 		try {
-			final BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+			final BufferedReader br = new BufferedReader(
+					new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8));
 			String line;
 			int lineNumber = 1;
 			while ((line = br.readLine()) != null) {
