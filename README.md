@@ -9,7 +9,7 @@ The user must generate a GoMetaLinter report for his code using the checkstyle
 format. The report is thus integrated to SonarQube using
 [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
 
-Release 1.0 only provides golint support. Upcoming releases will bring support
+Release 1.0 only provides golint support. Release 1.1 provides test coverage support. Upcoming releases will bring support
 for additional linters.
 
 
@@ -40,7 +40,7 @@ the new version of the plugin, follow those steps after the installation:
 
 # Using the plugin
 
-* First step: create a `sonar-project.properties` file.
+* create a `sonar-project.properties` file.
 
 ```
 sonar.projectKey=yourprojectid
@@ -50,7 +50,17 @@ sonar.golint.reportPath=report.xml //default
 sonar.sources=./
 ```
 
-* Second step: install [gometalinter](https://github.com/alecthomas/gometalinter)
+* start the analysis
+```shell
+sonar-scanner
+```
+
+It is assumed that you have the sonar scanner executable on your path and
+to run it at the root of your go project.
+
+# GoMetaLinter support
+
+* install [gometalinter](https://github.com/alecthomas/gometalinter)
 ```shell
 go get -u gopkg.in/alecthomas/gometalinter.v1
 gometalinter.v1 --install
@@ -61,31 +71,23 @@ gometalinter.v1 --install
 gometalinter.v1 --checkstyle > report.xml
 ```
 
-* Start the analysis
-```shell
-sonar-scanner
-```
+# Coverage (since release 1.1)
 
-It is assumed that you have the sonar scanner executable on your path and
-to run it at the root of your go project.
+For coverage metrics you must have a `coverage.xml` (cobertura xml format) file per package
 
-
-* Coverage
-
-For coverage you must have a "coverage.xml" (it's cobertura format xml) file per package
-
-First install the tools for convert a coverprofile in cobertura file:
+* First install the tools for convert a coverprofile in cobertura file:
 ```shell
 go get github.com/axw/gocov/...
 go get github.com/AlekSi/gocov-xml
 ```
 
-After for all package execute this commands:
+* After for all package execute this commands:
 ```shell
 go test -coverprofile=cover.out
 gocov convert cover.out | gocov-xml > coverage.xml
 ```
-You must have:
+
+You must end-up with one coverage file per directory:
 ```
 pkg1/coverage.xml
 pkg2/coverage.xml
@@ -93,16 +95,16 @@ pkg3/coverage.xml
 ...
 ```
 
-* Test
+# Test (since release 1.1)
 
-For analysis test you must have a junit report file.
+For test metrics you must generate a junit report file.
 
-Install the tools:
+* install the tools:
 ```shell
 go get -u github.com/jstemmer/go-junit-report
 ```
 
-And from the root of your project:
+* run the tests from the root of your project:
 ```shell
 go test -v ./... | go-junit-report > test.xml
 ```
