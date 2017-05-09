@@ -24,6 +24,7 @@ package fr.univartois.sonargo;
 import org.sonar.api.Plugin;
 
 import fr.univartois.sonargo.coverage.CoverageSensor;
+import fr.univartois.sonargo.highlighter.HighlighterSensor;
 import fr.univartois.sonargo.language.GoLanguage;
 import fr.univartois.sonargo.language.GoQualityProfile;
 import fr.univartois.sonargo.rules.GoLintIssueLoaderSensor;
@@ -50,6 +51,7 @@ public class SonarGoPlugin implements Plugin {
 
 		context.addExtension(CoverageSensor.class);
 		context.addExtension(TestSensor.class);
+		context.addExtension(HighlighterSensor.class);
 
 	}
 
