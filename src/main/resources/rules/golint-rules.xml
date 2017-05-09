@@ -1,50 +1,41 @@
-<!--
-    Copyright 2017 - Université d'Artois
-   
-    This file is part of SonarQube Golang plugin (sonar-golang).
-   
-    Sonar-golang is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-   
-    Sonar-golang is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-   
-    You should have received a copy of the GNU Lesser General Public License
-    along with Sonar-golang.  If not, see <http://www.gnu.org/licenses/>.
-   
-    Contributors:
-               Thibault Falque (thibault_falque@ens.univ-artois.fr)
- -->
+<!-- Copyright 2017 - Université d'Artois This file is part of SonarQube 
+	Golang plugin (sonar-golang). Sonar-golang is free software: you can redistribute 
+	it and/or modify it under the terms of the GNU Lesser General Public License 
+	as published by the Free Software Foundation, either version 3 of the License, 
+	or (at your option) any later version. Sonar-golang is distributed in the 
+	hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied 
+	warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the 
+	GNU Lesser General Public License for more details. You should have received 
+	a copy of the GNU Lesser General Public License along with Sonar-golang. 
+	If not, see <http://www.gnu.org/licenses/>. Contributors: Thibault Falque 
+	(thibault_falque@ens.univ-artois.fr) -->
 <go-rules>
-<!-- 	<rule> -->
-<!-- 		<key>golint:ExportedType</key> -->
-<!-- 		<name>Exported Type</name> -->
-<!-- 		<internalKey>golint:ExportedType</internalKey> -->
-<!-- 		<description>an exported type should have comment or be unexported. -->
-<!-- 			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L761 -->
-<!-- 		</description> -->
-<!-- 		<severity>MINOR</severity> -->
-<!-- 		<cardinality>SINGLE</cardinality> -->
-<!-- 		<status>READY</status> -->
-<!-- 		<type>CODE_SMELL</type> -->
-<!-- 		<tag>bad-practice</tag> -->
-<!-- 		<tag>comments</tag> -->
-<!-- 		<remediationFunction>CONSTANT_ISSUE</remediationFunction> -->
-<!-- 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort> -->
-<!-- 	</rule> -->
-
-
 	<rule>
 		<key>golint:FormComment</key>
 		<name>Form comment of exported type</name>
 		<internalKey>golint:FormComment</internalKey>
 		<description>
-			comment on exported type should be of the form \"Type...\"".
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L761
+			<![CDATA[<p>Comment on exported type should be of the form \"Type...\"".</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+//The stuct Foo is for ...
+type struct Foo{
+}
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+//Foo is for ...
+type struct Foo{
+}
+			</pre>
+
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L761">github.com</a>
+				</li>
+			</ul>]]>
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -61,8 +52,27 @@
 		<name>don't use ALL_CAPS in Go names; use CamelCase</name>
 		<internalKey>golint:AllCaps</internalKey>
 		<description>
-			don't use ALL_CAPS in Go names; use CamelCase.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
+		<![CDATA[<p>don't use ALL_CAPS in Go names; use CamelCase.</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+Foo_BAR := 1
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+fooBar := 1
+FooBar:=1//or if the var is exported
+			</pre>
+
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L517">github.com</a>
+				</li>
+				<li>
+					<a href="https://golang.org/doc/effective_go.html">golang.org</a>
+				</li>
+			</ul>]]>
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -79,8 +89,25 @@
 		<name>don't use an underscore in package name</name>
 		<internalKey>golint:UnderscoreInPackageName</internalKey>
 		<description>
-			don't use an underscore in package name.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
+			<![CDATA[<p>don't use an underscore in package name.</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+package foo_bar
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+package foobar
+			</pre>
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L517">github.com</a>
+				</li>
+				<li>
+					<a href="https://golang.org/doc/effective_go.html">golang.org</a>
+				</li>
+			</ul>]]>
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -97,8 +124,30 @@
 		<name>don't use leading k in Go names</name>
 		<internalKey>golint:LeadingK</internalKey>
 		<description>
-			don't use leading k in Go names; kFoo or kfoo should be Foo or foo.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
+		<![CDATA[<p>don't use leading k in Go names; kFoo or kfoo should be
+				Foo or foo
+			</p>
+
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+kFoo:=1
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+Foo:=1
+foo:=1
+			</pre>
+
+
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L517">github.com</a>
+				</li>
+				<li>
+					<a href="https://golang.org/doc/effective_go.html">golang.org</a>
+				</li>
+			</ul>]]>
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -115,8 +164,32 @@
 		<name>don't use underscores in Go names</name>
 		<internalKey>golint:UnderscoreInGoName</internalKey>
 		<description>
-			don't use underscores in Go names.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L517 and https://golang.org/doc/effective_go.html
+			<![CDATA[	<p>don't use underscores in Go names.</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+foo_bar:=1
+type struct foo_bar{
+}
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+fooBar:=1
+//Foobar
+type struct FooBar{
+}
+//fooBar
+type struct fooBar{
+}
+			</pre>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L517">github.com</a>
+				</li>
+				<li>
+					<a href="https://golang.org/doc/effective_go.html">golang.org</a>
+				</li>
+			</ul>]]>
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -134,8 +207,31 @@
 		</name>
 		<internalKey>golint:ErrorLastReturn</internalKey>
 		<description>
-			error should be the last type when returning multiple items.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1263
+		<![CDATA[<p>error should be the last type when returning multiple
+				items.
+			</p>
+
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+func foo(a int)(error,int){
+
+}
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+func foo(a int)(int,error){
+
+}
+			</pre>
+
+
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L1263">github.com</a>
+				</li>
+			</ul>]]>
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -150,12 +246,35 @@
 	<rule>
 		<key>golint:ErrorEndString</key>
 		<name>error strings should not be capitalized or end with punctuation
-			or a newline</name>
+			or a newline
+		</name>
 		<internalKey>golint:ErrorEndString</internalKey>
 		<description>
-			error strings should not be capitalized or end with punctuation or a
+			<![CDATA[error strings should not be capitalized or end with
+			punctuation or a
 			newline.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1169
+
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+fmt.Errorf("Something bad")
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+fmt.Errorf("something bad")
+			</pre>
+
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L1169">github.com</a>
+				</li>
+				<li>
+					<a
+						href="https://github.com/golang/go/wiki/CodeReviewComments#error-strings">Code review</a>
+				</li>
+			</ul>]]>
+
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -172,9 +291,32 @@
 		<name>error var err should have name of the form errFoo</name>
 		<internalKey>golint:ErrorVarName</internalKey>
 		<description>
-			error var err should have name of the form errFoo.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1115
+			<![CDATA[<p>error var err should have name of the form errFoo.</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+file, err := os.Open("file.go") // For read access.
+if err != nil {
+log.Fatal(err)
+}
+
+
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+file, errCreateFile := os.Open("file.go") // For read access.
+if errCreateFile != nil {
+	log.Fatal(err)
+}
+			</pre>
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L1115">Golint at github.com</a>
+				</li>
+			</ul>]]>
+
 		</description>
+		<descriptionFormat>HTML</descriptionFormat>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
@@ -190,8 +332,36 @@
 		<name>exported function returns unexported type</name>
 		<internalKey>golint:AnnoyingUseExportedType</internalKey>
 		<description>
-			exported function returns unexported type, which can be annoying to use.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1287
+			<![CDATA[
+				<p>exported function returns unexported type, which can be
+			annoying to use.</p>
+			
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+				
+				
+func GetMyInstance *unexportedType(){
+		....
+				
+}
+
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+func GetMyInstance *ExportedType(){
+		 ....
+}
+			</pre>
+			
+			
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L1287">Golint at github.com</a>
+				</li>
+			</ul>
+			
+			]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -205,11 +375,45 @@
 
 	<rule>
 		<key>golint:IfBlockReturn</key>
-		<name>if block ends with a return statement, so drop this else and outdent its block</name>
+		<name>if block ends with a return statement, so drop this else and
+			outdent its block
+		</name>
 		<internalKey>golint:IfBlockReturn</internalKey>
 		<description>
-			if block ends with a return statement, so drop this else and outdent its block.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1007
+		<![CDATA[
+			<p>if block ends with a return statement, so drop this else
+			and outdent its block.</p>
+			
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+func get(i int) int {
+    if f := i * 2; f == 6 {
+        return f
+    } else {
+        return f * 3
+    }
+}
+
+
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+func get(i int) int {
+    f := i * 2
+    if f == 6 {
+        return f
+    }
+    return f * 3
+}
+			</pre>
+			
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L1007">Golint at github.com</a>
+				</li>
+			</ul>
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -226,8 +430,30 @@
 		<name>package comment</name>
 		<internalKey>golint:PackageCommentForm</internalKey>
 		<description>
-			package comment should be of the form \"NamePackage...\".
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L352
+		<![CDATA[
+		
+			<p>package comment should be of the form "NamePackage...".</p>
+			
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+//the package main is the entry point
+package main
+
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+//main is the entry point 
+package main
+			</pre>
+			
+			
+			<h2>See</h2>
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L352">Golint at github.com</a>
+				</li>
+			</ul>
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -244,8 +470,14 @@
 		<name>package not have leading space</name>
 		<internalKey>golint:PackageCommentSpace</internalKey>
 		<description>
-			package comment should not have leading space.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L352
+		<![CDATA[
+			<p>package comment should not have leading space.</p>
+			
+			<h2>See</h2>
+			<ul>
+				<li><a href="https://github.com/golang/lint/blob/master/lint.go#L352">Golint at github.com</a></li>
+			</ul>		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -263,8 +495,10 @@
 		<name>receiver name should be consistent</name>
 		<internalKey>golint:ReceiverNameConsistent</internalKey>
 		<description>
-			receiver name %s should be consistent with previous receiver name %s for %s.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1202
+			receiver name %s should be consistent with previous
+			receiver name %s for %s.
+			Additional information can be found at
+			https://github.com/golang/lint/blob/master/lint.go#L1202
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -281,8 +515,29 @@
 		<name>receiver name should be a reflection</name>
 		<internalKey>golint:ReceiverNameReflection</internalKey>
 		<description>
-			receiver name should be a reflection of its identity; don't use generic names such as \"this\" or \"self\"".
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1202
+		
+			<![CDATA[
+				<p>receiver name should be a reflection of its identity;
+			don't use generic names such as "this" or "self"</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+func(this rect) area() float64(){
+	...
+}
+
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+func(r rect) area() float64(){
+	...
+}
+			</pre>
+			<h2>See</h2>
+			<ul>
+				<li><a href="https://github.com/golang/lint/blob/master/lint.go#L1202">Golint at github.com</a></li>
+			</ul>
+			
+			]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -299,8 +554,15 @@
 		<name>receiver name should not be an underscore</name>
 		<internalKey>golint:ReceiverNameNotUnderscore</internalKey>
 		<description>
-			receiver name should not be an underscore.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1202
+			<![CDATA[
+			<p>receiver name should not be an underscore.</p>
+			<h2>See</h2>
+				<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L1202">Golint at github.com</a>
+				</li>
+				</ul>
+			]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -317,8 +579,13 @@
 		<name>drop assignment</name>
 		<internalKey>golint:DropAssignment</internalKey>
 		<description>
-			should drop assignment; it is the zero value.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L929
+		<![CDATA[
+		<p>should drop assignment; it is the zero value.</p>
+		<h2>See</h2>
+		<ul>
+			<li><a href="https://github.com/golang/lint/blob/master/lint.go#L929">Golint at github.com</a></li>
+		</ul>
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -333,9 +600,17 @@
 		<key>golint:HavePackageComment</key>
 		<name>Should have a package comment</name>
 		<internalKey>golint:HavePackageComment</internalKey>
-		<description>
-			should have a package comment, unless it's in another file for this package.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L352
+		<description><![CDATA[
+			<p>should have a package comment, unless it's in another
+			file for this package.</p>
+			<h2>See</h2>
+			<ul>
+			<li><a href="https://github.com/golang/lint/blob/master/lint.go#L352">GoLint at githubcom/a></li>
+			</ul>
+			
+		]]>
+			
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -350,9 +625,17 @@
 		<key>golint:NotUseBasicType</key>
 		<name>should not use basic type</name>
 		<internalKey>golint:NotUseBasicType</internalKey>
-		<description>
-			should not use basic type (https://tour.golang.org/basics/11) as key in context.WithValue.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1400
+		<description><![CDATA[
+			<p> should not use basic type as key in context.WithValue.</p>
+			<h2>See</h2>
+			<ul>
+			<li>
+			<a href="https://github.com/golang/lint/blob/master/lint.go#L1400">Golint at github.com</a>
+			</li>
+			</ul>
+		]]>
+			Additional information can be found at
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -368,9 +651,16 @@
 		<key>golint:NotUseDotImport</key>
 		<name>should not use dot imports</name>
 		<internalKey>golint:NotUseDotImport</internalKey>
-		<description>
-			should not use dot imports.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L440
+		<description><![CDATA[
+		<p>should not use dot imports.</p>
+		<h2>See</h2>
+			<ul>
+			<li>
+			<a href="https://github.com/golang/lint/blob/master/lint.go#L440">Golint at github.com</a>
+			</li>
+			</ul>
+		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -386,9 +676,17 @@
 		<key>golint:Omit2ndValueFromRange</key>
 		<name>should omit 2nd value from range</name>
 		<internalKey>golint:Omit2ndValueFromRange</internalKey>
-		<description>
-			should omit 2nd value from range; this loop is equivalent to `for %s %s range ...`.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1051
+		<description><![CDATA[
+			<p>should omit 2nd value from range; this loop is equivalent
+			to `for %s %s range ...`.</p>
+			<h2>See</h2>
+			<ul>
+			<li>
+			<a href="https://github.com/golang/lint/blob/master/lint.go#L1051">Golint at github.com</a>
+			</li>
+			</ul>
+		]]>
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -404,9 +702,19 @@
 		<key>golint:OmitType</key>
 		<name>should omit type %s from declaration of var %s</name>
 		<internalKey>golint:OmitType</internalKey>
-		<description>
-	    should omit type %s from declaration of var %s; it will be inferred from the right-hand side.
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L929
+		<description><![CDATA[
+			<p>should omit type %s from declaration of var %s; it will
+			be inferred from
+			the right-hand side.</p>
+			<h2>See</h2>
+			<ul>
+			<li>
+			<a href="https://github.com/golang/lint/blob/master/lint.go#L929">Golint at github.com</a>
+			</li>
+			</ul>
+		
+		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -420,9 +728,19 @@
 		<key>golint:ReplaceLintIncDec</key>
 		<name>should replace</name>
 		<internalKey>golint:ReplaceLintIncDec</internalKey>
-		<description>
-	  should replace x=x+1(respectively x=x-1) with x++ (respectively x--).
-		Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1235
+		<description><![CDATA[
+		
+		<p>
+			should replace x=x+1(respectively x=x-1) with x++
+			(respectively x--).
+		</p>
+		<h2>See</h2>
+		<ul>
+			<li>
+			<a href="https://github.com/golang/lint/blob/master/lint.go#L1235">Golint at github.com</a>
+			</li>
+			</ul>
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -437,11 +755,15 @@
 		<key>golint:ReplaceSprintf</key>
 		<name>should replace Sprintf by Errorf</name>
 		<internalKey>golint:ReplaceSprintf</internalKey>
-		<description>
-		should replace %s(fmt.Sprintf(...)) with %s.Errorf(...).
-
-		Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1077
-
+		<description><![CDATA[
+			<p>should replace %s(fmt.Sprintf(...)) with %s.Errorf(...).</p>
+			<h2>See</h2>
+			<ul>
+			<li>
+			<a href="https://github.com/golang/lint/blob/master/lint.go#L1077">Golint at github.com</a>
+			</li>
+			</ul>
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -456,9 +778,22 @@
 		<key>golint:Initialisms</key>
 		<name>Initialisms</name>
 		<internalKey>golint:Initialisms</internalKey>
-		<description>
-			Words in names that are initialisms or acronyms (e.g. "URL" or "NATO") have a consistent case. For example, "URL" should appear as "URL" or "url" (as in "urlPony", or "URLPony"), never as "Url". Here's an example: ServeHTTP not ServeHttp.
-			Additional information can be found at https://github.com/golang/go/wiki/CodeReviewComments#initialisms
+		<description><![CDATA[
+			<p>
+				Words in names that are initialisms or acronyms (e.g.
+			"URL" or "NATO") have a consistent case. For example, "URL" should
+			appear as "URL" or "url" (as in "urlPony", or "URLPony"), never as
+			"Url". Here's an example: ServeHTTP not ServeHttp.
+			
+			</p>
+			<h2>See</h2>
+			<ul>
+			<li>
+			<a href="https://github.com/golang/go/wiki/CodeReviewComments#initialisms">Code review at github.com</a>
+			</li>
+			</ul>
+		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -474,9 +809,19 @@
 		<key>golint:PackageNames</key>
 		<name>Package names</name>
 		<internalKey>golint:PackageNames</internalKey>
-		<description>
-			All references to names in your package will be done using the package name, so you can omit that name from the identifiers.
-			Additional information can be found at https://github.com/golang/go/wiki/CodeReviewComments#package-names and https://github.com/golang/lint/blob/master/lint.go#L887
+		<description><![CDATA[
+		<p>All references to names in your package will be done
+			using the package name, so you can omit that name from the
+			identifiers.</p>
+		<h2>See</h2>
+		<ul>
+			<li>
+				<a href="https://github.com/golang/go/wiki/CodeReviewComments#package-names" >Code review at github.com</a>
+				<a href="https://github.com/golang/lint/blob/master/lint.go#L887" >Golint at github.com</a>
+			</li>
+		</ul>
+		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -492,9 +837,22 @@
 		<key>golint:BlankImport</key>
 		<name>a non-main package has blank imports</name>
 		<internalKey>golint:BlankImport</internalKey>
-		<description>
-			a blank import should be only in a main or test package, or have a comment justifying it
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L408 and https://github.com/golang/go/wiki/CodeReviewComments#package-comments
+		<description><![CDATA[
+		<p>
+			a blank import should be only in a main or test package,
+			or have a comment justifying it
+		</p>
+		
+		<h2>See</h2>
+		<ul>
+			<li>
+				<a href="https://github.com/golang/lint/blob/master/lint.go#L408">Golint at github.com</a>
+				<a href="https://github.com/golang/go/wiki/CodeReviewComments#package-comments">Code review at github.com</a>
+			</li>
+		</ul>
+		
+		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -510,9 +868,20 @@
 		<key>golint:CommentExportedType</key>
 		<name>comment on exported type</name>
 		<internalKey>golint:CommentExportedType</internalKey>
-		<description>
-			comment on exported type should be of the form \"Type ...\" (with optional leading article)
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L761 and https://github.com/golang/go/wiki/CodeReviewComments#doc-comments
+		<description><![CDATA[
+			<p>comment on exported type should be of the form "Type
+			..." (with optional leading article)
+			</p>	
+			
+				<h2>See</h2>
+		<ul>
+			<li>
+				<a href="https://github.com/golang/lint/blob/master/lint.go#L761">Golint at github.com</a>
+				<a href="https://github.com/golang/go/wiki/CodeReviewComments#doc-comments">Code review at github.com</a>
+			</li>
+		</ul>
+		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -530,8 +899,20 @@
 		<name>context.Context should be the first argument</name>
 		<internalKey>golint:ContextContextFirstArgs</internalKey>
 		<description>
-			context.Context should be the first parameter of a function
-					Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1426 and https://golang.org/pkg/context/
+		
+			<![CDATA[
+				<p>context.Context should be the first parameter of a
+			function</p>
+			
+				<h2>See</h2>
+		<ul>
+			<li>
+				<a href="https://github.com/golang/lint/blob/master/lint.go#L1426">Golint at github.com</a>
+				<a href="https://golang.org/pkg/context/">Golang</a>
+			</li>
+		</ul>
+				
+			]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -547,9 +928,31 @@
 		<key>golint:ExportedHaveComment</key>
 		<name>exported * should have comment</name>
 		<internalKey>golint:ExportedHaveComment</internalKey>
-		<description>
-			exported %s %s should have comment or be unexported
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L794
+		<description><![CDATA[
+			<p>exported [type|var|method|struct] should have comment or be unexported</p>
+						<h2>Noncompliant Code Example</h2>
+			<pre>
+type Atype struct{
+}
+			
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+//Atype ....
+type Atype struct{
+}
+//or
+type aType struct{
+}
+			
+			
+			<h2>See</h2>
+		<ul>
+			<li>
+				<a href="https://github.com/golang/lint/blob/master/lint.go#L794">Golint at github.com</a>
+			</li>
+		</ul>
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -565,9 +968,35 @@
 		<key>golint:ExportedHaveComment2</key>
 		<name>exported * should have comment</name>
 		<internalKey>golint:ExportedHaveComment2</internalKey>
-		<description>
+		<description><![CDATA[
+			<p>exported type should have comment or be unexported</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+type Atype struct{
+}
+			
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+//Atype ....
+type Atype struct{
+}
+//or
+type aType struct{
+}
+			</pre>
+			
+			<h2>See</h2>
+			
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L834">Golint at github.com</a>
+				</li>
+			</ul>
+		]]>
 			exported %s %s should have comment or be unexported
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L834
+			Additional information can be found at
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -583,9 +1012,17 @@
 		<key>golint:ExportedDeclaration</key>
 		<name>exported * should have its own declaration</name>
 		<internalKey>ExportedDeclaration</internalKey>
-		<description>
-			exported %s %s should have its own declaration
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L834
+		<description><![CDATA[
+			<p>exported %s %s should have its own declaration</p>
+				<h2>See</h2>
+			
+			<ul>
+				<li>
+					<a href="https://github.com/golang/lint/blob/master/lint.go#L834">Golint at github.com</a>
+				</li>
+			</ul>
+		
+		]]>
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -602,9 +1039,26 @@
 		<key>golint:SpecificSuffix</key>
 		<name>don't use unit-specific suffix</name>
 		<internalKey>golint:SpecificSuffix</internalKey>
-		<description>
-       var %s is of type %v; don't use unit-specific suffix %q
-			Additional information can be found at https://github.com/golang/lint/blob/master/lint.go#L1343
+		<description><![CDATA[<p>var fooSec is of type time.Duration; don't use unit-specific suffix Sec</p>
+			
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+seconds := 10
+timeSec:=time.Duration(seconds)*time.Second
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+seconds := 10
+time:=time.Duration(seconds)*time.Second
+			</pre>
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://github.com/golang/lint/blob/master/lint.go#L1343">github.com</a>
+			</li>
+			</ul>
+				]]>
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -615,13 +1069,13 @@
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
-	
+
 	<rule>
 		<key>gocyclo:CyclomaticComplexity</key>
 		<name>Cyclomatic complexity is hight</name>
 		<internalKey>gocyclo:CyclomaticComplexity</internalKey>
-		<description>
-      		The cyclomatic complexity is greater than 10
+		<description><![CDATA[<p>The cyclomatic complexity is greater than 10</p>]]>
+
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -635,8 +1089,8 @@
 		<key>errcheck:ValueNotChecked</key>
 		<name>Return value not checked</name>
 		<internalKey>errcheck:ValueNotChecked</internalKey>
-		<description>
-      		The return  value of the function is not checked
+		<description><![CDATA[<p>The return value of the function is not checked</p>]]>
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -650,8 +1104,8 @@
 		<key>unconvert:UnnecessaryConversion</key>
 		<name>Unnecessary Conversion</name>
 		<internalKey>unconvert:UnnecessaryConversion</internalKey>
-		<description>
-      		Unnecessary Conversion
+		<description><![CDATA[<p>Unnecessary Conversion</p>]]>
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -665,8 +1119,8 @@
 		<key>structcheck:UnusedStructField</key>
 		<name>unused struct field</name>
 		<internalKey>structcheck:UnusedStructField</internalKey>
-		<description>
-      		unused struct field
+		<description><![CDATA[<p>unused struct field</p>]]>
+			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
@@ -677,7 +1131,26 @@
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
-	
-	
-	
+
+	<rule>
+		<key>gosimple:ChannelInsteadSelect</key>
+		<name>Channel instead select</name>
+		<internalKey>gosimple:ChannelInsteadSelect</internalKey>
+		<description><![CDATA[
+			<p>Should use a simple channel send/receive instead of select with a
+			single case</p>
+		]]>
+			
+		</description>
+
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>simple</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
+	</rule>
+
+
 </go-rules>
