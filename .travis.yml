@@ -1,3 +1,5 @@
+dist: trusty
+language: java
 addons:
   sonarqube:
     organization: "thibaultfalque-github" # the key of the org you chose at step #3
