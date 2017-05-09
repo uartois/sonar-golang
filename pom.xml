@@ -101,6 +101,9 @@
 			<artifactId>jbehave-junit-runner</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+
+
+
 		<!-- https://mvnrepository.com/artifact/javax.xml.stream/stax-api -->
 
 
@@ -179,7 +182,11 @@
 					</execution>
 				</executions>
 			</plugin>
-
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
 		</plugins>
 	</build>
 
