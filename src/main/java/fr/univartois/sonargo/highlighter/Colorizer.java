@@ -29,9 +29,9 @@ public class Colorizer {
 		final File f = i.file();
 		LOGGER.info("Color the file: " + f.getPath());
 		highlighting.onFile(i);
-		try {
-			final BufferedReader br = new BufferedReader(
-					new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8));
+		try (final BufferedReader br = new BufferedReader(
+				new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
+
 			String line;
 			int lineNumber = 1;
 			while ((line = br.readLine()) != null) {
