@@ -1,13 +1,15 @@
 package fr.univartois.sonargo.highlighter;
 
 public class GoKeyword {
-	public static final String[] KEYWORD = { "break", "default", "func", "interface", "select", "case", "defer", "go",
-			"map", "struct", "chan", "else", "goto", "package", "switch", "const", "fallthrough", "if", "range", "type",
-			"continue", "for", "import", "return", "var" };
+
+	public enum Keyword {
+		BREAK, DEFAULT, FUNC, INTERFACE, SELECT, CASE, DEFER, GO, MAP, STRUCT, CHAN, ELSE, GOTO, PACKAGE, SWITCH, CONST, FALLTHROUGH, IF, RANGE, TYPE, CONTINUE, FOR, IMPORT, RETURN, VAR
+	}
 
 	public static final String COMMENT_SYMBOL = "//";
 
-	public static final String[] TYPE = { "uint8", "uint16", "uint32", "uint64", "int", "int8", "int16", "int32",
-			"int64", "float32", "float64", "complex64", "complex128", "byte", "rune", "bool", "uintptr", "string" };
+	public enum Type {
+		UINT8, UINT16, UINT32, UINT64, INT, INT8, INT16, INT32, INT64, FLOAT32, FLOAT64, COMPLEX64, COMPLEX128, BYTE, RUNE, BOOL, UINTPTR, STRING
+	}
 
 }

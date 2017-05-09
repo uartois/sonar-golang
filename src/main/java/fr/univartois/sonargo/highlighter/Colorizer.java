@@ -78,7 +78,8 @@ public class Colorizer {
 	}
 
 	private void highlightingKeyWord(String line, int lineNumber) {
-		for (final String key : GoKeyword.KEYWORD) {
+		for (final GoKeyword.Keyword k : GoKeyword.Keyword.values()) {
+			final String key = k.name();
 			int index = 0;
 			while ((index = line.indexOf(key, index)) != -1 && !isAString(line, index)) {
 
@@ -92,13 +93,13 @@ public class Colorizer {
 	}
 
 	private boolean isAKeyWord(String line, int index) {
-		for (final String key : GoKeyword.KEYWORD) {
-
-			final int indexEnd = index + key.length() >= line.length() ? line.length() : index + key.length();
+		for (final GoKeyword.Keyword key : GoKeyword.Keyword.values()) {
+			final String keyword = key.name().toLowerCase();
+			final int indexEnd = index + keyword.length() >= line.length() ? line.length() : index + keyword.length();
 
 			LOGGER.debug("substring " + line.substring(index, indexEnd));
 
-			if (line.substring(index, indexEnd).indexOf(key) != -1) {
+			if (line.substring(index, indexEnd).indexOf(keyword) != -1) {
 				return true;
 			}
 		}
@@ -106,16 +107,16 @@ public class Colorizer {
 	}
 
 	private void highlightingType(String line, int lineNumber) {
-		for (final String key : GoKeyword.TYPE) {
+		for (final GoKeyword.Type t : GoKeyword.Type.values()) {
 			final int index;
+			final String type = t.name().toLowerCase();
+			LOGGER.debug(type);
 
-			LOGGER.debug(key);
-
-			if ((index = line.indexOf(key)) != -1 && !isAKeyWord(line, index)) {
+			if ((index = line.indexOf(type)) != -1 && !isAKeyWord(line, index)) {
 
 				LOGGER.debug("Line number " + lineNumber + " index start: " + index + " index end: "
-						+ (index + key.length()));
-				highlighting.highlight(lineNumber, index, lineNumber, index + key.length(), TypeOfText.KEYWORD);
+						+ (index + type.length()));
+				highlighting.highlight(lineNumber, index, lineNumber, index + type.length(), TypeOfText.KEYWORD_LIGHT);
 
 			}
 
