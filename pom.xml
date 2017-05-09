@@ -159,25 +159,25 @@
 				</executions>
 			</plugin>
 			<plugin>
-            <groupId>org.jbehave</groupId>
-            <artifactId>jbehave-maven-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>run-stories-as-embeddables</id>
-                    <phase>integration-test</phase>
-                    <goals>
-                        <goal>run-stories-as-embeddables</goal>
-                    </goals>
-                    <configuration>
-                        <scope>test</scope>
-                        <includes>
-                            <include>**/*Scenarios.java</include>
-                        </includes>
-                        <ignoreFailureInStories>true</ignoreFailureInStories>
-                        <ignoreFailureInView>false</ignoreFailureInView>
-                    </configuration>
-                </execution>
-              </executions>  
+				<groupId>org.jbehave</groupId>
+				<artifactId>jbehave-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>run-stories-as-embeddables</id>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>run-stories-as-embeddables</goal>
+						</goals>
+						<configuration>
+							<scope>test</scope>
+							<includes>
+								<include>**/*Scenarios.java</include>
+							</includes>
+							<ignoreFailureInStories>true</ignoreFailureInStories>
+							<ignoreFailureInView>false</ignoreFailureInView>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
