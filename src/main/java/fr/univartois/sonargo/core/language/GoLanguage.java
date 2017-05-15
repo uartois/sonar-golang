@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.language;
+package fr.univartois.sonargo.core.language;
 
 import org.apache.commons.lang3.StringUtils;
 import org.sonar.api.resources.AbstractLanguage;

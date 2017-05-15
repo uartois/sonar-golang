@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import fr.univartois.sonargo.rules.GoError;
+import fr.univartois.sonargo.core.rules.GoError;
 
 public class GoErrorTest {
 

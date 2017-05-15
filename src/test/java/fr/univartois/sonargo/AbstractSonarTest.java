@@ -3,17 +3,17 @@ package fr.univartois.sonargo;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 
-import fr.univartois.sonargo.settings.GoProperties;
+import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class AbstractSonarTest {
 	protected DefaultFileSystem fileSystem;
 	protected SensorContextTester testerContext;
 
-	public AbstractSonarTest() {
-		this(TestUtils.getDefaultFileSystem());
+	public void init() {
+		init(TestUtils.getDefaultFileSystem());
 	}
 
-	public AbstractSonarTest(DefaultFileSystem fileSystem) {
+	public void init(DefaultFileSystem fileSystem) {
 		this.fileSystem = fileSystem;
 		testerContext = SensorContextTester.create(fileSystem.baseDir());
 

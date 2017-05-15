@@ -10,7 +10,7 @@ import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 
-import fr.univartois.sonargo.language.GoLanguage;
+import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class HighlighterSensor implements Sensor {
 

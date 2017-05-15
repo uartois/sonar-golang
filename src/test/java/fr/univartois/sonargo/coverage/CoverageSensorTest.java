@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.utils.log.Logger;
@@ -17,22 +18,24 @@ import org.sonar.api.utils.log.Loggers;
 
 import fr.univartois.sonargo.AbstractSonarTest;
 import fr.univartois.sonargo.TestUtils;
-import fr.univartois.sonargo.language.GoLanguage;
+import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class CoverageSensorTest extends AbstractSonarTest {
 	private static final Logger LOGGER = Loggers.get(CoverageSensorTest.class);
 
-	public CoverageSensorTest() {
-		super(TestUtils.getCoverageBaseDir());
+	@Before
+	@Override
+	public void init() {
+		init(TestUtils.getCoverageBaseDir());
 	}
 
 	@Test
 	public void testCreateStream() {
-		CoverageSensor sensor = new CoverageSensor();
+		final CoverageSensor sensor = new CoverageSensor();
 		try (Stream<Path> paths = sensor.createStream(testerContext)) {
 			assertEquals(20, paths.count());
 
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -40,7 +43,7 @@ public class CoverageSensorTest extends AbstractSonarTest {
 
 	@Test
 	public void testExecution() {
-		CoverageSensor sensor = new CoverageSensor();
+		final CoverageSensor sensor = new CoverageSensor();
 
 		try {
 			BufferedReader reader = new BufferedReader(
@@ -82,10 +85,10 @@ public class CoverageSensorTest extends AbstractSonarTest {
 
 			LOGGER.info(testerContext.measures("myProjectKey").toString());
 
-		} catch (FileNotFoundException e) {
+		} catch (final FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

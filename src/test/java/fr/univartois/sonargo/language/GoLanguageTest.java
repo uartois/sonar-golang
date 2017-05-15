@@ -29,7 +29,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import fr.univartois.sonargo.language.GoLanguage;
+import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class GoLanguageTest {
 

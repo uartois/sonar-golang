@@ -28,7 +28,7 @@ import java.util.List;
 import org.junit.Test;
 import org.sonar.api.config.PropertyDefinition;
 
-import fr.univartois.sonargo.settings.GoProperties;
+import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class GoPropertiesTest {
 

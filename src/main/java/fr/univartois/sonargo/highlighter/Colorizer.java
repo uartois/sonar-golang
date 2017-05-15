@@ -14,6 +14,8 @@ import org.sonar.api.batch.sensor.highlighting.TypeOfText;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
+import fr.univartois.sonargo.core.language.GoLexer;
+
 public class Colorizer {
 
 	private static final Logger LOGGER = Loggers.get(Colorizer.class);
@@ -78,7 +80,7 @@ public class Colorizer {
 	}
 
 	private void highlightingKeyWord(String line, int lineNumber) {
-		for (final GoKeyword.Keyword k : GoKeyword.Keyword.values()) {
+		for (final GoLexer.Keyword k : GoLexer.Keyword.values()) {
 			final String key = k.name();
 			int index = 0;
 			while ((index = line.indexOf(key, index)) != -1 && !isAString(line, index)) {
@@ -93,7 +95,7 @@ public class Colorizer {
 	}
 
 	private boolean isAKeyWord(String line, int index) {
-		for (final GoKeyword.Keyword key : GoKeyword.Keyword.values()) {
+		for (final GoLexer.Keyword key : GoLexer.Keyword.values()) {
 			final String keyword = key.name().toLowerCase();
 			final int indexEnd = index + keyword.length() >= line.length() ? line.length() : index + keyword.length();
 
@@ -106,32 +108,32 @@ public class Colorizer {
 		return false;
 	}
 
-	private void highlightingType(String line, int lineNumber) {
-		for (final GoKeyword.Type t : GoKeyword.Type.values()) {
-			final int index;
-			final String type = t.name().toLowerCase();
-			LOGGER.debug(type);
-
-			if ((index = line.indexOf(type)) != -1 && !isAKeyWord(line, index)) {
-
-				LOGGER.debug("Line number " + lineNumber + " index start: " + index + " index end: "
-						+ (index + type.length()));
-				highlighting.highlight(lineNumber, index, lineNumber, index + type.length(), TypeOfText.KEYWORD_LIGHT);
-
-			}
-
-			LOGGER.debug("position " + index + " line " + line);
-
-		}
-	}
+	/*
+	 * private void highlightingType(String line, int lineNumber) { for (final
+	 * GoLexer.Keyword t : GoLexer.Keyword.values()) { final int index; final
+	 * String type = t.name().toLowerCase(); LOGGER.debug(type);
+	 * 
+	 * if ((index = line.indexOf(type)) != -1 && !isAKeyWord(line, index)) {
+	 * 
+	 * LOGGER.debug("Line number " + lineNumber + " index start: " + index +
+	 * " index end: " + (index + type.length()));
+	 * highlighting.highlight(lineNumber, index, lineNumber, index +
+	 * type.length(), TypeOfText.KEYWORD_LIGHT);
+	 * 
+	 * }
+	 * 
+	 * LOGGER.debug("position " + index + " line " + line);
+	 * 
+	 * } }
+	 */
 
 	private void searchAndColor(String s, int lineNumber) {
-		if (s.trim().startsWith(GoKeyword.COMMENT_SYMBOL)) {
+		if (s.trim().startsWith(GoLexer.COMMENT_SYMBOL)) {
 			highlightingComment(lineNumber, s.length());
 		} else {
 			highlightingStringInLine(s, lineNumber);
 			highlightingKeyWord(s, lineNumber);
-			highlightingType(s, lineNumber);
+			// highlightingType(s, lineNumber);
 		}
 	}
 

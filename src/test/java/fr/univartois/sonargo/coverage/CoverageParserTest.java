@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -18,8 +19,10 @@ import fr.univartois.sonargo.TestUtils;
 public class CoverageParserTest extends AbstractSonarTest {
 	private CoverageParser coverage;
 
-	public CoverageParserTest() {
-		super(TestUtils.getCoverageBaseDir());
+	@Override
+	@Before
+	public void init() {
+		init(TestUtils.getCoverageBaseDir());
 	}
 
 	@Test

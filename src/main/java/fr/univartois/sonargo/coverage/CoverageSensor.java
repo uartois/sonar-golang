@@ -38,8 +38,8 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.xml.sax.SAXException;
 
-import fr.univartois.sonargo.language.GoLanguage;
-import fr.univartois.sonargo.settings.GoProperties;
+import fr.univartois.sonargo.core.language.GoLanguage;
+import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class CoverageSensor implements Sensor {
 

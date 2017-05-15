@@ -19,10 +19,10 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.language;
+package fr.univartois.sonargo.core.language;
 
-import static fr.univartois.sonargo.rules.GoLintRulesDefinition.REPO_KEY;
-import static fr.univartois.sonargo.rules.GoLintRulesDefinition.REPO_NAME;
+import static fr.univartois.sonargo.core.rules.GoLintRulesDefinition.REPO_KEY;
+import static fr.univartois.sonargo.core.rules.GoLintRulesDefinition.REPO_NAME;
 
 import java.io.IOException;
 import java.util.Map.Entry;
@@ -35,7 +35,7 @@ import org.sonar.api.utils.ValidationMessages;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import fr.univartois.sonargo.rules.GoLintRulesDefinition;
+import fr.univartois.sonargo.core.rules.GoLintRulesDefinition;
 
 /**
  * The class define all rules that will detect by the sensor, it's not the same

@@ -34,7 +34,7 @@ import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.rules.ActiveRule;
 import org.sonar.api.utils.ValidationMessages;
 
-import fr.univartois.sonargo.language.GoQualityProfile;
+import fr.univartois.sonargo.core.language.GoQualityProfile;
 
 public class GoQualityProfileTest {
 	private GoQualityProfile goprofile = new GoQualityProfile();

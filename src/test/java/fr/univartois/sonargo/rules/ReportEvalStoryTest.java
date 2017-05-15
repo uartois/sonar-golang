@@ -28,6 +28,9 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
+import fr.univartois.sonargo.core.rules.GoError;
+import fr.univartois.sonargo.core.rules.GoKeyRule;
+
 public class ReportEvalStoryTest {
 	private String eval;
 

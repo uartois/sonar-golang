@@ -36,7 +36,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import fr.univartois.sonargo.Parser;
+import fr.univartois.sonargo.core.Parser;
 
 public class CoverageParser implements Parser {
 

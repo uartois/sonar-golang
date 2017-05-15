@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.settings;
+package fr.univartois.sonargo.core.settings;
 
 import static java.util.Arrays.asList;
 

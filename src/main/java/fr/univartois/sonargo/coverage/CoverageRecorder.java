@@ -33,7 +33,7 @@ import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
-import fr.univartois.sonargo.language.GoLanguage;
+import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class CoverageRecorder {
 	private static final Logger LOGGER = Loggers.get(CoverageRecorder.class);

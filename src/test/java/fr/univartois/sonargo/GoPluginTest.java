@@ -30,15 +30,15 @@ import org.sonar.api.internal.SonarRuntimeImpl;
 import org.sonar.api.utils.Version;
 
 public class GoPluginTest {
-	private SonarGoPlugin javaPlugin = new SonarGoPlugin();
+	private final SonarGoPlugin javaPlugin = new SonarGoPlugin();
 	private static final Version VERSION_6_0 = Version.create(6, 0);
 
 	@Test
 	public void test() {
-		SonarRuntime runtime = SonarRuntimeImpl.forSonarLint(VERSION_6_0);
-		Plugin.Context context = new Plugin.Context(runtime);
+		final SonarRuntime runtime = SonarRuntimeImpl.forSonarLint(VERSION_6_0);
+		final Plugin.Context context = new Plugin.Context(runtime);
 		javaPlugin.define(context);
-		assertEquals(9, context.getExtensions().size());
+		assertEquals(10, context.getExtensions().size());
 
 	}
 

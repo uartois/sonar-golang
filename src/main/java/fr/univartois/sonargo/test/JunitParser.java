@@ -36,32 +36,31 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import fr.univartois.sonargo.Parser;
+import fr.univartois.sonargo.core.Parser;
 
 public class JunitParser implements Parser {
 	private static final String TEST_SUITE_TAG = "testsuite";
 	private static final String TEST_SKIPPED_TAG = "skipped";
-	private static final String TEST_CASE_TAG = "testcase";
 	private static final String NB_TOTAL_TEST_ATTR = "tests";
 	private static final String NB_TEST_FAILURE_ATRR = "failures";
 	private static final String NAME_TEST_ATTR = "name";
 	private static final String TIME_TEST_ATTR = "time";
 
-	private List<TestSuite> listTestSuite = new ArrayList<>();
+	private final List<TestSuite> listTestSuite = new ArrayList<>();
 
 	@Override
 	public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db = dbf.newDocumentBuilder();
-		Document doc = db.parse(new File(reportPath));
+		final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		final DocumentBuilder db = dbf.newDocumentBuilder();
+		final Document doc = db.parse(new File(reportPath));
 
 		doc.getDocumentElement().normalize();
 
-		NodeList testSuiteList = doc.getElementsByTagName(TEST_SUITE_TAG);
+		final NodeList testSuiteList = doc.getElementsByTagName(TEST_SUITE_TAG);
 		for (int i = 0; i < testSuiteList.getLength(); i++) {
-			Node nNode = testSuiteList.item(i);
+			final Node nNode = testSuiteList.item(i);
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-				Element eElement = (Element) nNode;
+				final Element eElement = (Element) nNode;
 
 				listTestSuite.add(new TestSuite(Integer.parseInt(eElement.getAttribute(NB_TOTAL_TEST_ATTR)),
 						Integer.parseInt(eElement.getAttribute(NB_TEST_FAILURE_ATRR)),
