@@ -34,7 +34,7 @@ public final class GoLexer {
 	    + ESCAPED_CHAR;
     private static final String BYTE_VALUE = OCTAL_BYTE_VALUE + "|" + HEX_BYTE_VALUE;
 
-    private static final String INTERPRETED_STRING_LIT = "\"" + "\"";
+    private static final String INTERPRETED_STRING_LIT = "\"" + UNICODE_VALUE + "|" + BYTE_VALUE + "\"";
     private static final String RAW_STRING_LIT = "`" + UNICODE_CHAR + "|" + NEWLINE + "`";
     private static final String STRING_LIT = RAW_STRING_LIT + "|" + INTERPRETED_STRING_LIT;
 
