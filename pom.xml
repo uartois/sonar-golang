@@ -101,16 +101,28 @@
 			<version>1.2.0</version>
 		</dependency>
 
-
-
-		<!-- https://mvnrepository.com/artifact/javax.xml.stream/stax-api -->
-
-
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sslr/sslr-core -->
 		<dependency>
-			<groupId>org.codehaus.sonar.sslr</groupId>
+			<groupId>org.sonarsource.sslr</groupId>
 			<artifactId>sslr-core</artifactId>
-			<version>1.20</version>
+			<version>1.21</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sslr/sslr-toolkit -->
+		<dependency>
+			<groupId>org.sonarsource.sslr</groupId>
+			<artifactId>sslr-toolkit</artifactId>
+			<version>1.21</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.sonarsource.sslr/sslr-testing-harness -->
+		<dependency>
+			<groupId>org.sonarsource.sslr</groupId>
+			<artifactId>sslr-testing-harness</artifactId>
+			<version>1.21</version>
+		</dependency>
+
+
+
+
 	</dependencies>
 
 	<build>
