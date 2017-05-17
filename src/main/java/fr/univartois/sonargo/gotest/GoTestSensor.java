@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.test;
+package fr.univartois.sonargo.gotest;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,33 +36,33 @@ import org.xml.sax.SAXException;
 import fr.univartois.sonargo.core.language.GoLanguage;
 import fr.univartois.sonargo.core.settings.GoProperties;
 
-public class TestSensor implements Sensor {
-	private static final Logger LOGGER = Loggers.get(TestSensor.class);
+public class GoTestSensor implements Sensor {
+    private static final Logger LOGGER = Loggers.get(GoTestSensor.class);
 
-	@Override
-	public void describe(SensorDescriptor descriptor) {
-		descriptor.onlyOnLanguage(GoLanguage.KEY).name("Go test JUnit loader sensor");
+    @Override
+    public void describe(SensorDescriptor descriptor) {
+	descriptor.onlyOnLanguage(GoLanguage.KEY).name("Go test JUnit loader sensor");
 
+    }
+
+    @Override
+    public void execute(SensorContext context) {
+	String reportPath = context.settings().getString(GoProperties.JUNIT_REPORT_PATH_KEY);
+
+	if (reportPath == null || !(new File(reportPath)).exists()) {
+	    LOGGER.info("no junit report");
+	    return;
 	}
 
-	@Override
-	public void execute(SensorContext context) {
-		String reportPath = context.settings().getString(GoProperties.JUNIT_REPORT_PATH_KEY);
+	GoJunitParser junitParser = new GoJunitParser();
+	try {
+	    junitParser.parse(reportPath);
 
-		if (reportPath == null || !(new File(reportPath)).exists()) {
-			LOGGER.info("no junit report");
-			return;
-		}
+	    GoTestReportSaver.save(context, junitParser.getListTestSuite());
 
-		JunitParser junitParser = new JunitParser();
-		try {
-			junitParser.parse(reportPath);
-
-			TestReportSaver.save(context, junitParser.getListTestSuite());
-
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			LOGGER.error("Parse exception ", e);
-		}
+	} catch (ParserConfigurationException | SAXException | IOException e) {
+	    LOGGER.error("Parse exception ", e);
 	}
+    }
 
 }
