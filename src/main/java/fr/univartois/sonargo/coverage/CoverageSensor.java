@@ -43,48 +43,48 @@ import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class CoverageSensor implements Sensor {
 
-	private static final Logger LOGGER = Loggers.get(CoverageSensor.class);
+    private static final Logger LOGGER = Loggers.get(CoverageSensor.class);
 
-	@Override
-	public void describe(SensorDescriptor descriptor) {
-		descriptor.name("Go Coverage").onlyOnFileType(InputFile.Type.MAIN).onlyOnLanguage(GoLanguage.KEY);
-	}
+    @Override
+    public void describe(SensorDescriptor descriptor) {
+	descriptor.name("Go Coverage").onlyOnFileType(InputFile.Type.MAIN).onlyOnLanguage(GoLanguage.KEY);
+    }
 
-	public Stream<Path> createStream(SensorContext context) throws IOException {
-		return Files.walk(Paths.get(context.fileSystem().baseDir().getPath()))
-				.filter(p -> !p.getFileName().toString().startsWith("."));
+    public Stream<Path> createStream(SensorContext context) throws IOException {
+	return Files.walk(Paths.get(context.fileSystem().baseDir().getPath()))
+		.filter(p -> !p.getFileName().toString().startsWith("."));
 
-	}
+    }
 
-	@Override
-	public void execute(SensorContext context) {
+    @Override
+    public void execute(SensorContext context) {
 
-		try (Stream<Path> paths = createStream(context)) {
-			paths.forEach(filePath -> {
-				if (Files.isDirectory(filePath)) {
-					String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
-					File f = new File(filePath + File.separator + reportPath);
-					if (f.exists()) {
-						LOGGER.info("Analyse for " + f.getPath());
+	try (Stream<Path> paths = createStream(context)) {
+	    paths.forEach(filePath -> {
+		if (Files.isDirectory(filePath)) {
+		    String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
+		    File f = new File(filePath + File.separator + reportPath);
+		    if (f.exists()) {
+			LOGGER.info("Analyse for " + f.getPath());
 
-						CoverageParser coverParser = new CoverageParser();
-						try {
-							coverParser.parse(f.getPath());
+			CoverageParser coverParser = new CoverageParser();
+			try {
+			    coverParser.parse(f.getPath());
 
-							CoverageRecorder.save(context, coverParser.getList(), coverParser.getFilepath());
+			    CoverageRecorder.save(context, coverParser.getList(), coverParser.getFilepath());
 
-						} catch (ParserConfigurationException | SAXException | IOException e) {
-							LOGGER.error("Exception: ", e);
-						}
+			} catch (ParserConfigurationException | SAXException | IOException e) {
+			    LOGGER.error("Exception: ", e);
+			}
 
-					} else {
-						LOGGER.info("no coverage file in package " + f.getPath());
-					}
-				}
-			});
-		} catch (IOException e) {
-			LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
+		    } else {
+			LOGGER.info("no coverage file in package " + f.getPath());
+		    }
 		}
+	    });
+	} catch (IOException e) {
+	    LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
 	}
+    }
 
 }

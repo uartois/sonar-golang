@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.rules;
+package fr.univartois.sonargo.core.rules;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -32,23 +32,23 @@ import fr.univartois.sonargo.core.rules.GoError;
 import fr.univartois.sonargo.core.rules.GoKeyRule;
 
 public class ReportEvalStoryTest {
-	private String eval;
+    private String eval;
 
-	@Given("Given a Key finder")
-	public void newInterpreter() {
-		GoKeyRule.init();
-	}
+    @Given("Given a Key finder")
+    public void newInterpreter() {
+	GoKeyRule.init();
+    }
 
-	@When("the expression entered is $expression")
-	public void eval(String expression) {
-		eval = GoKeyRule.getKeyFromError(new GoError(10, expression, null, null));
+    @When("the expression entered is $expression")
+    public void eval(String expression) {
+	eval = GoKeyRule.getKeyFromError(new GoError(10, expression, null, null));
 
-	}
+    }
 
-	@Then("the result should be $expectedValue")
-	public void checkValue(String expectedValue) {
-		assertThat(String.valueOf(eval), equalTo(expectedValue));
-		System.out.println(String.valueOf(eval));
-	}
+    @Then("the result should be $expectedValue")
+    public void checkValue(String expectedValue) {
+	assertThat(String.valueOf(eval), equalTo(expectedValue));
+	System.out.println(String.valueOf(eval));
+    }
 
 }

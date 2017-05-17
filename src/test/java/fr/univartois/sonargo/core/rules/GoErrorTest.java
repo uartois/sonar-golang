@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.rules;
+package fr.univartois.sonargo.core.rules;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -31,21 +31,21 @@ import fr.univartois.sonargo.core.rules.GoError;
 
 public class GoErrorTest {
 
-	@Test
-	public void testInitAndEqualityGoError() {
-		GoError error = new GoError(10, "un message", "warning", "test.go");
-		GoError error2 = new GoError(10, "un message", "warning", "test.go");
-		GoError error3 = new GoError(10, "un message 2", "warning", "test.go");
-		assertEquals(error.hashCode(), error2.hashCode());
-		assertTrue(error.equals(error2));
-		assertFalse(error.equals(error3));
-		assertEquals(10, error.getLine());
-		assertEquals("un message", error.getMessage());
-		assertEquals("warning", error.getSeverity());
-		assertEquals("test.go", error.getFilePath());
+    @Test
+    public void testInitAndEqualityGoError() {
+	GoError error = new GoError(10, "un message", "warning", "test.go");
+	GoError error2 = new GoError(10, "un message", "warning", "test.go");
+	GoError error3 = new GoError(10, "un message 2", "warning", "test.go");
+	assertEquals(error.hashCode(), error2.hashCode());
+	assertTrue(error.equals(error2));
+	assertFalse(error.equals(error3));
+	assertEquals(10, error.getLine());
+	assertEquals("un message", error.getMessage());
+	assertEquals("warning", error.getSeverity());
+	assertEquals("test.go", error.getFilePath());
 
-		assertEquals("GoError [line=10, message=un message, severity=warning, filePath=test.go]", error.toString());
+	assertEquals("GoError [line=10, message=un message, severity=warning, filePath=test.go]", error.toString());
 
-	}
+    }
 
 }

@@ -29,8 +29,8 @@ import fr.univartois.sonargo.core.rules.GoLintIssueLoaderSensor;
 import fr.univartois.sonargo.core.rules.GoLintRulesDefinition;
 import fr.univartois.sonargo.core.settings.GoProperties;
 import fr.univartois.sonargo.coverage.CoverageSensor;
+import fr.univartois.sonargo.gotest.GoTestSensor;
 import fr.univartois.sonargo.highlighter.HighlighterSensor;
-import fr.univartois.sonargo.test.TestSensor;
 
 /**
  * This class is the entry point of the plugin
@@ -42,17 +42,16 @@ import fr.univartois.sonargo.test.TestSensor;
  */
 public class SonarGoPlugin implements Plugin {
 
-	@Override
-	public void define(Context context) {
-		context.addExtensions(GoProperties.getProperties());
+    @Override
+    public void define(Context context) {
+	context.addExtensions(GoProperties.getProperties());
 
-		context.addExtensions(GoLanguage.class, GoQualityProfile.class);
-		context.addExtensions(GoLintRulesDefinition.class, GoLintIssueLoaderSensor.class);
+	context.addExtensions(GoLanguage.class, GoQualityProfile.class);
+	context.addExtensions(GoLintRulesDefinition.class, GoLintIssueLoaderSensor.class);
+	context.addExtension(CoverageSensor.class);
+	context.addExtension(GoTestSensor.class);
+	context.addExtension(HighlighterSensor.class);
 
-		context.addExtension(CoverageSensor.class);
-		context.addExtension(TestSensor.class);
-		context.addExtension(HighlighterSensor.class);
-
-	}
+    }
 
 }

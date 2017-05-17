@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.settings;
+package fr.univartois.sonargo.core.settings;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,14 +32,14 @@ import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class GoPropertiesTest {
 
-	@Test
-	public void test() {
-		List<PropertyDefinition> l = GoProperties.getProperties();
-		assertEquals(3, l.size());
-		assertEquals(GoProperties.REPORT_PATH_DEFAULT, l.get(0).defaultValue());
-		assertEquals(GoProperties.COVERAGE_REPORT_PATH_DEFAULT, l.get(1).defaultValue());
-		assertEquals(GoProperties.JUNIT_REPORT_PATH_DEFAULT, l.get(2).defaultValue());
+    @Test
+    public void test() {
+	List<PropertyDefinition> l = GoProperties.getProperties();
+	assertEquals(3, l.size());
+	assertEquals(GoProperties.REPORT_PATH_DEFAULT, l.get(0).defaultValue());
+	assertEquals(GoProperties.COVERAGE_REPORT_PATH_DEFAULT, l.get(1).defaultValue());
+	assertEquals(GoProperties.JUNIT_REPORT_PATH_DEFAULT, l.get(2).defaultValue());
 
-	}
+    }
 
 }

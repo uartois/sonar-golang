@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.language;
+package fr.univartois.sonargo.core.language;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -33,14 +33,14 @@ import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class GoLanguageTest {
 
-	@Test
-	public void test() {
-		GoLanguage go = new GoLanguage();
-		assertTrue(go.hasValidSuffixes("test.go"));
-		assertFalse(go.hasValidSuffixes("test.xml"));
-		String[] def = { "go" };
+    @Test
+    public void test() {
+	GoLanguage go = new GoLanguage();
+	assertTrue(go.hasValidSuffixes("test.go"));
+	assertFalse(go.hasValidSuffixes("test.xml"));
+	String[] def = { "go" };
 
-		assertEquals(Arrays.asList(def), Arrays.asList(go.getFileSuffixes()));
-	}
+	assertEquals(Arrays.asList(def), Arrays.asList(go.getFileSuffixes()));
+    }
 
 }

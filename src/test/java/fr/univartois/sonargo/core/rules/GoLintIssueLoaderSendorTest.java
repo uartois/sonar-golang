@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.rules;
+package fr.univartois.sonargo.core.rules;
 
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
@@ -35,22 +35,22 @@ import org.sonar.api.config.Settings;
 import fr.univartois.sonargo.core.rules.GoLintIssueLoaderSensor;
 
 public class GoLintIssueLoaderSendorTest {
-	private DefaultFileSystem fileSystem;
-	private GoLintIssueLoaderSensor sensor;
+    private DefaultFileSystem fileSystem;
+    private GoLintIssueLoaderSensor sensor;
 
-	@Before
-	public void setUp() {
-		fileSystem = new DefaultFileSystem((File) null);
-		sensor = new GoLintIssueLoaderSensor(new Settings(), fileSystem);
-	}
+    @Before
+    public void setUp() {
+	fileSystem = new DefaultFileSystem((File) null);
+	sensor = new GoLintIssueLoaderSensor(new Settings(), fileSystem);
+    }
 
-	@Test
-	public void describe() {
-		SensorDescriptor sensorDescriptor = mock(SensorDescriptor.class);
+    @Test
+    public void describe() {
+	SensorDescriptor sensorDescriptor = mock(SensorDescriptor.class);
 
-		assertNotNull(sensorDescriptor);
-		assertNotNull(sensor);
+	assertNotNull(sensorDescriptor);
+	assertNotNull(sensor);
 
-	}
+    }
 
 }

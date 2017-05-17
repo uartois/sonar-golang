@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.language;
+package fr.univartois.sonargo.core.language;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -37,30 +37,30 @@ import org.sonar.api.utils.ValidationMessages;
 import fr.univartois.sonargo.core.language.GoQualityProfile;
 
 public class GoQualityProfileTest {
-	private GoQualityProfile goprofile = new GoQualityProfile();
+    private GoQualityProfile goprofile = new GoQualityProfile();
 
-	@Test
-	public void testLoadingQualityProfile() {
+    @Test
+    public void testLoadingQualityProfile() {
 
-		RulesProfile rule = goprofile.createProfile(ValidationMessages.create());
-		assertFalse(rule.getActiveRules().isEmpty());
-		Properties prop = new Properties();
+	RulesProfile rule = goprofile.createProfile(ValidationMessages.create());
+	assertFalse(rule.getActiveRules().isEmpty());
+	Properties prop = new Properties();
 
-		try {
-			prop.load(GoQualityProfileTest.class.getResourceAsStream(GoQualityProfile.PROFILE_PATH));
-			Predicate<? super Object> predicate = s -> Boolean.TRUE.equals(Boolean.parseBoolean((String) s));
-			assertEquals(prop.values().stream().filter(predicate).count(), rule.getActiveRules().size());
+	try {
+	    prop.load(GoQualityProfileTest.class.getResourceAsStream(GoQualityProfile.PROFILE_PATH));
+	    Predicate<? super Object> predicate = s -> Boolean.TRUE.equals(Boolean.parseBoolean((String) s));
+	    assertEquals(prop.values().stream().filter(predicate).count(), rule.getActiveRules().size());
 
-			for (ActiveRule r : rule.getActiveRules()) {
-				assertTrue(r.isEnabled());
-				assertTrue(r.getRule().isEnabled());
-			}
+	    for (ActiveRule r : rule.getActiveRules()) {
+		assertTrue(r.isEnabled());
+		assertTrue(r.getRule().isEnabled());
+	    }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		assertTrue(rule.getDefaultProfile());
+	} catch (IOException e) {
+	    e.printStackTrace();
 	}
+
+	assertTrue(rule.getDefaultProfile());
+    }
 
 }

@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.rules;
+package fr.univartois.sonargo.core.rules;
 
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
 
@@ -40,27 +40,27 @@ import de.codecentric.jbehave.junit.monitoring.JUnitReportingRunner;
 @RunWith(JUnitReportingRunner.class)
 public class EvalTest extends JUnitStories {
 
-	public EvalTest() {
-		configuredEmbedder().embedderControls().doGenerateViewAfterStories(false).doIgnoreFailureInStories(false)
-				.doIgnoreFailureInView(false).doVerboseFailures(true);
-	}
+    public EvalTest() {
+	configuredEmbedder().embedderControls().doGenerateViewAfterStories(false).doIgnoreFailureInStories(false)
+		.doIgnoreFailureInView(false).doVerboseFailures(true);
+    }
 
-	@Override
-	public Configuration configuration() {
-		return new MostUsefulConfiguration()
-				// CONSOLE reporting
-				.useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats().withFormats(Format.CONSOLE));
-	}
+    @Override
+    public Configuration configuration() {
+	return new MostUsefulConfiguration()
+		// CONSOLE reporting
+		.useStoryReporterBuilder(new StoryReporterBuilder().withDefaultFormats().withFormats(Format.CONSOLE));
+    }
 
-	// Here we specify the steps classes
-	@Override
-	public InjectableStepsFactory stepsFactory() {
-		// varargs, can have more that one steps classes
-		return new InstanceStepsFactory(configuration(), new ReportEvalStoryTest());
-	}
+    // Here we specify the steps classes
+    @Override
+    public InjectableStepsFactory stepsFactory() {
+	// varargs, can have more that one steps classes
+	return new InstanceStepsFactory(configuration(), new ReportEvalStoryTest());
+    }
 
-	@Override
-	protected List<String> storyPaths() {
-		return new StoryFinder().findPaths(codeLocationFromClass(this.getClass()), "**/*.story", "**/excluded*.story");
-	}
+    @Override
+    protected List<String> storyPaths() {
+	return new StoryFinder().findPaths(codeLocationFromClass(this.getClass()), "**/*.story", "**/excluded*.story");
+    }
 }

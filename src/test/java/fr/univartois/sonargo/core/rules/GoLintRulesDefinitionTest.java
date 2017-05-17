@@ -19,7 +19,7 @@
  * Contributors:
  *            Thibault Falque (thibault_falque@ens.univ-artois.fr)
  *******************************************************************************/
-package fr.univartois.sonargo.rules;
+package fr.univartois.sonargo.core.rules;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,20 +32,20 @@ import fr.univartois.sonargo.core.rules.GoKeyRule;
 import fr.univartois.sonargo.core.rules.GoLintRulesDefinition;
 
 public class GoLintRulesDefinitionTest {
-	@Test
-	public void testForVersion6() {
-		GoLintRulesDefinition definition = new GoLintRulesDefinition();
-		RulesDefinition.Context context = new RulesDefinition.Context();
-		definition.define(context);
-		RulesDefinition.Repository repository = context.repository(GoLintRulesDefinition.REPO_KEY);
+    @Test
+    public void testForVersion6() {
+	GoLintRulesDefinition definition = new GoLintRulesDefinition();
+	RulesDefinition.Context context = new RulesDefinition.Context();
+	definition.define(context);
+	RulesDefinition.Repository repository = context.repository(GoLintRulesDefinition.REPO_KEY);
 
-		assertEquals(GoLintRulesDefinition.REPO_NAME, repository.name());
-		assertEquals(GoLanguage.KEY, repository.language());
-		GoKeyRule.init();
-		assertEquals(GoKeyRule.getProp().size(), repository.rules().size());
+	assertEquals(GoLintRulesDefinition.REPO_NAME, repository.name());
+	assertEquals(GoLanguage.KEY, repository.language());
+	GoKeyRule.init();
+	assertEquals(GoKeyRule.getProp().size(), repository.rules().size());
 
-		for (Object key : GoKeyRule.getProp().keySet()) {
-			assertNotNull(repository.rule((String) key));
-		}
+	for (Object key : GoKeyRule.getProp().keySet()) {
+	    assertNotNull(repository.rule((String) key));
 	}
+    }
 }

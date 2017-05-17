@@ -36,28 +36,28 @@ import org.sonar.api.utils.log.Loggers;
 import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class CoverageRecorder {
-	private static final Logger LOGGER = Loggers.get(CoverageRecorder.class);
+    private static final Logger LOGGER = Loggers.get(CoverageRecorder.class);
 
-	public static void save(SensorContext context, List<LineCoverage> lines, String filePath) {
-		FileSystem fileSystem = context.fileSystem();
-		FilePredicates predicates = fileSystem.predicates();
-		String key = filePath.startsWith(File.separator) ? filePath : (File.separator + filePath);
-		InputFile inputFile = fileSystem
-				.inputFile(predicates.and(predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
-						predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
+    public static void save(SensorContext context, List<LineCoverage> lines, String filePath) {
+	FileSystem fileSystem = context.fileSystem();
+	FilePredicates predicates = fileSystem.predicates();
+	String key = filePath.startsWith(File.separator) ? filePath : (File.separator + filePath);
+	InputFile inputFile = fileSystem
+		.inputFile(predicates.and(predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
+			predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
 
-		if (inputFile == null) {
-			LOGGER.warn("unable to create InputFile object: " + filePath);
-			return;
-		}
-
-		NewCoverage coverage = context.newCoverage().onFile(inputFile);
-
-		for (LineCoverage line : lines) {
-			coverage.lineHits(line.getLineNumber(), line.getHits());
-			LOGGER.info(line.toString());
-		}
-		coverage.ofType(CoverageType.UNIT);
-		coverage.save();
+	if (inputFile == null) {
+	    LOGGER.warn("unable to create InputFile object: " + filePath);
+	    return;
 	}
+
+	NewCoverage coverage = context.newCoverage().onFile(inputFile);
+
+	for (LineCoverage line : lines) {
+	    coverage.lineHits(line.getLineNumber(), line.getHits());
+	    LOGGER.info(line.toString());
+	}
+	coverage.ofType(CoverageType.UNIT);
+	coverage.save();
+    }
 }

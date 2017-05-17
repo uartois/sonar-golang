@@ -26,19 +26,19 @@ import java.io.File;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 
 public class TestUtils {
-	private static final String TEST_RESSOURCES = "src/test/resources";
-	private static final String COVERAGE_REPORT_PATH = "coverage";
+    private static final String TEST_RESSOURCES = "src/test/resources";
+    private static final String COVERAGE_REPORT_PATH = "coverage";
 
-	public static DefaultFileSystem getDefaultFileSystem() {
-		return new DefaultFileSystem(getModuleBaseDir());
-	}
+    public static DefaultFileSystem getDefaultFileSystem() {
+	return new DefaultFileSystem(getModuleBaseDir());
+    }
 
-	public static DefaultFileSystem getCoverageBaseDir() {
-		return new DefaultFileSystem(new File(TEST_RESSOURCES + File.separator + COVERAGE_REPORT_PATH));
-	}
+    public static DefaultFileSystem getCoverageBaseDir() {
+	return new DefaultFileSystem(new File(TEST_RESSOURCES + File.separator + COVERAGE_REPORT_PATH));
+    }
 
-	public static File getModuleBaseDir() {
-		return new File(TEST_RESSOURCES);
-	}
+    public static File getModuleBaseDir() {
+	return new File(TEST_RESSOURCES);
+    }
 
 }

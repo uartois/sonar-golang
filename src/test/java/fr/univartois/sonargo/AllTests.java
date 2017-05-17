@@ -25,19 +25,20 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import fr.univartois.sonargo.core.language.GoLanguageTest;
+import fr.univartois.sonargo.core.language.GoLexerTest;
+import fr.univartois.sonargo.core.language.GoQualityProfileTest;
+import fr.univartois.sonargo.core.rules.EvalTest;
+import fr.univartois.sonargo.core.rules.GoErrorTest;
+import fr.univartois.sonargo.core.rules.GoLintIssueLoaderSendorTest;
+import fr.univartois.sonargo.core.rules.GoLintRulesDefinitionTest;
+import fr.univartois.sonargo.core.settings.GoPropertiesTest;
 import fr.univartois.sonargo.coverage.CoverageParser;
 import fr.univartois.sonargo.coverage.CoverageSensor;
-import fr.univartois.sonargo.language.GoLanguageTest;
-import fr.univartois.sonargo.language.GoQualityProfileTest;
-import fr.univartois.sonargo.rules.EvalTest;
-import fr.univartois.sonargo.rules.GoErrorTest;
-import fr.univartois.sonargo.rules.GoLintIssueLoaderSendorTest;
-import fr.univartois.sonargo.rules.GoLintRulesDefinitionTest;
-import fr.univartois.sonargo.settings.GoPropertiesTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ EvalTest.class, GoErrorTest.class, GoLanguageTest.class, GoQualityProfileTest.class,
-		GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class, GoPropertiesTest.class,
-		CoverageParser.class, CoverageSensor.class })
+	GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class, GoPropertiesTest.class,
+	CoverageParser.class, CoverageSensor.class, GoLexerTest.class })
 public class AllTests {
 }

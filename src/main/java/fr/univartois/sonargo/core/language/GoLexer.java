@@ -3,8 +3,10 @@ package fr.univartois.sonargo.core.language;
 import com.sonar.sslr.api.AstNode;
 import com.sonar.sslr.api.TokenType;
 import com.sonar.sslr.impl.Lexer;
+import com.sonar.sslr.impl.channel.BlackHoleChannel;
 import com.sonar.sslr.impl.channel.CommentRegexpChannel;
 import com.sonar.sslr.impl.channel.IdentifierAndKeywordChannel;
+import com.sonar.sslr.impl.channel.PunctuatorChannel;
 import com.sonar.sslr.impl.channel.RegexpChannel;
 
 public final class GoLexer {
@@ -20,21 +22,25 @@ public final class GoLexer {
 	    + "\\)*" + "|" + DECIMALS + EXPONENT + "|" + FLOAT_SEPARATOR + DECIMALS + "(" + EXPONENT + ")*";
     private static final String IMAGINARY_LIT = "(" + DECIMALS + "|" + FLOAT_LIT + ")i";
 
-    private static final String UNICODE_CHAR = "^\\u+000A";
-    private static final String NEWLINE = "\\u+000A";
+    private static final String UNICODE_CHAR = "^\\u000A";
+    private static final String NEWLINE = "\\u000A";
 
-    private static final String OCTAL_BYTE_VALUE = "\\" + OCTAL_DIGIT + "{3}";
-    private static final String HEX_BYTE_VALUE = "\\x(\\p{XDigit}){2}";
+    // private static final String OCTAL_BYTE_VALUE = "\\" + OCTAL_DIGIT +
+    // "{3}";
+    // private static final String HEX_BYTE_VALUE = "\\x(\\p{XDigit}){2}";
+    //
+    // private static final String LITTLE_U_VALUE = "\\u" + OCTAL_DIGIT + "{3}";
+    // private static final String BIG_U_VALUE = "\\U(\\p{XDigit}){6}";
+    // private static final String ESCAPED_CHAR = "\\( a | b | f | n | r | t | v
+    // | \\ | ' | \" )";
+    //
+    // private static final String UNICODE_VALUE = UNICODE_CHAR + "|" +
+    // LITTLE_U_VALUE + "|" + BIG_U_VALUE + "|"
+    // + ESCAPED_CHAR;
+    // private static final String BYTE_VALUE = OCTAL_BYTE_VALUE + "|" +
+    // HEX_BYTE_VALUE;
 
-    private static final String LITTLE_U_VALUE = "\\u" + OCTAL_DIGIT + "{3}";
-    private static final String BIG_U_VALUE = "\\U(\\p{XDigit}){6}";
-    private static final String ESCAPED_CHAR = "\\( a | b | f | n | r | t | v | \\ | ' | \" )";
-
-    private static final String UNICODE_VALUE = UNICODE_CHAR + "|" + LITTLE_U_VALUE + "|" + BIG_U_VALUE + "|"
-	    + ESCAPED_CHAR;
-    private static final String BYTE_VALUE = OCTAL_BYTE_VALUE + "|" + HEX_BYTE_VALUE;
-
-    private static final String INTERPRETED_STRING_LIT = "\"" + UNICODE_VALUE + "|" + BYTE_VALUE + "\"";
+    private static final String INTERPRETED_STRING_LIT = "\"(\\p{L}|\\p{N}|\\p{Punct})*\"";
     private static final String RAW_STRING_LIT = "`" + UNICODE_CHAR + "|" + NEWLINE + "`";
     private static final String STRING_LIT = RAW_STRING_LIT + "|" + INTERPRETED_STRING_LIT;
 
@@ -43,7 +49,9 @@ public final class GoLexer {
 
     public static enum Literals implements TokenType {
 
-	INTEGER(DECIMAL_LIT + "|" + HEXADECIMAL_LIT + "|" + OCTAL_LIT), FLOAT(FLOAT_LIT), STRING(STRING_LIT);
+	INTEGER(DECIMAL_LIT + "|" + HEXADECIMAL_LIT + "|" + OCTAL_LIT),
+	FLOAT(FLOAT_LIT),
+	STRING(STRING_LIT);
 	private final String regexp;
 
 	private Literals(String regexp) {
@@ -68,19 +76,49 @@ public final class GoLexer {
     }
 
     public static enum Keyword implements TokenType {
-	BREAK("break"), DEFAULT("default"), FUNC("func"), INTERFACE("interface"), SELECT("select"), CASE("case"), DEFER(
-		"defer"), GO("go"), MAP("map"), STRUCT("struct"), CHAN("chan"), ELSE("else"), GOTO("goto"), PACKAGE(
-			"package"), SWITCH("switch"), CONST("const"), FALLTHROUGH("fallthrough"), IF("if"), RANGE(
-				"range"), TYPE("type"), CONTINUE("continue"), FOR("for"), IMPORT("import"), RETURN(
-					"return"), VAR("var"), UINT8("uint8"), UINT16("uint16"), UINT32(
-						"uint32"), UINT64("uint64"), INT("int"), INT8("int8"), INT16(
-							"int16"), INT32("int32"), INT64("int64"), FLOAT32(
-								"int32"), FLOAT64("int64"), COMPLEX64(
-									"complex64"), COMPLEX128(
-										"complex128"), BYTE("byte"), RUNE(
-											"rune"), BOOL("bool"), UINTPTR(
-												"uintptr"), STRING(
-													"string");
+	BREAK("break"),
+	DEFAULT("default"),
+	FUNC("func"),
+	INTERFACE("interface"),
+	SELECT("select"),
+	CASE("case"),
+	DEFER("defer"),
+	GO("go"),
+	MAP("map"),
+	STRUCT("struct"),
+	CHAN("chan"),
+	ELSE("else"),
+	GOTO("goto"),
+	PACKAGE("package"),
+	SWITCH("switch"),
+	CONST("const"),
+	FALLTHROUGH("fallthrough"),
+	IF("if"),
+	RANGE("range"),
+	TYPE("type"),
+	CONTINUE("continue"),
+	FOR("for"),
+	IMPORT("import"),
+	RETURN("return"),
+	VAR("var"),
+	UINT8("uint8"),
+	UINT16("uint16"),
+	UINT32("uint32"),
+	UINT64("uint64"),
+	INT("int"),
+	INT8("int8"),
+	INT16("int16"),
+	INT32("int32"),
+	INT64("int64"),
+	FLOAT32("float32"),
+	FLOAT64("float64"),
+	COMPLEX64("complex64"),
+	COMPLEX128("complex128"),
+	BYTE("byte"),
+	RUNE("rune"),
+	BOOL("bool"),
+	UINTPTR("uintptr"),
+	STRING("string");
 
 	private final String value;
 
@@ -119,9 +157,27 @@ public final class GoLexer {
 
     public static enum Punctuators implements TokenType {
 
-	PAREN_L("("), PAREN_R(")"), BRACE_L("{"), BRACE_R("}"), EQ("="), COMMA(","), SEMICOLON(";"), ADD("+"), SUB(
-		"-"), MUL("*"), DIV(
-			"/"), EQEQ("=="), NE("!="), LT("<"), LTE("<="), GT(">"), GTE(">="), INC("++"), DEC("--");
+	PAREN_L("("),
+	PAREN_R(")"),
+	BRACE_L("{"),
+	BRACE_R("}"),
+	EQ("="),
+	EQ2(":="),
+	COMMA(","),
+	SEMICOLON(";"),
+	ADD("+"),
+	SUB("-"),
+	MUL("*"),
+	DIV("/"),
+	EQEQ("=="),
+	NE("!="),
+	LT("<"),
+	LTE("<="),
+	GT(">"),
+	GTE(">="),
+	INC("++"),
+	DEC("--"),
+	DOT(".");
 
 	private final String value;
 
@@ -147,11 +203,12 @@ public final class GoLexer {
     }
 
     public static Lexer create() {
-	return Lexer.builder().withFailIfNoChannelToConsumeOneCharacter(true)
-		.withChannel(new IdentifierAndKeywordChannel("(\\p{L}|\\p{N}|_)+", true, Keyword.values()))
-
+	return Lexer.builder().withFailIfNoChannelToConsumeOneCharacter(false)
+		.withChannel(new IdentifierAndKeywordChannel("\\p{L}(\\p{L}|\\p{N}|_)*", true, Keyword.values()))
 		.withChannel(new RegexpChannel(Literals.INTEGER, Literals.INTEGER.regexp))
-		.withChannel(new CommentRegexpChannel("(?s)/\\*.*?\\*/)")).build();
+		.withChannel(new RegexpChannel(Literals.STRING, Literals.STRING.regexp))
+		.withChannel(new CommentRegexpChannel("^//.*")).withChannel(new PunctuatorChannel(Punctuators.values()))
+		.withChannel(new BlackHoleChannel("[ \t\r\n]+")).build();
     }
 
 }
