@@ -58,54 +58,57 @@ public class Colorizer {
 
     }
 
+    private int searchNextOccurrenceOfDoubleQuote(String line, int start) {
+	int index = line.indexOf('"', start);
+	LOGGER.info(line + " " + index);
+	while (index > 0 && line.charAt(index - 1) == '\\') {
+	    index = line.indexOf('"', index + 1);
+	    LOGGER.info(line + " " + index);
+	}
+	return index;
+    }
+
     private void highlightingStringInLine(String line, int lineNumber) {
 	if (!haveString(line)) {
 	    return;
 	}
+	int start = 0;
+	int index = searchNextOccurrenceOfDoubleQuote(line, start);
+	int indexEnd = searchNextOccurrenceOfDoubleQuote(line, index + 1);
 
-	int index = line.indexOf('"');
-	int indexEnd = line.indexOf('"', index + 1);
+	int lastIndex = 0;
+	int lastIndexEnd = 0;
 
-	highlighting.highlight(lineNumber, index, lineNumber, indexEnd + 1, TypeOfText.STRING);
-
-	while ((index = line.indexOf('"', indexEnd + 1)) != -1) {
-	    indexEnd = line.indexOf('"', index + 1);
+	while (index != -1 && indexEnd != -1 && lastIndex != index && lastIndexEnd != indexEnd) {
+	    LOGGER.debug("index " + index + " indexEnd " + indexEnd);
 	    highlighting.highlight(lineNumber, index, lineNumber, indexEnd + 1, TypeOfText.STRING);
+	    start = indexEnd + 1;
+	    lastIndex = index;
+	    lastIndexEnd = indexEnd;
+	    index = searchNextOccurrenceOfDoubleQuote(line, start);
+	    indexEnd = searchNextOccurrenceOfDoubleQuote(line, index + 1);
 	}
 
     }
 
     private boolean isAString(String line, int index) {
 	return line.substring(0, index).chars().filter(i -> i == '"').count() % 2 != 0;
+
     }
 
     private void highlightingKeyWord(String line, int lineNumber) {
 	for (final GoLexer.Keyword k : GoLexer.Keyword.values()) {
-	    final String key = k.name();
+	    final String key = k.getValue();
 	    int index = 0;
 	    while ((index = line.indexOf(key, index)) != -1 && !isAString(line, index)) {
 
-		LOGGER.debug("Line number " + lineNumber + " index start: " + index + " index end: "
+		LOGGER.info("Line number " + lineNumber + " index start: " + index + " index end: "
 			+ (index + key.length()));
 
 		highlighting.highlight(lineNumber, index, lineNumber, index + key.length(), TypeOfText.KEYWORD);
 		index = index + key.length();
 	    }
 	}
-    }
-
-    private boolean isAKeyWord(String line, int index) {
-	for (final GoLexer.Keyword key : GoLexer.Keyword.values()) {
-	    final String keyword = key.name().toLowerCase();
-	    final int indexEnd = index + keyword.length() >= line.length() ? line.length() : index + keyword.length();
-
-	    LOGGER.debug("substring " + line.substring(index, indexEnd));
-
-	    if (line.substring(index, indexEnd).indexOf(keyword) != -1) {
-		return true;
-	    }
-	}
-	return false;
     }
 
     /*

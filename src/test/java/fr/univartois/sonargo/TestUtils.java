@@ -28,6 +28,7 @@ import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 public class TestUtils {
     private static final String TEST_RESSOURCES = "src/test/resources";
     private static final String COVERAGE_REPORT_PATH = "coverage";
+    private static final String HIGLIGHTER_CODE_PATH = "highlighter";
 
     public static DefaultFileSystem getDefaultFileSystem() {
 	return new DefaultFileSystem(getModuleBaseDir());
@@ -35,6 +36,10 @@ public class TestUtils {
 
     public static DefaultFileSystem getCoverageBaseDir() {
 	return new DefaultFileSystem(new File(TEST_RESSOURCES + File.separator + COVERAGE_REPORT_PATH));
+    }
+
+    public static DefaultFileSystem getColorizeDir() {
+	return new DefaultFileSystem(new File(TEST_RESSOURCES + File.separator + HIGLIGHTER_CODE_PATH));
     }
 
     public static File getModuleBaseDir() {
