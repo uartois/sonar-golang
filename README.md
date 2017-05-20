@@ -13,7 +13,7 @@ Release 1.0 only provides golint support. Release 1.1 provides test coverage sup
 for additional linters.
 
 
-# Author
+# Authors
 
 + Thibault Falque
 + Daniel Le Berre
@@ -28,7 +28,7 @@ for additional linters.
 
 # Enabling all latest rules
 
-If you have already installed the plugin and you want enable the new rules of
+If you have already installed the plugin and you want to enable the new rules provided by
 the new version of the plugin, follow those steps after the installation:
 
 * Go on the Quality Profiles page
@@ -81,7 +81,7 @@ go get github.com/axw/gocov/...
 go get github.com/AlekSi/gocov-xml
 ```
 
-* After for all package execute this commands:
+* Then for all packages execute those commands:
 ```shell
 go test -coverprofile=cover.out
 gocov convert cover.out | gocov-xml > coverage.xml
@@ -95,7 +95,7 @@ pkg3/coverage.xml
 ...
 ```
 
-# Test (since release 1.1)
+# Tests (since release 1.1)
 
 For test metrics you must generate a junit report file.
 
