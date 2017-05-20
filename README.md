@@ -47,6 +47,8 @@ sonar.projectKey=yourprojectid
 sonar.projectName=name of project
 sonar.projectVersion=1.0
 sonar.golint.reportPath=report.xml //default
+sonar.coverage.reportPath=coverage.xml // default
+sonar.test.reportPath=test.xml //default
 sonar.sources=./
 ```
 
