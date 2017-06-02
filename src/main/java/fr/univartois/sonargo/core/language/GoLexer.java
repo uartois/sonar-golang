@@ -11,34 +11,20 @@ import com.sonar.sslr.impl.channel.RegexpChannel;
 
 public final class GoLexer {
 
-    private static final String DECIMAL_LIT = "[1-9]{1}(\\p{Digit})*";
+    private static final String DECIMAL_DIGIT = "\\d";
+    private static final String DECIMAL_LIT = "[1-9]" + DECIMAL_DIGIT + "*";
     private static final String HEXADECIMAL_LIT = "0(x|X)\\p{XDigit}(\\p{XDigit})*";
     private static final String OCTAL_DIGIT = "[0-7]";
     private static final String OCTAL_LIT = "0" + OCTAL_DIGIT + "*";
-    private static final String FLOAT_SEPARATOR = ".";
-    private static final String DECIMALS = "\\p{Digit}\\p{Digit}*";
-    private static final String EXPONENT = "(e|E)(\\+|\\-)" + DECIMALS;
-    private static final String FLOAT_LIT = DECIMALS + FLOAT_SEPARATOR + "(" + DECIMALS + ")*" + "\\(" + EXPONENT
-	    + "\\)*" + "|" + DECIMALS + EXPONENT + "|" + FLOAT_SEPARATOR + DECIMALS + "(" + EXPONENT + ")*";
+    private static final String FLOAT_SEPARATOR = "\\.";
+    private static final String DECIMALS = DECIMAL_DIGIT + "+";
+    private static final String EXPONENT = "[eE][+-]?+" + DECIMALS;
+    private static final String FLOAT_LIT = "(" + DECIMALS + FLOAT_SEPARATOR + "(" + DECIMALS + ")*(" + EXPONENT
+	    + ")*)|(" + DECIMALS + EXPONENT + ")|(" + FLOAT_SEPARATOR + DECIMALS + "(" + EXPONENT + ")" + "?)";
     private static final String IMAGINARY_LIT = "(" + DECIMALS + "|" + FLOAT_LIT + ")i";
 
     private static final String UNICODE_CHAR = "^\\u000A";
     private static final String NEWLINE = "\\u000A";
-
-    // private static final String OCTAL_BYTE_VALUE = "\\" + OCTAL_DIGIT +
-    // "{3}";
-    // private static final String HEX_BYTE_VALUE = "\\x(\\p{XDigit}){2}";
-    //
-    // private static final String LITTLE_U_VALUE = "\\u" + OCTAL_DIGIT + "{3}";
-    // private static final String BIG_U_VALUE = "\\U(\\p{XDigit}){6}";
-    // private static final String ESCAPED_CHAR = "\\( a | b | f | n | r | t | v
-    // | \\ | ' | \" )";
-    //
-    // private static final String UNICODE_VALUE = UNICODE_CHAR + "|" +
-    // LITTLE_U_VALUE + "|" + BIG_U_VALUE + "|"
-    // + ESCAPED_CHAR;
-    // private static final String BYTE_VALUE = OCTAL_BYTE_VALUE + "|" +
-    // HEX_BYTE_VALUE;
 
     private static final String INTERPRETED_STRING_LIT = "\"(\\p{L}|\\p{N}|\\p{Punct})*\"";
     private static final String RAW_STRING_LIT = "`" + UNICODE_CHAR + "|" + NEWLINE + "`";
@@ -205,6 +191,7 @@ public final class GoLexer {
     public static Lexer create() {
 	return Lexer.builder().withFailIfNoChannelToConsumeOneCharacter(false)
 		.withChannel(new IdentifierAndKeywordChannel("\\p{L}(\\p{L}|\\p{N}|_)*", true, Keyword.values()))
+		.withChannel(new RegexpChannel(Literals.FLOAT, Literals.FLOAT.regexp))
 		.withChannel(new RegexpChannel(Literals.INTEGER, Literals.INTEGER.regexp))
 		.withChannel(new RegexpChannel(Literals.STRING, Literals.STRING.regexp))
 		.withChannel(new CommentRegexpChannel("^//.*")).withChannel(new PunctuatorChannel(Punctuators.values()))
