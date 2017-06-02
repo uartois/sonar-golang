@@ -25,6 +25,7 @@ import org.sonar.api.Plugin;
 
 import fr.univartois.sonargo.core.language.GoLanguage;
 import fr.univartois.sonargo.core.language.GoQualityProfile;
+import fr.univartois.sonargo.core.metrics.GoMetricSensor;
 import fr.univartois.sonargo.core.rules.GoLintIssueLoaderSensor;
 import fr.univartois.sonargo.core.rules.GoLintRulesDefinition;
 import fr.univartois.sonargo.core.settings.GoProperties;
@@ -51,6 +52,7 @@ public class SonarGoPlugin implements Plugin {
 	context.addExtension(CoverageSensor.class);
 	context.addExtension(GoTestSensor.class);
 	context.addExtension(HighlighterSensor.class);
+	context.addExtension(GoMetricSensor.class);
 
     }
 
