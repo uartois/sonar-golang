@@ -56,8 +56,6 @@ public class GoMetricSensor implements Sensor {
 	    goline.analyseFile();
 	    saveMetrics(context, i, CoreMetrics.NCLOC, goline.getNumberLineOfCode());
 	    saveMetrics(context, i, CoreMetrics.COMMENT_LINES, goline.getNumberLineComment());
-	    // final FileLinesContext fileLinesContext =
-	    // fileLinesContextFactory.createFor(i);
 	});
     }
 
