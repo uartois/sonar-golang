@@ -8,9 +8,11 @@
 2. [Second Step]
 3. [and so on...]
 
+### Content of your sonar-project.properties
+
 ### Versions
 
-Versions of your sonar installation, gometalinter and go.
+Versions of your sonar installation, gometalinter and go and OS.
 
 ### Additional Information
 
