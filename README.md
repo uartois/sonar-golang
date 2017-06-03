@@ -75,9 +75,9 @@ gometalinter.v1 --checkstyle > report.xml
 
 # Coverage (since release 1.1)
 
-For coverage metrics you must have a `coverage.xml` (cobertura xml format) file per package
+For coverage metrics you must have a `coverage.xml` (cobertura xml format) file *per package*.
 
-* First install the tools for convert a coverprofile in cobertura file:
+* First install the tools for converting a coverprofile in cobertura file:
 ```shell
 go get github.com/axw/gocov/...
 go get github.com/AlekSi/gocov-xml
