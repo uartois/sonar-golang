@@ -18,126 +18,107 @@ import fr.univartois.sonargo.core.language.GoLexer;
 
 public class Colorizer {
 
-    private static final Logger LOGGER = Loggers.get(Colorizer.class);
-    private final NewHighlighting highlighting;
+	private static final Logger LOGGER = Loggers.get(Colorizer.class);
+	private final NewHighlighting highlighting;
 
-    public Colorizer(SensorContext context) {
-	super();
+	public Colorizer(SensorContext context) {
+		super();
 
-	highlighting = context.newHighlighting();
-    }
-
-    public void colorize(InputFile i) {
-	final File f = i.file();
-	LOGGER.info("Color the file: " + f.getPath());
-	highlighting.onFile(i);
-	try (final BufferedReader br = new BufferedReader(
-		new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
-
-	    String line;
-	    int lineNumber = 1;
-	    while ((line = br.readLine()) != null) {
-		searchAndColor(line, lineNumber);
-		lineNumber++;
-	    }
-	    br.close();
-	} catch (final IOException e) {
-	    LOGGER.error("IO Exception", e);
+		highlighting = context.newHighlighting();
 	}
 
-	highlighting.save();
+	public void colorize(InputFile i) {
+		final File f = i.file();
+		LOGGER.info("Color the file: " + f.getPath());
+		highlighting.onFile(i);
+		try (final BufferedReader br = new BufferedReader(
+				new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
 
-    }
+			String line;
+			int lineNumber = 1;
+			while ((line = br.readLine()) != null) {
+				searchAndColor(line, lineNumber);
+				lineNumber++;
+			}
+			br.close();
+		} catch (final IOException e) {
+			LOGGER.error("IO Exception", e);
+		}
 
-    private boolean haveString(String s) {
-	return s.chars().filter(i -> i == '"').count() > 0;
-    }
+		highlighting.save();
 
-    private void highlightingComment(int lineNumber, int end) {
-	highlighting.highlight(lineNumber, 0, lineNumber, end, TypeOfText.COMMENT);
-
-    }
-
-    private int searchNextOccurrenceOfDoubleQuote(String line, int start) {
-	int index = line.indexOf('"', start);
-	LOGGER.info(line + " " + index);
-	while (index > 0 && line.charAt(index - 1) == '\\') {
-	    index = line.indexOf('"', index + 1);
-	    LOGGER.info(line + " " + index);
-	}
-	return index;
-    }
-
-    private void highlightingStringInLine(String line, int lineNumber) {
-	if (!haveString(line)) {
-	    return;
-	}
-	int start = 0;
-	int index = searchNextOccurrenceOfDoubleQuote(line, start);
-	int indexEnd = searchNextOccurrenceOfDoubleQuote(line, index + 1);
-
-	int lastIndex = 0;
-	int lastIndexEnd = 0;
-
-	while (index != -1 && indexEnd != -1 && lastIndex != index && lastIndexEnd != indexEnd) {
-	    LOGGER.debug("index " + index + " indexEnd " + indexEnd);
-	    highlighting.highlight(lineNumber, index, lineNumber, indexEnd + 1, TypeOfText.STRING);
-	    start = indexEnd + 1;
-	    lastIndex = index;
-	    lastIndexEnd = indexEnd;
-	    index = searchNextOccurrenceOfDoubleQuote(line, start);
-	    indexEnd = searchNextOccurrenceOfDoubleQuote(line, index + 1);
 	}
 
-    }
-
-    private boolean isAString(String line, int index) {
-	return line.substring(0, index).chars().filter(i -> i == '"').count() % 2 != 0;
-
-    }
-
-    private void highlightingKeyWord(String line, int lineNumber) {
-	for (final GoLexer.Keyword k : GoLexer.Keyword.values()) {
-	    final String key = k.getValue();
-	    int index = 0;
-	    while ((index = line.indexOf(key, index)) != -1 && !isAString(line, index)) {
-
-		LOGGER.info("Line number " + lineNumber + " index start: " + index + " index end: "
-			+ (index + key.length()));
-
-		highlighting.highlight(lineNumber, index, lineNumber, index + key.length(), TypeOfText.KEYWORD);
-		index = index + key.length();
-	    }
+	private boolean haveString(String s) {
+		return s.chars().filter(i -> i == '"').count() > 0;
 	}
-    }
 
-    /*
-     * private void highlightingType(String line, int lineNumber) { for (final
-     * GoLexer.Keyword t : GoLexer.Keyword.values()) { final int index; final
-     * String type = t.name().toLowerCase(); LOGGER.debug(type);
-     * 
-     * if ((index = line.indexOf(type)) != -1 && !isAKeyWord(line, index)) {
-     * 
-     * LOGGER.debug("Line number " + lineNumber + " index start: " + index +
-     * " index end: " + (index + type.length()));
-     * highlighting.highlight(lineNumber, index, lineNumber, index +
-     * type.length(), TypeOfText.KEYWORD_LIGHT);
-     * 
-     * }
-     * 
-     * LOGGER.debug("position " + index + " line " + line);
-     * 
-     * } }
-     */
+	private void highlightingComment(int lineNumber, int end) {
+		highlighting.highlight(lineNumber, 0, lineNumber, end, TypeOfText.COMMENT);
 
-    private void searchAndColor(String s, int lineNumber) {
-	if (s.trim().startsWith(GoLexer.COMMENT_SYMBOL)) {
-	    highlightingComment(lineNumber, s.length());
-	} else {
-	    highlightingStringInLine(s, lineNumber);
-	    highlightingKeyWord(s, lineNumber);
-	    // highlightingType(s, lineNumber);
 	}
-    }
+
+	private int searchNextOccurrenceOfDoubleQuote(String line, int start) {
+		int index = line.indexOf('"', start);
+		LOGGER.debug(line + " " + index);
+		while (index > 0 && line.charAt(index - 1) == '\\') {
+			index = line.indexOf('"', index + 1);
+			LOGGER.debug(line + " " + index);
+		}
+		return index;
+	}
+
+	private void highlightingStringInLine(String line, int lineNumber) {
+		if (!haveString(line)) {
+			return;
+		}
+		int start = 0;
+		int index = searchNextOccurrenceOfDoubleQuote(line, start);
+		int indexEnd = searchNextOccurrenceOfDoubleQuote(line, index + 1);
+
+		int lastIndex = 0;
+		int lastIndexEnd = 0;
+
+		while (index != -1 && indexEnd != -1 && lastIndex != index && lastIndexEnd != indexEnd) {
+			LOGGER.debug("index " + index + " indexEnd " + indexEnd);
+			highlighting.highlight(lineNumber, index, lineNumber, indexEnd + 1, TypeOfText.STRING);
+			start = indexEnd + 1;
+			lastIndex = index;
+			lastIndexEnd = indexEnd;
+			index = searchNextOccurrenceOfDoubleQuote(line, start);
+			indexEnd = searchNextOccurrenceOfDoubleQuote(line, index + 1);
+		}
+
+	}
+
+	private boolean isAString(String line, int index) {
+		return line.substring(0, index).chars().filter(i -> i == '"').count() % 2 != 0;
+
+	}
+
+	private void highlightingKeyWord(String line, int lineNumber) {
+		for (final GoLexer.Keyword k : GoLexer.Keyword.values()) {
+			final String key = k.getValue();
+			int index = 0;
+			while ((index = line.indexOf(key, index)) != -1 && !isAString(line, index)) {
+
+				LOGGER.debug("Line number " + lineNumber + " index start: " + index + " index end: "
+						+ (index + key.length()));
+
+				highlighting.highlight(lineNumber, index, lineNumber, index + key.length(), TypeOfText.KEYWORD);
+				index = index + key.length();
+			}
+		}
+	}
+
+	private void searchAndColor(String s, int lineNumber) {
+		if (s.trim().startsWith(GoLexer.COMMENT_SYMBOL)) {
+			highlightingComment(lineNumber, s.length());
+		} else {
+			highlightingStringInLine(s, lineNumber);
+			highlightingKeyWord(s, lineNumber);
+
+		}
+	}
 
 }
