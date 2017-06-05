@@ -23,6 +23,7 @@ package fr.univartois.sonargo.coverage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import fr.univartois.sonargo.core.Parser;
@@ -41,7 +43,7 @@ import fr.univartois.sonargo.core.Parser;
 public class CoverageParser implements Parser {
 
     private String filepath;
-    private List<LineCoverage> listOfCoverage;
+    private final List<LineCoverage> listOfCoverage;
     private static final String FILE_NAME_ATTR = "filename";
     private static final String LINE_NUMBER_ATTR = "number";
     private static final String HITS_ATTR = "hits";
@@ -63,19 +65,26 @@ public class CoverageParser implements Parser {
      */
     @Override
     public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
-	DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	DocumentBuilder db = dbf.newDocumentBuilder();
-	Document doc = db.parse(new File(reportPath));
+	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	final DocumentBuilder db = dbf.newDocumentBuilder();
+	db.setEntityResolver((publicId, systemId) -> {
+	    if (systemId.contains(".dtd")) {
+		return new InputSource(new StringReader(""));
+	    } else {
+		return null;
+	    }
+	});
+	final Document doc = db.parse(new File(reportPath));
 
 	doc.getDocumentElement().normalize();
 
-	NodeList classList = doc.getElementsByTagName(CLASS_TAG);
+	final NodeList classList = doc.getElementsByTagName(CLASS_TAG);
 
 	for (int i = 0; i < classList.getLength(); i++) {
-	    Node nNode = classList.item(i);
+	    final Node nNode = classList.item(i);
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
-		Element eElement = (Element) nNode;
+		final Element eElement = (Element) nNode;
 		filepath = eElement.getAttribute(FILE_NAME_ATTR);
 
 		parseMethodTag(eElement.getElementsByTagName(METHOD_TAG));
@@ -87,9 +96,9 @@ public class CoverageParser implements Parser {
 
     private void parseMethodTag(NodeList methodsList) {
 	for (int j = 0; j < methodsList.getLength(); j++) {
-	    Node nNode = methodsList.item(j);
+	    final Node nNode = methodsList.item(j);
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-		Element eElement = (Element) nNode;
+		final Element eElement = (Element) nNode;
 		parseLineTag(eElement.getElementsByTagName(LINE_TAG));
 	    }
 	}
@@ -97,9 +106,9 @@ public class CoverageParser implements Parser {
 
     private void parseLineTag(NodeList lineList) {
 	for (int j = 0; j < lineList.getLength(); j++) {
-	    Node nNode = lineList.item(j);
+	    final Node nNode = lineList.item(j);
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-		Element eElement = (Element) nNode;
+		final Element eElement = (Element) nNode;
 		listOfCoverage.add(new LineCoverage(Integer.parseInt(eElement.getAttribute(LINE_NUMBER_ATTR)),
 			Integer.parseInt(eElement.getAttribute(HITS_ATTR))));
 	    }
