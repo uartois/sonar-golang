@@ -1151,6 +1151,7 @@ time:=time.Duration(seconds)*time.Second
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+	
 
 
 </go-rules>
