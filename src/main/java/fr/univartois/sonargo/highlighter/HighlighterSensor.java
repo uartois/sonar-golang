@@ -22,17 +22,16 @@ public class HighlighterSensor implements Sensor {
 
     @Override
     public void execute(SensorContext context) {
-	FileSystem fileSystem = context.fileSystem();
-	FilePredicates predicates = fileSystem.predicates();
-	Iterable<InputFile> files = fileSystem.inputFiles(predicates.all());
-	List<InputFile> listFiles = new ArrayList<>();
+	final FileSystem fileSystem = context.fileSystem();
+	final FilePredicates predicates = fileSystem.predicates();
+	final Iterable<InputFile> files = fileSystem.inputFiles(predicates.all());
+	final List<InputFile> listFiles = new ArrayList<>();
 	files.forEach(listFiles::add);
 
 	listFiles.stream().filter((i) -> {
-	    System.out.println(i.language());
-	    return GoLanguage.KEY.equals((i.language()));
+	    return GoLanguage.KEY.equals(i.language());
 	}).forEach((i) -> {
-	    Colorizer colo = new Colorizer(context);
+	    final Colorizer colo = new Colorizer(context);
 	    colo.colorize(i);
 	});
     }
