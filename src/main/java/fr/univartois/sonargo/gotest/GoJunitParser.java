@@ -50,6 +50,7 @@ public class GoJunitParser implements Parser {
 
     @Override
     public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
+        listTestSuite.clear();
 	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	final DocumentBuilder db = dbf.newDocumentBuilder();
 	final Document doc = db.parse(new File(reportPath));

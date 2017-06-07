@@ -65,6 +65,7 @@ public class CoverageParser implements Parser {
      */
     @Override
     public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
+        listOfCoverage.clear();
 	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	final DocumentBuilder db = dbf.newDocumentBuilder();
 	db.setEntityResolver((publicId, systemId) -> {
