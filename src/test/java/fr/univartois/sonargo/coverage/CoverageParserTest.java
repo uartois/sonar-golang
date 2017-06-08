@@ -44,5 +44,25 @@ public class CoverageParserTest extends AbstractSonarTest {
 	}
 
     }
+    
+    @Test
+    public void testParseBug9() {
+        coverage = new CoverageParser();
+        try {
+            
+            assertNull(coverage.getFilepath());
+            assertTrue(coverage.getList().isEmpty());
+            
+            coverage.parse(fileSystem.baseDir() + File.separator + "bug/coverage.xml");
+            assertEquals("/home/dca-analytics-cobridge/src/github.com/IMS/dca-analytics-cobridge.git/cohandler/cohandler.go", coverage.getFilepath());
+            
+            assertEquals(77, coverage.getList().size());
+            
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
 
 }

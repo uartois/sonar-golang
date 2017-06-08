@@ -54,8 +54,11 @@ public class CoverageRecorder {
 	NewCoverage coverage = context.newCoverage().onFile(inputFile);
 
 	for (LineCoverage line : lines) {
+        try {
 	    coverage.lineHits(line.getLineNumber(), line.getHits());
-	    LOGGER.info(line.toString());
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage()+": "+line);
+        }
 	}
 	coverage.ofType(CoverageType.UNIT);
 	coverage.save();
