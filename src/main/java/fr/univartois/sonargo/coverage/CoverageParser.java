@@ -23,7 +23,6 @@ package fr.univartois.sonargo.coverage;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import fr.univartois.sonargo.core.Parser;
@@ -65,16 +63,11 @@ public class CoverageParser implements Parser {
      */
     @Override
     public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
-        listOfCoverage.clear();
+	listOfCoverage.clear();
 	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	dbf.setFeature("http://cobertura.sourceforge.net/xml/coverage-03.dtd", false);
 	final DocumentBuilder db = dbf.newDocumentBuilder();
-	db.setEntityResolver((publicId, systemId) -> {
-	    if (systemId.contains(".dtd")) {
-		return new InputSource(new StringReader(""));
-	    } else {
-		return null;
-	    }
-	});
+
 	final Document doc = db.parse(new File(reportPath));
 
 	doc.getDocumentElement().normalize();
