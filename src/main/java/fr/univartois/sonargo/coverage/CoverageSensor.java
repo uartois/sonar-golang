@@ -108,7 +108,11 @@ public class CoverageSensor implements Sensor {
 	final NewCoverage coverage = context.newCoverage().onFile(inputFile);
 
 	for (final LineCoverage line : lines) {
-	    coverage.lineHits(line.getLineNumber(), line.getHits());
+	    try {
+		coverage.lineHits(line.getLineNumber(), line.getHits());
+	    } catch (final Exception ex) {
+		LOGGER.error(ex.getMessage() + line);
+	    }
 	}
 	coverage.ofType(CoverageType.UNIT);
 	coverage.save();

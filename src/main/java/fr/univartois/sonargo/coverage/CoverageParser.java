@@ -65,6 +65,8 @@ public class CoverageParser implements Parser {
     public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
 	listOfCoverage.clear();
 	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	dbf.setValidating(false);
+	dbf.setNamespaceAware(true);
 	dbf.setFeature("http://cobertura.sourceforge.net/xml/coverage-03.dtd", false);
 	final DocumentBuilder db = dbf.newDocumentBuilder();
 
