@@ -109,7 +109,6 @@ public class CoverageSensor implements Sensor {
 
 	for (final LineCoverage line : lines) {
 	    coverage.lineHits(line.getLineNumber(), line.getHits());
-	    LOGGER.info(line.toString());
 	}
 	coverage.ofType(CoverageType.UNIT);
 	coverage.save();
