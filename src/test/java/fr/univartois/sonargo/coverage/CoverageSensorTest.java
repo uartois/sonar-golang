@@ -33,7 +33,7 @@ public class CoverageSensorTest extends AbstractSonarTest {
     public void testCreateStream() {
 	final CoverageSensor sensor = new CoverageSensor();
 	try (Stream<Path> paths = sensor.createStream(testerContext)) {
-	    assertEquals(20, paths.count());
+	    assertEquals(22, paths.count());
 
 	} catch (final IOException e) {
 	    // TODO Auto-generated catch block
