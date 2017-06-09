@@ -37,6 +37,9 @@ public class GoProperties {
     public static final String JUNIT_REPORT_PATH_KEY = "sonar.test.reportPath";
     public static final String JUNIT_REPORT_PATH_DEFAULT = "test.xml";
 
+    public static final String DTD_VERIFICATION_KEY = "sonar.coverage.dtdVerification";
+    public static final String DTD_VERIFICATION_DEFAULT = "true";
+
     private GoProperties() {
 
     }
@@ -49,6 +52,9 @@ public class GoProperties {
 			.category("Go").name("Report path of coverage report")
 			.description("relative path for coverage report").build(),
 		PropertyDefinition.builder(JUNIT_REPORT_PATH_KEY).defaultValue(JUNIT_REPORT_PATH_DEFAULT).category("Go")
-			.name("Report path of JUnit report").description("relative path for JUnit report").build());
+			.name("Report path of JUnit report").description("relative path for JUnit report").build(),
+		PropertyDefinition.builder(DTD_VERIFICATION_KEY).defaultValue(DTD_VERIFICATION_DEFAULT).category("Go")
+			.name("Boolean for DTD verification")
+			.description("false if you want disabled the DTD verification for coverage file").build());
     }
 }

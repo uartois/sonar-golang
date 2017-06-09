@@ -23,6 +23,7 @@ package fr.univartois.sonargo.coverage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,25 +31,24 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.sonar.api.batch.sensor.coverage.CoverageType;
-import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
-import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.coverage.CoverageType;
+import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import fr.univartois.sonargo.core.Parser;
 import fr.univartois.sonargo.core.language.GoLanguage;
+import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class CoverageParser implements Parser {
 
@@ -62,9 +62,30 @@ public class CoverageParser implements Parser {
     private static final String CLASS_TAG = "class";
     private static final String LINE_TAG = "line";
 
+    private final boolean checkDtd;
+
     public CoverageParser(SensorContext context) {
-	this.listOfCoverage = new ArrayList<>();
+	listOfCoverage = new ArrayList<>();
 	this.context = context;
+	checkDtd = context.settings().getBoolean(GoProperties.DTD_VERIFICATION_KEY);
+    }
+
+    private DocumentBuilder constructDocumentBuilder() throws ParserConfigurationException {
+	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
+	final DocumentBuilder db = dbf.newDocumentBuilder();
+
+	if (!checkDtd) {
+	    db.setEntityResolver((publicId, systemId) -> {
+		if (systemId.contains("http://cobertura.sourceforge.net/xml/coverage-03.dtd")) {
+		    return new InputSource(new StringReader(""));
+		} else {
+		    return null;
+		}
+	    });
+	}
+
+	return db;
     }
 
     /**
@@ -77,12 +98,7 @@ public class CoverageParser implements Parser {
      */
     @Override
     public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
-	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	dbf.setValidating(false);
-	dbf.setNamespaceAware(true);
-	dbf.setFeature("http://cobertura.sourceforge.net/xml/coverage-03.dtd", false);
-	final DocumentBuilder db = dbf.newDocumentBuilder();
-
+	final DocumentBuilder db = constructDocumentBuilder();
 	final Document doc = db.parse(new File(reportPath));
 
 	doc.getDocumentElement().normalize();
@@ -97,7 +113,7 @@ public class CoverageParser implements Parser {
 		final String filepath = eElement.getAttribute(FILE_NAME_ATTR);
 
 		parseMethodTag(eElement.getElementsByTagName(METHOD_TAG));
-                save(context, listOfCoverage,filepath);
+		save(context, listOfCoverage, filepath);
 		listOfCoverage.clear();
 	    }
 	}
