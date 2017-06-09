@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -45,6 +45,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.InputSource;
 
 import fr.univartois.sonargo.core.Parser;
 import fr.univartois.sonargo.core.language.GoLanguage;
@@ -53,8 +54,7 @@ import fr.univartois.sonargo.core.settings.GoProperties;
 public class CoverageParser implements Parser {
 
     private static final Logger LOGGER = Loggers.get(CoverageParser.class);
-    private final SensorContext context;
-    private final List<LineCoverage> listOfCoverage;
+    private final Map<String,List<LineCoverage>> coverageByFile = new HashMap<>();
     private static final String FILE_NAME_ATTR = "filename";
     private static final String LINE_NUMBER_ATTR = "number";
     private static final String HITS_ATTR = "hits";
@@ -65,8 +65,6 @@ public class CoverageParser implements Parser {
     private final boolean checkDtd;
 
     public CoverageParser(SensorContext context) {
-	listOfCoverage = new ArrayList<>();
-	this.context = context;
 	checkDtd = context.settings().getBoolean(GoProperties.DTD_VERIFICATION_KEY);
     }
 
@@ -112,25 +110,36 @@ public class CoverageParser implements Parser {
 		final Element eElement = (Element) nNode;
 		final String filepath = eElement.getAttribute(FILE_NAME_ATTR);
 
-		parseMethodTag(eElement.getElementsByTagName(METHOD_TAG));
-		save(context, listOfCoverage, filepath);
-		listOfCoverage.clear();
+		parseMethodTag(eElement.getElementsByTagName(METHOD_TAG),getListForFile(filepath));
 	    }
 	}
 
     }
 
-    private void parseMethodTag(NodeList methodsList) {
+    public  Map<String,List<LineCoverage>>  getCoveragePerFile() {
+	return coverageByFile;
+    }
+    
+    private List<LineCoverage> getListForFile(String filepath) {
+        List<LineCoverage> list = coverageByFile.get(filepath);
+	if (list==null) {
+	    list = new ArrayList<>();
+	    coverageByFile.put(filepath,list);
+	}
+	return list;	
+    }
+    
+    private void parseMethodTag(NodeList methodsList, List<LineCoverage> listOfCoverage) {
 	for (int j = 0; j < methodsList.getLength(); j++) {
 	    final Node nNode = methodsList.item(j);
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 		final Element eElement = (Element) nNode;
-		parseLineTag(eElement.getElementsByTagName(LINE_TAG));
+		parseLineTag(eElement.getElementsByTagName(LINE_TAG),listOfCoverage);
 	    }
 	}
     }
 
-    private void parseLineTag(NodeList lineList) {
+    private void parseLineTag(NodeList lineList, List<LineCoverage> listOfCoverage) {
 	for (int j = 0; j < lineList.getLength(); j++) {
 	    final Node nNode = lineList.item(j);
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -140,31 +149,4 @@ public class CoverageParser implements Parser {
 	    }
 	}
     }
-
-    public static void save(SensorContext context, List<LineCoverage> lines, String filePath) {
-	final FileSystem fileSystem = context.fileSystem();
-	final FilePredicates predicates = fileSystem.predicates();
-	final String key = filePath.startsWith(File.separator) ? filePath : File.separator + filePath;
-	final InputFile inputFile = fileSystem
-		.inputFile(predicates.and(predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
-			predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
-
-	if (inputFile == null) {
-	    LOGGER.warn("unable to create InputFile object: " + filePath);
-	    return;
-	}
-
-	final NewCoverage coverage = context.newCoverage().onFile(inputFile);
-
-	for (final LineCoverage line : lines) {
-	    try {
-		coverage.lineHits(line.getLineNumber(), line.getHits());
-	    } catch (final Exception ex) {
-		LOGGER.error(ex.getMessage() + line);
-	    }
-	}
-	coverage.ofType(CoverageType.UNIT);
-	coverage.save();
-    }
-
 }
