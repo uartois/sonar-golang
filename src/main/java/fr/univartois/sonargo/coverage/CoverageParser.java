@@ -30,6 +30,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.sonar.api.batch.sensor.coverage.CoverageType;
+import org.sonar.api.batch.sensor.coverage.NewCoverage;
+import org.sonar.api.batch.fs.FilePredicates;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.sensor.Sensor;
+import org.sonar.api.batch.sensor.SensorContext;
+import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -37,10 +48,12 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import fr.univartois.sonargo.core.Parser;
+import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class CoverageParser implements Parser {
 
-    private String filepath;
+    private static final Logger LOGGER = Loggers.get(CoverageParser.class);
+    private final SensorContext context;
     private final List<LineCoverage> listOfCoverage;
     private static final String FILE_NAME_ATTR = "filename";
     private static final String LINE_NUMBER_ATTR = "number";
@@ -49,8 +62,9 @@ public class CoverageParser implements Parser {
     private static final String CLASS_TAG = "class";
     private static final String LINE_TAG = "line";
 
-    public CoverageParser() {
-	listOfCoverage = new ArrayList<>();
+    public CoverageParser(SensorContext context) {
+	this.listOfCoverage = new ArrayList<>();
+	this.context = context;
     }
 
     /**
@@ -63,7 +77,6 @@ public class CoverageParser implements Parser {
      */
     @Override
     public void parse(String reportPath) throws ParserConfigurationException, SAXException, IOException {
-	listOfCoverage.clear();
 	final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	dbf.setValidating(false);
 	dbf.setNamespaceAware(true);
@@ -81,10 +94,11 @@ public class CoverageParser implements Parser {
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 		final Element eElement = (Element) nNode;
-		filepath = eElement.getAttribute(FILE_NAME_ATTR);
+		final String filepath = eElement.getAttribute(FILE_NAME_ATTR);
 
 		parseMethodTag(eElement.getElementsByTagName(METHOD_TAG));
-
+                save(context, listOfCoverage,filepath);
+		listOfCoverage.clear();
 	    }
 	}
 
@@ -111,12 +125,30 @@ public class CoverageParser implements Parser {
 	}
     }
 
-    public String getFilepath() {
-	return filepath;
-    }
+    public static void save(SensorContext context, List<LineCoverage> lines, String filePath) {
+	final FileSystem fileSystem = context.fileSystem();
+	final FilePredicates predicates = fileSystem.predicates();
+	final String key = filePath.startsWith(File.separator) ? filePath : File.separator + filePath;
+	final InputFile inputFile = fileSystem
+		.inputFile(predicates.and(predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
+			predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
 
-    public List<LineCoverage> getList() {
-	return listOfCoverage;
+	if (inputFile == null) {
+	    LOGGER.warn("unable to create InputFile object: " + filePath);
+	    return;
+	}
+
+	final NewCoverage coverage = context.newCoverage().onFile(inputFile);
+
+	for (final LineCoverage line : lines) {
+	    try {
+		coverage.lineHits(line.getLineNumber(), line.getHits());
+	    } catch (final Exception ex) {
+		LOGGER.error(ex.getMessage() + line);
+	    }
+	}
+	coverage.ofType(CoverageType.UNIT);
+	coverage.save();
     }
 
 }

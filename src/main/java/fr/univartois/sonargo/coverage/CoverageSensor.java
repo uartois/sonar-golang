@@ -37,8 +37,6 @@ import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
-import org.sonar.api.batch.sensor.coverage.CoverageType;
-import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.xml.sax.SAXException;
@@ -72,12 +70,9 @@ public class CoverageSensor implements Sensor {
 		    if (f.exists()) {
 			LOGGER.info("Analyse for " + f.getPath());
 
-			final CoverageParser coverParser = new CoverageParser();
+			final CoverageParser coverParser = new CoverageParser(context);
 			try {
 			    coverParser.parse(f.getPath());
-
-			    save(context, coverParser.getList(), coverParser.getFilepath());
-
 			} catch (ParserConfigurationException | SAXException | IOException e) {
 			    LOGGER.error("Exception: ", e);
 			}
@@ -92,30 +87,5 @@ public class CoverageSensor implements Sensor {
 	}
     }
 
-    public static void save(SensorContext context, List<LineCoverage> lines, String filePath) {
-	final FileSystem fileSystem = context.fileSystem();
-	final FilePredicates predicates = fileSystem.predicates();
-	final String key = filePath.startsWith(File.separator) ? filePath : File.separator + filePath;
-	final InputFile inputFile = fileSystem
-		.inputFile(predicates.and(predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
-			predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
-
-	if (inputFile == null) {
-	    LOGGER.warn("unable to create InputFile object: " + filePath);
-	    return;
-	}
-
-	final NewCoverage coverage = context.newCoverage().onFile(inputFile);
-
-	for (final LineCoverage line : lines) {
-	    try {
-		coverage.lineHits(line.getLineNumber(), line.getHits());
-	    } catch (final Exception ex) {
-		LOGGER.error(ex.getMessage() + line);
-	    }
-	}
-	coverage.ofType(CoverageType.UNIT);
-	coverage.save();
-    }
 
 }
