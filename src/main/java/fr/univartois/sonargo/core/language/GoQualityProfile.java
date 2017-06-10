@@ -54,7 +54,7 @@ public final class GoQualityProfile extends ProfileDefinition {
 	@Override
 	public RulesProfile createProfile(ValidationMessages validation) {
 
-		LOGGER.info("Golint Quality profile");
+		LOGGER.info("GoMetaLinter Quality profile");
 		RulesProfile profile = RulesProfile.create("Golint Rules", GoLanguage.KEY);
 		profile.setDefaultProfile(Boolean.TRUE);
 
@@ -73,7 +73,7 @@ public final class GoQualityProfile extends ProfileDefinition {
 			LOGGER.error((new StringBuilder()).append("Unable to load ").append(PROFILE_PATH).toString(), e);
 		}
 
-		LOGGER.info((new StringBuilder()).append("Profil generate: ").append(profile.getActiveRules()).toString());
+		LOGGER.debug((new StringBuilder()).append("Profil generate: ").append(profile.getActiveRules()).toString());
 
 		return profile;
 	}
