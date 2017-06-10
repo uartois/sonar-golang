@@ -26,7 +26,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -35,10 +36,10 @@ import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
-import org.sonar.api.batch.sensor.coverage.CoverageType;
-import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
+import org.sonar.api.batch.sensor.coverage.CoverageType;
+import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.xml.sax.SAXException;
@@ -56,8 +57,12 @@ public class CoverageSensor implements Sensor {
 	}
 
 	public Stream<Path> createStream(SensorContext context) throws IOException {
-		return Files.walk(Paths.get(context.fileSystem().baseDir().getPath()))
-				.filter(p -> !p.getFileName().toString().startsWith("."));
+		final String fullPath = context.fileSystem().baseDir().getPath();
+
+		return Files.walk(Paths.get(fullPath))
+				.filter(p -> !p.getParent().toString().contains(".git") && !p.getParent().toString().contains(".sonar")
+						&& !p.getParent().toString().contains(".scannerwork")
+						&& !p.getFileName().toString().startsWith("."));
 
 	}
 
