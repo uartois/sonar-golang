@@ -62,7 +62,7 @@ public class GoLintRulesDefinition implements RulesDefinition {
 			RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
 			rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
 		} else {
-			LOGGER.warn("The file " + PATH_TO_RULES_XML + " is not loading ");
+			LOGGER.warn("Cannot load the rules file " + PATH_TO_RULES_XML);
 		}
 
 		repository.done();

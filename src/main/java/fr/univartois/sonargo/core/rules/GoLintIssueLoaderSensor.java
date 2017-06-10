@@ -116,7 +116,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 			this.context = context;
 			File analyse = new File(reportPath);
 			try {
-				LOGGER.info("Parse the file " + reportPath);
+				LOGGER.info("Parsing the file " + reportPath);
 				parseAndSaveResults(analyse);
 			} catch (XMLStreamException | ParserConfigurationException e) {
 				LOGGER.error("Unable to parse the provided GoMetaLinter file", e);

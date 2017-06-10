@@ -29,7 +29,7 @@ public class Colorizer {
 
 	public void colorize(InputFile i) {
 		final File f = i.file();
-		LOGGER.info("Color the file: " + f.getPath());
+		LOGGER.debug("Coloring the file: " + f.getPath());
 		highlighting.onFile(i);
 		try (final BufferedReader br = new BufferedReader(
 				new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
