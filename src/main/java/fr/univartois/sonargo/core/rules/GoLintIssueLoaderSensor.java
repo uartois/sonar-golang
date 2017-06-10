@@ -119,7 +119,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 				LOGGER.info("Parse the file " + reportPath);
 				parseAndSaveResults(analyse);
 			} catch (XMLStreamException | ParserConfigurationException e) {
-				LOGGER.error("Unable to parse the provided Golint file", e);
+				LOGGER.error("Unable to parse the provided GoMetaLinter file", e);
 			}
 		} else {
 			LOGGER.warn("No report file ");
@@ -128,7 +128,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	}
 
 	protected void parseAndSaveResults(final File file) throws XMLStreamException, ParserConfigurationException {
-		LOGGER.info("Parsing 'GoLint' Analysis Results");
+		LOGGER.info("Parsing 'GoMetaLinter' Analysis Results");
 
 		GoLintResultParser parser = new GoLintResultParser();
 
@@ -206,11 +206,11 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		private static final String SEVER_ATTRIBUTE = "severity";
 
 		/**
-		 * GoLintResultParser allow parse a checkstyle report file
+		 * GoLintResultParser allows parsing a checkstyle report file
 		 * 
 		 * @param file
 		 *            The path to checktyle report
-		 * @return A list of error
+		 * @return A list of violations
 		 * @throws XMLStreamException
 		 * @throws ParserConfigurationException
 		 *             throw if is not possible to parse the file
@@ -232,7 +232,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 					String filename = n.getAttribute("name");
 
-					LOGGER.info("error for the file " + filename);
+					LOGGER.debug("violation found for the file " + filename);
 
 					NodeList children = n.getChildNodes();
 

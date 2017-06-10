@@ -13,13 +13,13 @@ import fr.univartois.sonargo.core.language.GoLexer.Keyword;
 
 public final class GoColorizer {
 
-    private GoColorizer() {
-    }
+	private GoColorizer() {
+	}
 
-    public static List<Tokenizer> getTokenizers() {
-	return Arrays.asList(new CDocTokenizer("<span class=\"cd\">", "</span>"),
-		new CppDocTokenizer("<span class=\"cppd\">", "</span>"),
-		new KeywordsTokenizer("<span class=\"k\">", "</span>", GoLexer.Keyword.keywordValues()));
-    }
+	public static List<Tokenizer> getTokenizers() {
+		return Arrays.asList(new CDocTokenizer("<span class=\"cd\">", "</span>"),
+				new CppDocTokenizer("<span class=\"cppd\">", "</span>"),
+				new KeywordsTokenizer("<span class=\"k\">", "</span>", GoLexer.Keyword.keywordValues()));
+	}
 
 }

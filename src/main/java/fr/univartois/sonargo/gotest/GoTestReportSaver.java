@@ -34,33 +34,33 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 public class GoTestReportSaver {
-    private static final Logger LOGGER = Loggers.get(GoTestReportSaver.class);
+	private static final Logger LOGGER = Loggers.get(GoTestReportSaver.class);
 
-    public static void save(SensorContext context, List<GoTestSuite> list) {
-	for (GoTestSuite t : list) {
+	public static void save(SensorContext context, List<GoTestSuite> list) {
+		for (GoTestSuite t : list) {
 
-	    File f = new File(new File(t.getFile()).getName());
-	    FilePredicates predicates = context.fileSystem().predicates();
-	    InputFile file = context.fileSystem().inputFile(predicates
-		    .hasAbsolutePath(f.getAbsolutePath() + File.separator + new File(t.getFile()).getName() + ".go"));
-	    if (file == null) {
-		LOGGER.warn("file not found " + f.getAbsolutePath());
-		return;
-	    }
-	    saveMeasure(t, context, file);
+			File f = new File(new File(t.getFile()).getName());
+			FilePredicates predicates = context.fileSystem().predicates();
+			InputFile file = context.fileSystem().inputFile(predicates
+					.hasAbsolutePath(f.getAbsolutePath() + File.separator + new File(t.getFile()).getName() + ".go"));
+			if (file == null) {
+				LOGGER.warn("file not found " + f.getAbsolutePath());
+				return;
+			}
+			saveMeasure(t, context, file);
+		}
 	}
-    }
 
-    private static void saveMeasure(GoTestSuite t, SensorContext context, InputFile file) {
-	saveMeasure(context, file, CoreMetrics.SKIPPED_TESTS, t.getSkipped());
-	saveMeasure(context, file, CoreMetrics.TESTS, t.getNbTotalTest());
-	saveMeasure(context, file, CoreMetrics.TEST_FAILURES, t.getNbFailureTest());
-	saveMeasure(context, file, CoreMetrics.TEST_EXECUTION_TIME, t.getTime());
-    }
+	private static void saveMeasure(GoTestSuite t, SensorContext context, InputFile file) {
+		saveMeasure(context, file, CoreMetrics.SKIPPED_TESTS, t.getSkipped());
+		saveMeasure(context, file, CoreMetrics.TESTS, t.getNbTotalTest());
+		saveMeasure(context, file, CoreMetrics.TEST_FAILURES, t.getNbFailureTest());
+		saveMeasure(context, file, CoreMetrics.TEST_EXECUTION_TIME, t.getTime());
+	}
 
-    private static <T extends Serializable> void saveMeasure(SensorContext context, InputFile inputFile,
-	    Metric<T> metric, T value) {
+	private static <T extends Serializable> void saveMeasure(SensorContext context, InputFile inputFile,
+			Metric<T> metric, T value) {
 
-	context.<T>newMeasure().forMetric(metric).on(inputFile).withValue(value).save();
-    }
+		context.<T>newMeasure().forMetric(metric).on(inputFile).withValue(value).save();
+	}
 }

@@ -52,112 +52,112 @@ package fr.univartois.sonargo.core.rules;
  * @author thibault
  */
 public class GoError {
-    private final int line;
-    private final String message;
-    private final String severity;
-    private final String filePath;
+	private final int line;
+	private final String message;
+	private final String severity;
+	private final String filePath;
 
-    /**
-     * Create a GoError
-     * 
-     * @param line
-     *            The line where there is the problem
-     * @param message
-     *            The message for the error
-     * @param severity
-     *            The severity for the message, this is the severity by the
-     *            linter it's not directly the severity of SonarQube
-     * @param filePath
-     *            The file where there is the error
-     */
-    public GoError(int line, String message, String severity, String filePath) {
-	super();
-	this.line = line;
-	this.message = message;
-	this.severity = severity;
-	this.filePath = filePath;
-    }
+	/**
+	 * Create a GoError
+	 * 
+	 * @param line
+	 *            The line where there is the problem
+	 * @param message
+	 *            The message for the error
+	 * @param severity
+	 *            The severity for the message, this is the severity by the
+	 *            linter it's not directly the severity of SonarQube
+	 * @param filePath
+	 *            The file where there is the error
+	 */
+	public GoError(int line, String message, String severity, String filePath) {
+		super();
+		this.line = line;
+		this.message = message;
+		this.severity = severity;
+		this.filePath = filePath;
+	}
 
-    /**
-     * Get the line where there is the problem
-     * 
-     * @return The line attribute
-     */
-    public int getLine() {
-	return line;
-    }
+	/**
+	 * Get the line where there is the problem
+	 * 
+	 * @return The line attribute
+	 */
+	public int getLine() {
+		return line;
+	}
 
-    /**
-     * Get the message where there is the problem
-     * 
-     * @return The message attribute
-     */
-    public String getMessage() {
-	return message;
-    }
+	/**
+	 * Get the message where there is the problem
+	 * 
+	 * @return The message attribute
+	 */
+	public String getMessage() {
+		return message;
+	}
 
-    /**
-     * Get the severity where there is the problem
-     * 
-     * @return The severity attribute
-     */
-    public String getSeverity() {
-	return severity;
-    }
+	/**
+	 * Get the severity where there is the problem
+	 * 
+	 * @return The severity attribute
+	 */
+	public String getSeverity() {
+		return severity;
+	}
 
-    /**
-     * Get the filePath of file where there is the problem
-     * 
-     * @return The filePath attribute
-     */
-    public String getFilePath() {
-	return filePath;
-    }
+	/**
+	 * Get the filePath of file where there is the problem
+	 * 
+	 * @return The filePath attribute
+	 */
+	public String getFilePath() {
+		return filePath;
+	}
 
-    @Override
-    public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
-	result = prime * result + line;
-	result = prime * result + ((message == null) ? 0 : message.hashCode());
-	return prime * result + ((severity == null) ? 0 : severity.hashCode());
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
+		result = prime * result + line;
+		result = prime * result + ((message == null) ? 0 : message.hashCode());
+		return prime * result + ((severity == null) ? 0 : severity.hashCode());
 
-    }
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	GoError other = (GoError) obj;
-	if (filePath == null) {
-	    if (other.filePath != null)
-		return false;
-	} else if (!filePath.equals(other.filePath))
-	    return false;
-	if (line != other.line)
-	    return false;
-	if (message == null) {
-	    if (other.message != null)
-		return false;
-	} else if (!message.equals(other.message))
-	    return false;
-	if (severity == null) {
-	    if (other.severity != null)
-		return false;
-	} else if (!severity.equals(other.severity))
-	    return false;
-	return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GoError other = (GoError) obj;
+		if (filePath == null) {
+			if (other.filePath != null)
+				return false;
+		} else if (!filePath.equals(other.filePath))
+			return false;
+		if (line != other.line)
+			return false;
+		if (message == null) {
+			if (other.message != null)
+				return false;
+		} else if (!message.equals(other.message))
+			return false;
+		if (severity == null) {
+			if (other.severity != null)
+				return false;
+		} else if (!severity.equals(other.severity))
+			return false;
+		return true;
+	}
 
-    @Override
-    public String toString() {
-	return "GoError [line=" + line + ", message=" + message + ", severity=" + severity + ", filePath=" + filePath
-		+ "]";
-    }
+	@Override
+	public String toString() {
+		return "GoError [line=" + line + ", message=" + message + ", severity=" + severity + ", filePath=" + filePath
+				+ "]";
+	}
 
 }

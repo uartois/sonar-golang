@@ -14,26 +14,26 @@ import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class HighlighterSensor implements Sensor {
 
-    @Override
-    public void describe(SensorDescriptor descriptor) {
-	descriptor.name("Go Highlighter Sensor");
+	@Override
+	public void describe(SensorDescriptor descriptor) {
+		descriptor.name("Go Highlighter Sensor");
 
-    }
+	}
 
-    @Override
-    public void execute(SensorContext context) {
-	final FileSystem fileSystem = context.fileSystem();
-	final FilePredicates predicates = fileSystem.predicates();
-	final Iterable<InputFile> files = fileSystem.inputFiles(predicates.all());
-	final List<InputFile> listFiles = new ArrayList<>();
-	files.forEach(listFiles::add);
+	@Override
+	public void execute(SensorContext context) {
+		final FileSystem fileSystem = context.fileSystem();
+		final FilePredicates predicates = fileSystem.predicates();
+		final Iterable<InputFile> files = fileSystem.inputFiles(predicates.all());
+		final List<InputFile> listFiles = new ArrayList<>();
+		files.forEach(listFiles::add);
 
-	listFiles.stream().filter((i) -> {
-	    return GoLanguage.KEY.equals(i.language());
-	}).forEach((i) -> {
-	    final Colorizer colo = new Colorizer(context);
-	    colo.colorize(i);
-	});
-    }
+		listFiles.stream().filter((i) -> {
+			return GoLanguage.KEY.equals(i.language());
+		}).forEach((i) -> {
+			final Colorizer colo = new Colorizer(context);
+			colo.colorize(i);
+		});
+	}
 
 }
