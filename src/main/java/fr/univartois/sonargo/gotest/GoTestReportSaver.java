@@ -45,7 +45,7 @@ public class GoTestReportSaver {
 		    f.getAbsolutePath() + File.separator + new File(t.getFile()).getName() + "_test.go"));
 	    if (file == null) {
 		LOGGER.warn("file not found " + f.getAbsolutePath());
-		return;
+		continue;
 	    }
 	    saveMeasure(t, context, file);
 	}
