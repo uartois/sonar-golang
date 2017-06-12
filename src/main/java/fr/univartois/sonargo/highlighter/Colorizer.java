@@ -44,8 +44,11 @@ public class Colorizer {
 		} catch (final IOException e) {
 			LOGGER.error("IO Exception", e);
 		}
-
-		highlighting.save();
+		try {
+			highlighting.save();
+		} catch (Exception ex) {
+			LOGGER.error("Highlighting problem on save", ex);
+		}
 
 	}
 
