@@ -1131,7 +1131,6 @@ time:=time.Duration(seconds)*time.Second
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
-
 	<rule>
 		<key>gosimple:ChannelInsteadSelect</key>
 		<name>Channel instead select</name>
@@ -1151,6 +1150,53 @@ time:=time.Duration(seconds)*time.Second
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+	<rule>
+		<key>ineffassign:IneffectualAssignment</key>
+		<name>Ineffectual assignment</name>
+		<internalKey>ineffassign:IneffectualAssignment</internalKey>
+		<description><![CDATA[<p>Ineffectual assignment of the variable.</p>]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>unused</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:UnhandledErrors</key>
+		<name>Unhandled errors</name>
+		<internalKey>gas:UnhandledErrors</internalKey>
+		<description><![CDATA[<p>Unhandled errors.</p>]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>unhandled</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>goimports:FileNotImported</key>
+		<name>File not imported</name>
+		<internalKey>goimports:FileNotImported</internalKey>
+		<description><![CDATA[<p>File not imported.</p>]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+
 
 
 </go-rules>
