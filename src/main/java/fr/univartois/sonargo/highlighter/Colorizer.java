@@ -81,7 +81,11 @@ public class Colorizer {
 
 		while (index != -1 && indexEnd != -1 && lastIndex != index && lastIndexEnd != indexEnd) {
 			LOGGER.debug("index " + index + " indexEnd " + indexEnd);
-			highlighting.highlight(lineNumber, index, lineNumber, indexEnd + 1, TypeOfText.STRING);
+			try {
+				highlighting.highlight(lineNumber, index, lineNumber, indexEnd + 1, TypeOfText.STRING);
+			} catch (Exception ex) {
+				LOGGER.error("String highlighting problem", ex);
+			}
 			start = indexEnd + 1;
 			lastIndex = index;
 			lastIndexEnd = indexEnd;
@@ -104,8 +108,11 @@ public class Colorizer {
 
 				LOGGER.debug("Line number " + lineNumber + " index start: " + index + " index end: "
 						+ (index + key.length()));
-
-				highlighting.highlight(lineNumber, index, lineNumber, index + key.length(), TypeOfText.KEYWORD);
+				try {
+					highlighting.highlight(lineNumber, index, lineNumber, index + key.length(), TypeOfText.KEYWORD);
+				} catch (Exception ex) {
+					LOGGER.error("Keyword highlighting problem", ex);
+				}
 				index = index + key.length();
 			}
 		}
@@ -117,7 +124,6 @@ public class Colorizer {
 		} else {
 			highlightingStringInLine(s, lineNumber);
 			highlightingKeyWord(s, lineNumber);
-
 		}
 	}
 

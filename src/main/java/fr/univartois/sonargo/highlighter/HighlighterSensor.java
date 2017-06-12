@@ -28,12 +28,8 @@ public class HighlighterSensor implements Sensor {
 		final List<InputFile> listFiles = new ArrayList<>();
 		files.forEach(listFiles::add);
 
-		listFiles.stream().filter((i) -> {
-			return GoLanguage.KEY.equals(i.language());
-		}).forEach((i) -> {
-			final Colorizer colo = new Colorizer(context);
-			colo.colorize(i);
-		});
+		listFiles.stream().filter(i -> GoLanguage.KEY.equals(i.language()))
+				.forEach(i -> new Colorizer(context).colorize(i));
 	}
 
 }
