@@ -23,6 +23,7 @@ package fr.univartois.sonargo.gotest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -37,32 +38,36 @@ import fr.univartois.sonargo.core.language.GoLanguage;
 import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class GoTestSensor implements Sensor {
-	private static final Logger LOGGER = Loggers.get(GoTestSensor.class);
+    private static final Logger LOGGER = Loggers.get(GoTestSensor.class);
 
-	@Override
-	public void describe(SensorDescriptor descriptor) {
-		descriptor.onlyOnLanguage(GoLanguage.KEY).name("Go test JUnit loader sensor");
+    @Override
+    public void describe(SensorDescriptor descriptor) {
+	descriptor.onlyOnLanguage(GoLanguage.KEY).name("Go test JUnit loader sensor");
 
+    }
+
+    @Override
+    public void execute(SensorContext context) {
+	String reportPath = context.settings().getString(GoProperties.JUNIT_REPORT_PATH_KEY);
+
+	if (reportPath == null || !(new File(reportPath)).exists()) {
+	    LOGGER.info("no junit report");
+	    return;
 	}
+	FunctionFinder ff;
+	try {
+	    ff = new FunctionFinder(context);
 
-	@Override
-	public void execute(SensorContext context) {
-		String reportPath = context.settings().getString(GoProperties.JUNIT_REPORT_PATH_KEY);
+	    HashMap<String, String> nameFunction = ff.searchFunction();
+	    GoJunitParser junitParser = new GoJunitParser(nameFunction);
 
-		if (reportPath == null || !(new File(reportPath)).exists()) {
-			LOGGER.info("no junit report");
-			return;
-		}
+	    junitParser.parse(reportPath);
 
-		GoJunitParser junitParser = new GoJunitParser();
-		try {
-			junitParser.parse(reportPath);
+	    GoTestReportSaver.save(context, junitParser.getListTestSuite());
 
-			GoTestReportSaver.save(context, junitParser.getListTestSuite());
-
-		} catch (ParserConfigurationException | SAXException | IOException e) {
-			LOGGER.error("Parse exception ", e);
-		}
+	} catch (ParserConfigurationException | SAXException | IOException e) {
+	    LOGGER.error("Parse exception ", e);
 	}
+    }
 
 }
