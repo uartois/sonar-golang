@@ -21,56 +21,38 @@
  *******************************************************************************/
 package fr.univartois.sonargo.gotest;
 
-public class GoTestSuite {
-    private int nbTotalTest = 0;
-    private int nbFailureTest = 0;
-    private int skipped = 0;
-    private String file;
+public class GoTestCase {
+    private boolean fail;
+    private boolean skipped;
     private Double time;
+    private String nameFunction;
 
-    public GoTestSuite(int nbTotalTest, int nbFailureTest, int skipped, String file, double time) {
+    public GoTestCase(boolean fail, boolean skipped, Double time, String nameFunction) {
 	super();
-	this.nbTotalTest = nbTotalTest;
-	this.nbFailureTest = nbFailureTest;
+	this.fail = fail;
 	this.skipped = skipped;
-	this.file = file;
 	this.time = time;
+	this.nameFunction = nameFunction;
     }
 
-    public int getNbTotalTest() {
-	return nbTotalTest;
+    public boolean isFail() {
+	return fail;
     }
 
-    public void setNbTotalTest(int nbTotalTest) {
-	this.nbTotalTest = nbTotalTest;
+    public void setFail(boolean fail) {
+	this.fail = fail;
     }
 
-    public int getNbFailureTest() {
-	return nbFailureTest;
-    }
-
-    public void setNbFailureTest(int nbFailureTest) {
-	this.nbFailureTest = nbFailureTest;
-    }
-
-    public int getSkipped() {
+    public boolean isSkipped() {
 	return skipped;
     }
 
-    public void setSkipped(int skipped) {
+    public void setSkipped(boolean skipped) {
 	this.skipped = skipped;
     }
 
-    public String getFile() {
-	return file;
-    }
-
-    public void setFile(String file) {
-	this.file = file;
-    }
-
-    public long getTime() {
-	return (long) (time * 1000);
+    public Double getTime() {
+	return time;
     }
 
     public void setTime(Double time) {

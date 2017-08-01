@@ -1150,6 +1150,7 @@ time:=time.Duration(seconds)*time.Second
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>10min</remediationFunctionBaseEffort>
 	</rule>
+
 	<rule>
 		<key>ineffassign:IneffectualAssignment</key>
 		<name>Ineffectual assignment</name>
@@ -1197,6 +1198,34 @@ time:=time.Duration(seconds)*time.Second
 		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
 	</rule>
 
-
+	<rule>
+		<key>vet:FormatingPrintfFamily</key>
+		<name>possible formatting directive in Print family</name>
+		<internalKey>vet:FormatingPrintfFamily</internalKey>
+		<description><![CDATA[
+		<p>Suspicious calls to functions in the Printf family, including any functions with these names</p>
+			<h2>Noncompliant Code Example</h2>
+			<pre>
+fmt.Print("a string with format: %d %s")
+fmt.Fatal("a string with format: %d %s")
+fmt.Error("a string with format: %d %s")
+			</pre>
+			<h2>Compliant Solution</h2>
+			<pre>
+fmt.Printf("a string with format: %d %s")
+fmt.Fatalf("a string with format: %d %s")
+fmt.Errorf("a string with format: %d %s")
+			</pre>
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
 
 </go-rules>

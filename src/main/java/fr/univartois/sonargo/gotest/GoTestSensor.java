@@ -23,6 +23,7 @@ package fr.univartois.sonargo.gotest;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -53,9 +54,13 @@ public class GoTestSensor implements Sensor {
 	    LOGGER.info("no junit report");
 	    return;
 	}
-
-	GoJunitParser junitParser = new GoJunitParser();
+	FunctionFinder ff;
 	try {
+	    ff = new FunctionFinder(context);
+
+	    HashMap<String, String> nameFunction = ff.searchFunction();
+	    GoJunitParser junitParser = new GoJunitParser(nameFunction);
+
 	    junitParser.parse(reportPath);
 
 	    GoTestReportSaver.save(context, junitParser.getListTestSuite());

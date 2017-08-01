@@ -39,40 +39,40 @@ import fr.univartois.sonargo.core.language.GoLanguage;
  *
  */
 public class GoLintRulesDefinition implements RulesDefinition {
-    private static final String PATH_TO_RULES_XML = "/rules/golint-rules.xml";
-    private static final Logger LOGGER = Loggers.get(GoLintRulesDefinition.class);
-    protected static final String KEY = "go";
-    protected static final String NAME = "Go";
+	private static final String PATH_TO_RULES_XML = "/rules/golint-rules.xml";
+	private static final Logger LOGGER = Loggers.get(GoLintRulesDefinition.class);
+	protected static final String KEY = "go";
+	protected static final String NAME = "Go";
 
-    public static final String REPO_KEY = GoLanguage.KEY + "-" + KEY;
-    public static final String REPO_NAME = GoLanguage.KEY + "-" + NAME;
+	public static final String REPO_KEY = GoLanguage.KEY + "-" + KEY;
+	public static final String REPO_NAME = GoLanguage.KEY + "-" + NAME;
 
-    protected String rulesDefinitionFilePath() {
-	return PATH_TO_RULES_XML;
-    }
-
-    private void defineRulesForLanguage(Context context, String repositoryKey, String repositoryName,
-	    String languageKey) {
-	NewRepository repository = context.createRepository(repositoryKey, languageKey).setName(repositoryName);
-
-	LOGGER.info("Repository " + repositoryName + " created with the key " + repositoryKey + " " + repository);
-
-	InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath());
-	if (rulesXml != null) {
-	    RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
-	    rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
-	} else {
-	    LOGGER.warn("The file " + PATH_TO_RULES_XML + " is not loading ");
+	protected String rulesDefinitionFilePath() {
+		return PATH_TO_RULES_XML;
 	}
 
-	repository.done();
+	private void defineRulesForLanguage(Context context, String repositoryKey, String repositoryName,
+			String languageKey) {
+		NewRepository repository = context.createRepository(repositoryKey, languageKey).setName(repositoryName);
 
-	LOGGER.info("Repository " + repositoryName + " done: " + repository.rules() + " " + repository.rules().size());
+		LOGGER.debug("Repository " + repositoryName + " created with the key " + repositoryKey + " " + repository);
 
-    }
+		InputStream rulesXml = this.getClass().getResourceAsStream(rulesDefinitionFilePath());
+		if (rulesXml != null) {
+			RulesDefinitionXmlLoader rulesLoader = new RulesDefinitionXmlLoader();
+			rulesLoader.load(repository, rulesXml, StandardCharsets.UTF_8.name());
+		} else {
+			LOGGER.warn("Cannot load the rules file " + PATH_TO_RULES_XML);
+		}
 
-    @Override
-    public void define(Context context) {
-	defineRulesForLanguage(context, REPO_KEY, REPO_NAME, GoLanguage.KEY);
-    }
+		repository.done();
+
+		LOGGER.debug("Repository " + repositoryName + " done: " + repository.rules() + " " + repository.rules().size());
+
+	}
+
+	@Override
+	public void define(Context context) {
+		defineRulesForLanguage(context, REPO_KEY, REPO_NAME, GoLanguage.KEY);
+	}
 }

@@ -45,37 +45,37 @@ import fr.univartois.sonargo.core.rules.GoLintRulesDefinition;
  *
  */
 public final class GoQualityProfile extends ProfileDefinition {
-    private static final Logger LOGGER = Loggers.get(GoQualityProfile.class);
-    public static final String PROFILE_PATH = "/profile.properties";
+	private static final Logger LOGGER = Loggers.get(GoQualityProfile.class);
+	public static final String PROFILE_PATH = "/profile.properties";
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public RulesProfile createProfile(ValidationMessages validation) {
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public RulesProfile createProfile(ValidationMessages validation) {
 
-	LOGGER.info("Golint Quality profile");
-	RulesProfile profile = RulesProfile.create("Golint Rules", GoLanguage.KEY);
-	profile.setDefaultProfile(Boolean.TRUE);
+		LOGGER.info("GoMetaLinter Quality profile");
+		RulesProfile profile = RulesProfile.create("Golint Rules", GoLanguage.KEY);
+		profile.setDefaultProfile(Boolean.TRUE);
 
-	Properties prop = new Properties();
+		Properties prop = new Properties();
 
-	try {
-	    prop.load(GoQualityProfile.class.getResourceAsStream(GoQualityProfile.PROFILE_PATH));
+		try {
+			prop.load(GoQualityProfile.class.getResourceAsStream(GoQualityProfile.PROFILE_PATH));
 
-	    for (Entry<Object, Object> e : prop.entrySet()) {
-		if (Boolean.TRUE.equals(Boolean.valueOf((String) e.getValue()))) {
-		    profile.activateRule(Rule.create(REPO_KEY, (String) e.getKey(), REPO_NAME), null);
+			for (Entry<Object, Object> e : prop.entrySet()) {
+				if (Boolean.TRUE.equals(Boolean.valueOf((String) e.getValue()))) {
+					profile.activateRule(Rule.create(REPO_KEY, (String) e.getKey(), REPO_NAME), null);
+				}
+			}
+
+		} catch (IOException e) {
+			LOGGER.error((new StringBuilder()).append("Unable to load ").append(PROFILE_PATH).toString(), e);
 		}
-	    }
 
-	} catch (IOException e) {
-	    LOGGER.error((new StringBuilder()).append("Unable to load ").append(PROFILE_PATH).toString(), e);
+		LOGGER.debug((new StringBuilder()).append("Profil generate: ").append(profile.getActiveRules()).toString());
+
+		return profile;
 	}
-
-	LOGGER.info((new StringBuilder()).append("Profil generate: ").append(profile.getActiveRules()).toString());
-
-	return profile;
-    }
 
 }

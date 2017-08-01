@@ -57,6 +57,8 @@ Examples:
 |cyclomatic complexity 11 of function main() is high (> 10)|gocyclo:CyclomaticComplexity|
 |error return value not checked (os.MkdirAll("./tmp/build", os.FileMode(0755)))|errcheck:ValueNotChecked|
 |error return value not checked (util.Save(jpegimage.(*image.NRGBA), "png_"+nameWithoutExtension+".png"))|errcheck:ValueNotChecked|
+|error return value not checked (route(r))|errcheck:ValueNotChecked|
+|error return value not checked (core.NewConfiguration(ConfigName, ConfigPath).ReadInConfig())|errcheck:ValueNotChecked|
 |unnecessary conversion|unconvert:UnnecessaryConversion|
 |unused struct field projectblackwhitego.ImageService.req|structcheck:UnusedStructField|
 |a message error not found|null|
