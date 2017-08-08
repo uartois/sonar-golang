@@ -102,10 +102,9 @@ public class CoverageSensor implements Sensor {
 			final List<LineCoverage> lines = entry.getValue();
 			final FileSystem fileSystem = context.fileSystem();
 			final FilePredicates predicates = fileSystem.predicates();
-			final String key = filePath.startsWith(File.separator) ? filePath : File.separator + filePath;
-			final InputFile inputFile = fileSystem.inputFile(
-					predicates.and(predicates.matchesPathPattern("file:**" + key.replace(File.separator, "/")),
-							predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
+			final InputFile inputFile = fileSystem.inputFile(predicates.and(
+					predicates.or(predicates.hasRelativePath(filePath), predicates.hasAbsolutePath(filePath)),
+					predicates.hasType(InputFile.Type.MAIN), predicates.hasLanguage(GoLanguage.KEY)));
 
 			if (inputFile == null) {
 				LOGGER.warn("unable to create InputFile object: " + filePath);
