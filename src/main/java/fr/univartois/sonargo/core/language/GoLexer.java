@@ -60,19 +60,49 @@ public final class GoLexer {
 	}
 
 	public static enum Keyword implements TokenType {
-		BREAK("break"), DEFAULT("default"), FUNC("func"), INTERFACE("interface"), SELECT("select"), CASE("case"), DEFER(
-				"defer"), GO("go"), MAP("map"), STRUCT("struct"), CHAN("chan"), ELSE("else"), GOTO("goto"), PACKAGE(
-						"package"), SWITCH("switch"), CONST("const"), FALLTHROUGH("fallthrough"), IF("if"), RANGE(
-								"range"), TYPE("type"), CONTINUE("continue"), FOR("for"), IMPORT("import"), RETURN(
-										"return"), VAR("var"), UINT8("uint8"), UINT16("uint16"), UINT32(
-												"uint32"), UINT64("uint64"), INT("int"), INT8("int8"), INT16(
-														"int16"), INT32("int32"), INT64("int64"), FLOAT32(
-																"float32"), FLOAT64("float64"), COMPLEX64(
-																		"complex64"), COMPLEX128(
-																				"complex128"), BYTE("byte"), RUNE(
-																						"rune"), BOOL("bool"), UINTPTR(
-																								"uintptr"), STRING(
-																										"string");
+		BREAK("break"),
+		DEFAULT("default"),
+		FUNC("func"),
+		INTERFACE("interface"),
+		SELECT("select"),
+		CASE("case"),
+		DEFER("defer"),
+		GO("go"),
+		MAP("map"),
+		STRUCT("struct"),
+		CHAN("chan"),
+		ELSE("else"),
+		GOTO("goto"),
+		PACKAGE("package"),
+		SWITCH("switch"),
+		CONST("const"),
+		FALLTHROUGH("fallthrough"),
+		IF("if"),
+		RANGE("range"),
+		TYPE("type"),
+		CONTINUE("continue"),
+		FOR("for"),
+		IMPORT("import"),
+		RETURN("return"),
+		VAR("var"),
+		UINT8("uint8"),
+		UINT16("uint16"),
+		UINT32("uint32"),
+		UINT64("uint64"),
+		INT("int"),
+		INT8("int8"),
+		INT16("int16"),
+		INT32("int32"),
+		INT64("int64"),
+		FLOAT32("float32"),
+		FLOAT64("float64"),
+		COMPLEX64("complex64"),
+		COMPLEX128("complex128"),
+		BYTE("byte"),
+		RUNE("rune"),
+		BOOL("bool"),
+		UINTPTR("uintptr"),
+		STRING("string");
 
 		private final String value;
 
@@ -111,9 +141,42 @@ public final class GoLexer {
 
 	public static enum Punctuators implements TokenType {
 
-		PAREN_L("("), PAREN_R(")"), BRACE_L("{"), BRACE_R("}"), EQ("="), EQ2(":="), COMMA(","), SEMICOLON(";"), ADD(
-				"+"), SUB("-"), MUL("*"), DIV("/"), EQEQ(
-						"=="), NE("!="), LT("<"), LTE("<="), GT(">"), GTE(">="), INC("++"), DEC("--"), DOT(".");
+		PAREN_L("("),
+		PAREN_R(")"),
+		BRACE_L("{"),
+		BRACE_R("}"),
+		EQ("="),
+		EQ2(":="),
+		COMMA(","),
+		SEMICOLON(";"),
+		ADD("+"),
+		SUB("-"),
+		MUL("*"),
+		DIV("/"),
+		EQEQ("=="),
+		NE("!="),
+		LT("<"),
+		LTE("<="),
+		GT(">"),
+		GTE(">="),
+		INC("++"),
+		DEC("--"),
+		DOT("."),
+		OR("||"),
+		AND("&&"),
+		PERCENT("%"),
+		LEFT_SHIFT("<<"),
+		RIGHT_SHIFT(">>"),
+		AND_BITBIT("&"),
+		OR_BITBIT("|"),
+		AND_NOT_BITBIT("&^"),
+		XOR("&"),
+		NOT("!"),
+		LEFT("<-"),
+		SQUARE_BRACKET_LEFT("]"),
+		SQUARE_BRACKET_RIGHT("["),
+		COLON(":"),
+		DOT3("...");
 
 		private final String value;
 
