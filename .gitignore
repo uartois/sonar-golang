@@ -10,3 +10,5 @@ buildNumber.properties
 .mvn/timing.properties
 doc
 .sonar
+.idea/
+*.iml
