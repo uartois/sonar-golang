@@ -60,6 +60,7 @@ public class GoGrammarTest {
 	@Test
 	public void ok() {
 		for (String s : goCodes) {
+			System.out.println(s);
 			new ParserAssert(parser).matches(s);
 		}
 	}
