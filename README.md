@@ -127,6 +127,12 @@ do
     cd .. 
 done
 ```
+or 
+
+```bash
+go list -f '{{if len .TestGoFiles}}"go test -coverprofile={{.Dir}}/cover.out {{.ImportPath}}"{{end}}' ./... | xargs -L 1 sh -c
+go list -f '{{if len .TestGoFiles}}"gocov convert {{.Dir}}/cover.out | gocov-xml > {{.Dir}}/coverage.xml"{{end}}' ./... | xargs -L 1 sh -c
+```
 
 # Tests (since release 1.1)
 
