@@ -98,6 +98,36 @@ pkg3/coverage.xml
 ...
 ```
 
+
+This is an example of script for create all coverage files for all packages in one time. 
+
+
+```bash
+for D in `find . -type d`
+do
+    echo $D
+    if  [[ $D == ./.git/* ]] 
+    then
+        continue    
+    fi
+
+    if  [[ $D == .. ]] 
+    then
+        continue    
+    fi
+
+    if  [[ $D == . ]] 
+    then
+        continue    
+    fi
+
+    cd $D
+    go test -coverprofile=cover.out
+    gocov convert cover.out | gocov-xml > coverage.xml
+    cd .. 
+done
+```
+
 # Tests (since release 1.1)
 
 For test metrics you must generate a junit report file.
