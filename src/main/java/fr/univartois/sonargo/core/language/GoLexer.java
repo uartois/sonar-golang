@@ -26,7 +26,7 @@ public final class GoLexer {
 	private static final String UNICODE_CHAR = "^\\u000A";
 	private static final String NEWLINE = "\\u000A";
 
-	private static final String INTERPRETED_STRING_LIT = "\"(\\p{L}|\\p{N}|\\p{Punct})*\"";
+	private static final String INTERPRETED_STRING_LIT = "\"(\\p{L}|\\p{N}|\\p{Z}|\\p{Punct})*\"";
 	private static final String RAW_STRING_LIT = "`" + UNICODE_CHAR + "|" + NEWLINE + "`";
 	private static final String STRING_LIT = RAW_STRING_LIT + "|" + INTERPRETED_STRING_LIT;
 
