@@ -87,7 +87,12 @@ public enum GoGrammar implements GrammarRuleKey {
 	ELEMENT,
 	FIELD_NAME,
 	KEY,
-	KEYED_ELEMENT;
+	KEYED_ELEMENT,
+	METHOD_EXPR,
+	LITERAL,
+	BASIC_LIT,
+	FUNC_LIT,
+	ELEMENT_TYPE;
 	private static final LexerfulGrammarBuilder b = LexerfulGrammarBuilder.create();
 
 	public static Grammar create() {
@@ -215,14 +220,17 @@ public enum GoGrammar implements GrammarRuleKey {
 		b.rule(CONVERSION).is(TYPE, GoLexer.Punctuators.PAREN_R, EXPRESSION, b.optional(GoLexer.Punctuators.COMMA),
 				GoLexer.Punctuators.PAREN_L);
 
-		Object basicLit = b.firstOf(GoLexer.Literals.FLOAT, GoLexer.Literals.INTEGER, GoLexer.Literals.STRING);
-		Object operandName = b.firstOf(IDENTIFIER, QUALIFIED_IDENT);
-		Object composeLit = buildComposeLit();
-		Object funcLit = buildFuncLit();
-		Object methodExpr = buildMethodExpr();
-		Object literal = b.firstOf(basicLit, composeLit, funcLit);
+		b.rule(BASIC_LIT).is(b.firstOf(GoLexer.Literals.FLOAT, GoLexer.Literals.INTEGER, GoLexer.Literals.STRING));
 
-		b.rule(OPERAND).is(b.firstOf(literal, operandName, methodExpr,
+		Object operandName = b.firstOf(IDENTIFIER, QUALIFIED_IDENT);
+
+		createComposeLit();
+		createMethodExpr();
+		createFuncLit();
+
+		b.rule(LITERAL).is(b.firstOf(BASIC_LIT, COMPOSITE_LIT, FUNC_LIT));
+
+		b.rule(OPERAND).is(b.firstOf(LITERAL, operandName, METHOD_EXPR,
 				b.sequence(GoLexer.Punctuators.PAREN_R, EXPRESSION, GoLexer.Punctuators.PAREN_R)));
 
 		b.rule(PRIMARY_EXPR)
@@ -235,30 +243,41 @@ public enum GoGrammar implements GrammarRuleKey {
 	}
 
 	/**
-	 * @see https://golang.org/ref/spec#Method_expressions
-	 * @return An object who represent the grammar of MethodExpr
-	 * 
-	 *         MethodName==Identifier
+	 * @see https://golang.org/ref/spec#Method_expressions MethodName==Identifier
 	 */
-	private static Object buildMethodExpr() {
+	private static void createMethodExpr() {
 		b.rule(RECEIVER_TYPE)
 				.is(b.firstOf(TYPE_NAME,
 						b.sequence(GoLexer.Punctuators.PAREN_R, TYPE_NAME, GoLexer.Punctuators.PAREN_L),
 						b.sequence(GoLexer.Punctuators.PAREN_R, RECEIVER_TYPE, GoLexer.Punctuators.PAREN_L)));
-		return b.sequence(RECEIVER_TYPE, GoLexer.Punctuators.DOT, IDENTIFIER);
+		b.rule(METHOD_EXPR).is(b.sequence(RECEIVER_TYPE, GoLexer.Punctuators.DOT, IDENTIFIER));
 	}
 
 	/**
 	 * @see https://golang.org/ref/spec#CompositeLit
 	 */
-	private static Object buildComposeLit() {
-		return null;
+	private static void createComposeLit() {
+		b.rule(FIELD_NAME).is(IDENTIFIER);
+		b.rule(KEY).is(b.firstOf(FIELD_NAME, EXPRESSION, LITERAL_VALUE));
+		b.rule(ELEMENT).is(b.firstOf(EXPRESSION, LITERAL_VALUE));
+		b.rule(KEYED_ELEMENT).is(b.sequence(b.optional(b.sequence(KEY, GoLexer.Punctuators.COLON)), ELEMENT));
+		b.rule(ELEMENT_LIST).is(b.sequence(KEYED_ELEMENT, b.zeroOrMore(GoLexer.Punctuators.COMMA, KEYED_ELEMENT)));
+		b.rule(LITERAL_VALUE).is(GoLexer.Punctuators.BRACE_R, b.optional(
+				b.sequence(ELEMENT_LIST, b.optional(GoLexer.Punctuators.COMMA)), GoLexer.Punctuators.BRACE_L));
+
+		b.rule(ELEMENT_TYPE).is(TYPE);
+		b.rule(LITERAL_TYPE)
+				.is(b.firstOf(STRUCT_TYPE, ARRAY_TYPE, SLICE_TYPE, MAP_TYPE, TYPE_NAME,
+						b.sequence(GoLexer.Punctuators.SQUARE_BRACKET_RIGHT, GoLexer.Punctuators.DOT3,
+								GoLexer.Punctuators.SQUARE_BRACKET_LEFT, ELEMENT_TYPE)));
+
+		b.rule(COMPOSITE_LIT).is(LITERAL_TYPE, LITERAL_VALUE);
 	}
 
 	/**
 	 * @see https://golang.org/ref/spec#FunctionLit
 	 */
-	private static Object buildFuncLit() {
+	private static Object createFuncLit() {
 		return null;
 	}
 
