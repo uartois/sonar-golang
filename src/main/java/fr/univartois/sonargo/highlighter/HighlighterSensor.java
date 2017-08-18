@@ -27,7 +27,7 @@ public class HighlighterSensor implements Sensor {
 	@Override
 	public void execute(SensorContext context) {
 
-		if (context.settings().getBoolean(GoProperties.HIGHLIGHTING_KEY)) {
+		if (!context.settings().getBoolean(GoProperties.HIGHLIGHTING_KEY)) {
 			LOGGER.info("highlighting disabled");
 			return;
 		}
