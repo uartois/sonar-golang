@@ -1171,13 +1171,28 @@ time:=time.Duration(seconds)*time.Second
 		<name>Unhandled errors</name>
 		<internalKey>gas:UnhandledErrors</internalKey>
 		<description><![CDATA[<p>Unhandled errors.</p>]]>
-			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>unhandled</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:SQLFormatting</key>
+		<name>SQL formatting</name>
+		<internalKey>gas:SQLFormatting</internalKey>
+		<description><![CDATA[<p>SQL string formatting.</p>]]>
+
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>sql</tag>
 		<tag>bad-practice</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
