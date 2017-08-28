@@ -1240,7 +1240,7 @@ time:=time.Duration(seconds)*time.Second
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>VULNERABILITY</type>
-		<tag>rsa</tag>
+		<tag>unsafe</tag>
 		<tag>bad-practice</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
@@ -1256,7 +1256,23 @@ time:=time.Duration(seconds)*time.Second
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>VULNERABILITY</type>
-		<tag>rsa</tag>
+		<tag>html</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:WeakCrypto</key>
+		<name>Use of weak cryptographic primitive</name>
+		<internalKey>gas:WeakCrypto</internalKey>
+		<description><![CDATA[<p>Use of weak cryptographic primitive</p>]]>
+
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>crypto</tag>
 		<tag>bad-practice</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
