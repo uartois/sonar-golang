@@ -1246,6 +1246,22 @@ time:=time.Duration(seconds)*time.Second
 		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
 	</rule>
 	<rule>
+		<key>gas:UnescapedHTMLTemplates</key>
+		<name>Unsafe Unescaped HTML Templates</name>
+		<internalKey>gas:UnescapedHTMLTemplates</internalKey>
+		<description><![CDATA[<p>Use of unescaped data in HTML templates</p>]]>
+
+		</description>
+		<severity>MINOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>rsa</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
 		<key>goimports:FileNotImported</key>
 		<name>File not imported</name>
 		<internalKey>goimports:FileNotImported</internalKey>
