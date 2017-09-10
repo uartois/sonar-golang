@@ -1,7 +1,7 @@
 /**
  * 
  */
-package gotest;
+package fr.univartois.sonargo.gotest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import fr.univartois.sonargo.AbstractSonarTest;
 import fr.univartois.sonargo.TestUtils;
-import fr.univartois.sonargo.gotest.FunctionFinder;
 
 /**
  * @author thibault
@@ -34,6 +33,8 @@ public class FunctionFinderTest extends AbstractSonarTest {
 			assertEquals("TestAverage", f.searchInLine("func TestAverage(t *testing.T)"));
 			assertEquals("TestGutterBalls", f.searchInLine("func TestGutterBalls(t *testing.T)"));
 			assertEquals("TestOnePinOnEveryThrow", f.searchInLine("func TestOnePinOnEveryThrow(t *testing.T) {"));
+			assertEquals("TestCaseOne", f.searchInLine("func (suite *TestSuite) TestCaseOne() {"));
+			assertEquals("TestCaseTwo", f.searchInLine("func (suite *ExampleSuite) TestCaseTwo() {"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
