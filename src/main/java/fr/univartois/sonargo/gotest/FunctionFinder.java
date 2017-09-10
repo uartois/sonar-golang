@@ -62,6 +62,10 @@ public class FunctionFinder {
 	    LOGGER.warn("This function name is not correct: " + s);
 	    return null;
 	}
+	int indexCloseParen = s.indexOf(")");
+	if (indexCloseParen < indexParen) {
+	    indexTesting = s.indexOf("Test", indexCloseParen);
+	}
 
 	return s.substring(indexTesting, indexParen);
     }
