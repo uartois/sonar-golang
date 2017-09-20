@@ -1227,5 +1227,45 @@ fmt.Errorf("a string with format: %d %s")
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
 	</rule>
+	
+		<rule>
+		<key>golint:StructFieldInitialisms</key>
+		<name>acronyms field should be uppercase</name>
+		<internalKey>golint:StructField</internalKey>
+		<description><![CDATA[
+		<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://github.com/golang/go/wiki/CodeReviewComments#initialisms">golang.org Initialisms</a>
+			</li>
+			</ul>
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+			<rule>
+		<key>vet:Unreachable</key>
+		<name>Unreachable code</name>
+		<internalKey>vet:Unreachable</internalKey>
+		<description><![CDATA[
+			<p>Unreachable code</p>
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
 
 </go-rules>
