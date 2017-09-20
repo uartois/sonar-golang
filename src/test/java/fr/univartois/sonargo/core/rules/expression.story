@@ -61,4 +61,8 @@ Examples:
 |error return value not checked (core.NewConfiguration(ConfigName, ConfigPath).ReadInConfig())|errcheck:ValueNotChecked|
 |unnecessary conversion|unconvert:UnnecessaryConversion|
 |unused struct field projectblackwhitego.ImageService.req|structcheck:UnusedStructField|
+|exported method BaseGS1.CodingSet should have comment or be unexported|golint:ExportedHaveComment|
+|exported method Rule.CodingSet should have comment or be unexported|golint:ExportedHaveComment|
+|struct field Id should be ID|golint:StructFieldInitialisms|
+|unreachable code|vet:Unreachable|
 |a message error not found|null|
