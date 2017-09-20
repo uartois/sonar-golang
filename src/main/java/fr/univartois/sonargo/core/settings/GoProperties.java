@@ -40,6 +40,9 @@ public class GoProperties {
 	public static final String DTD_VERIFICATION_KEY = "sonar.coverage.dtdVerification";
 	public static final String DTD_VERIFICATION_DEFAULT = "true";
 
+	public static final String HIGHLIGHTING_KEY = "sonar.highlighting";
+	public static final String HIGHLIGHTING_DEFAULT = "true";
+
 	private GoProperties() {
 
 	}
@@ -55,6 +58,10 @@ public class GoProperties {
 						.name("Report path of JUnit report").description("relative path for JUnit report").build(),
 				PropertyDefinition.builder(DTD_VERIFICATION_KEY).defaultValue(DTD_VERIFICATION_DEFAULT).category("Go")
 						.name("Boolean for DTD verification")
-						.description("false if you want disabled the DTD verification for coverage file").build());
+						.description("false if you want disabled the DTD verification for coverage file").build(),
+				PropertyDefinition.builder(HIGHLIGHTING_KEY).defaultValue(HIGHLIGHTING_DEFAULT).category("Go")
+						.name("Boolean for highlighting verification")
+						.description("false if you want disabled the highlighting").build());
+
 	}
 }
