@@ -1362,5 +1362,34 @@ fmt.Errorf("a string with format: %d %s")
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
 	</rule>
+	
+	
+	
+	
+				<rule>
+		<key>vet:Shadow</key>
+		<name>Variables is shadowed</name>
+		<internalKey>vet:Shadow</internalKey>
+		<description><![CDATA[
+			<p>Variables that may have been unintentionally shadowed. </p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/cmd/vet/#hdr-Shadowed_variables">golang.org Vet</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
 
 </go-rules>

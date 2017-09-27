@@ -65,4 +65,5 @@ Examples:
 |exported method Rule.CodingSet should have comment or be unexported|golint:ExportedHaveComment|
 |struct field Id should be ID|golint:StructFieldInitialisms|
 |unreachable code|vet:Unreachable|
+|declaration of "configuration" shadows declaration at line.go:142|vet:Shadow|
 |a message error not found|null|

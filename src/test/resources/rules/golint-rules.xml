@@ -1171,13 +1171,108 @@ time:=time.Duration(seconds)*time.Second
 		<name>Unhandled errors</name>
 		<internalKey>gas:UnhandledErrors</internalKey>
 		<description><![CDATA[<p>Unhandled errors.</p>]]>
-			
 		</description>
 		<severity>MAJOR</severity>
 		<cardinality>SINGLE</cardinality>
 		<status>READY</status>
 		<type>CODE_SMELL</type>
 		<tag>unhandled</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:SQLFormatting</key>
+		<name>SQL formatting</name>
+		<internalKey>gas:SQLFormatting</internalKey>
+		<description><![CDATA[<p>SQL string formatting.</p>]]>
+
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>sql</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:SQLConcatenation</key>
+		<name>SQL concatenation</name>
+		<internalKey>gas:SQLConcatenation</internalKey>
+		<description><![CDATA[<p>SQL string concatenation.</p>]]>
+
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>sql</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:RSAKeyLength</key>
+		<name>RAS key length</name>
+		<internalKey>gas:RSAKeyLength</internalKey>
+		<description><![CDATA[<p>RSA keys should be at least 2048 bits.</p>]]>
+
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>rsa</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:UnsafeCall</key>
+		<name>Unsafe call</name>
+		<internalKey>gas:UnsafeCall</internalKey>
+		<description><![CDATA[<p>Use of unsafe calls</p>]]>
+
+		</description>
+		<severity>INFO</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>unsafe</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:UnescapedHTMLTemplates</key>
+		<name>Unsafe Unescaped HTML Templates</name>
+		<internalKey>gas:UnescapedHTMLTemplates</internalKey>
+		<description><![CDATA[<p>Use of unescaped data in HTML templates</p>]]>
+
+		</description>
+		<severity>MINOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>html</tag>
+		<tag>bad-practice</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
+	</rule>
+	<rule>
+		<key>gas:WeakCrypto</key>
+		<name>Use of weak cryptographic primitive</name>
+		<internalKey>gas:WeakCrypto</internalKey>
+		<description><![CDATA[<p>Use of weak cryptographic primitive</p>]]>
+
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>VULNERABILITY</type>
+		<tag>crypto</tag>
 		<tag>bad-practice</tag>
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>20min</remediationFunctionBaseEffort>
@@ -1256,6 +1351,35 @@ fmt.Errorf("a string with format: %d %s")
 		<internalKey>vet:Unreachable</internalKey>
 		<description><![CDATA[
 			<p>Unreachable code</p>
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+	
+	
+	
+	
+				<rule>
+		<key>vet:Shadow</key>
+		<name>Variables is shadowed</name>
+		<internalKey>vet:Shadow</internalKey>
+		<description><![CDATA[
+			<p>Variables that may have been unintentionally shadowed. </p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/cmd/vet/#hdr-Shadowed_variables">golang.org Vet</a>
+			</li>
+			</ul>
+			
 		]]>
 			
 		</description>
