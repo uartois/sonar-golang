@@ -66,4 +66,5 @@ Examples:
 |struct field Id should be ID|golint:StructFieldInitialisms|
 |unreachable code|vet:Unreachable|
 |declaration of "configuration" shadows declaration at line.go:142|vet:Shadow|
+|declaration of "err" shadows declaration at tcp_client_test.go:155|vet:Shadow|
 |a message error not found|null|
