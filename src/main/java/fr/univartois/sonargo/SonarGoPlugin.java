@@ -46,7 +46,6 @@ public class SonarGoPlugin implements Plugin {
 	@Override
 	public void define(Context context) {
 		context.addExtensions(GoProperties.getProperties());
-
 		context.addExtensions(GoLanguage.class, GoQualityProfile.class);
 		context.addExtensions(GoLintRulesDefinition.class, GoLintIssueLoaderSensor.class);
 		context.addExtension(CoverageSensor.class);
