@@ -67,4 +67,6 @@ Examples:
 |unreachable code|vet:Unreachable|
 |declaration of "configuration" shadows declaration at line.go:142|vet:Shadow|
 |declaration of "err" shadows declaration at tcp_client_test.go:155|vet:Shadow|
+|possible misuse of unsafe.Pointer|vet:Misuse|
+|NotificationEventsHandler passes lock by value: sync.WaitGroup contains sync.noCopy|vet:Lock|
 |a message error not found|null|

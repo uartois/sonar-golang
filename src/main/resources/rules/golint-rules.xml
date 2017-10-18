@@ -1367,6 +1367,33 @@ fmt.Errorf("a string with format: %d %s")
 	
 	
 				<rule>
+		<key>vet:Misuse</key>
+		<name>possible misuse of unsafe.Pointer</name>
+		<internalKey>vet:Misuse</internalKey>
+		<description><![CDATA[
+			<p>Likely incorrect uses of unsafe.Pointer to convert integers to pointers. A conversion from uintptr to unsafe.Pointer is invalid if it implies that there is a uintptr-typed word in memory that holds a pointer value, because that word will be invisible to stack copying and to the garbage collector.  </p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/cmd/vet/#hdr-Misuse_of_unsafe_Pointers">golang.org Vet</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+			
+			
+			<rule>
 		<key>vet:Shadow</key>
 		<name>Variables is shadowed</name>
 		<internalKey>vet:Shadow</internalKey>
@@ -1391,5 +1418,33 @@ fmt.Errorf("a string with format: %d %s")
 		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
 		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
 	</rule>
+	
+	
+			<rule>
+		<key>vet:Lock</key>
+		<name>Copying locks</name>
+		<internalKey>vet:Lock</internalKey>
+		<description><![CDATA[
+			<p>Locks that are erroneously passed by value.  </p>
+			
+			<h2>See</h2>
+			<ul>
+			<li>
+				<a href="https://golang.org/cmd/vet/#hdr-Copying_locks">golang.org Vet</a>
+			</li>
+			</ul>
+			
+		]]>
+			
+		</description>
+		<severity>MAJOR</severity>
+		<cardinality>SINGLE</cardinality>
+		<status>READY</status>
+		<type>CODE_SMELL</type>
+		<tag>imports</tag>
+		<remediationFunction>CONSTANT_ISSUE</remediationFunction>
+		<remediationFunctionBaseEffort>5min</remediationFunctionBaseEffort>
+	</rule>
+				
 
 </go-rules>
