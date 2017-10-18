@@ -78,7 +78,7 @@ public class GoJunitParser implements Parser {
 		final Element eElement = (Element) nNode;
 
 		String path = eElement.getAttribute(NAME_TEST_ATTR);
-		String fileName = path.substring(path.lastIndexOf("/") + 1);
+		String fileName = path.substring(path.lastIndexOf("/") + 1) + "_test.go";
 		listTestSuiteByPackage.add(groupTestCaseByFile(eElement, fileName));
 
 	    }
@@ -94,19 +94,24 @@ public class GoJunitParser implements Parser {
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 		final Element testCase = (Element) nNode;
 		String functionName = testCase.getAttribute(NAME_TEST_ATTR);
-		String key = functionFileName.get(fileName + "#" + functionName);
+		String key = fileName + "#" + functionName;
+		String absolutPahtOfFile = functionFileName.get(key);
+		if (absolutPahtOfFile == null) {
+		    LOGGER.warn(functionName + " not found in expected test file named " + fileName);
+		    continue;
+		}
 		GoTestFile goTest = null;
-		if (goTestFileMap.containsKey(fileName)) {
-		    goTest = goTestFileMap.get(fileName);
+		if (goTestFileMap.containsKey(key)) {
+		    goTest = goTestFileMap.get(key);
 		} else {
 		    goTest = new GoTestFile();
-		    goTest.setFile(fileName);
+		    goTest.setFile(absolutPahtOfFile);
 		}
 
 		goTest.addTestCase(new GoTestCase(testCase.getElementsByTagName(FAILURE_TAG).getLength() > 0,
 			testCase.getElementsByTagName(TEST_SKIPPED_TAG).getLength() > 0,
 			Double.parseDouble(testCase.getAttribute(TIME_TEST_ATTR)), functionName));
-		goTestFileMap.put(fileName, goTest);
+		goTestFileMap.put(key, goTest);
 	    }
 
 	}
