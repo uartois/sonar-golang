@@ -29,10 +29,13 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
@@ -42,110 +45,100 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.batch.sensor.coverage.CoverageType;
 import org.sonar.api.batch.sensor.coverage.NewCoverage;
-import org.sonar.api.internal.apachecommons.lang.StringUtils;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-import org.xml.sax.SAXException;
 
 import fr.univartois.sonargo.core.language.GoLanguage;
 import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class CoverageSensor implements Sensor {
 
-	private static final Logger LOGGER = Loggers.get(CoverageSensor.class);
+    private static final Logger LOGGER = Loggers.get(CoverageSensor.class);
 
-	@Override
-	public void describe(SensorDescriptor descriptor) {
-		descriptor.name("Go Coverage").onlyOnFileType(InputFile.Type.MAIN).onlyOnLanguage(GoLanguage.KEY);
-	}
+    @Override
+    public void describe(SensorDescriptor descriptor) {
+	descriptor.name("Go Coverage").onlyOnFileType(InputFile.Type.MAIN).onlyOnLanguage(GoLanguage.KEY);
+    }
 
-	private List<String> getExcludedPath(SensorContext context) {
+    private Set<String> getExcludedPath(SensorContext context) {
 
-		String globalExcludedPath = context.settings().getString(CoreProperties.GLOBAL_EXCLUSIONS_PROPERTY);
+	String globalExcludedPath = context.settings().getString(CoreProperties.GLOBAL_EXCLUSIONS_PROPERTY);
 
-		List<String> listExcludedPath = Arrays.asList(StringUtils.split(globalExcludedPath, ","));
+	Set<String> listExcludedPath = new TreeSet<>(Arrays.asList(StringUtils.split(globalExcludedPath, ",")));
 
-		return listExcludedPath;
-	}
+	return listExcludedPath;
+    }
 
-	private boolean isNotAnExcludedPath(Path p, SensorContext context) {
-		List<String> listExcludedPath = getExcludedPath(context);
+    private boolean isNotAnExcludedPath(Path p, SensorContext context) {
+	return !getExcludedPath(context).contains(p.toFile().getPath());
+    }
 
-		for (String s : listExcludedPath) {
-			if (s.equals(p.toFile().getPath())) {
-				return false;
-			}
-		}
-		return true;
+    public Stream<Path> createStream(SensorContext context) throws IOException {
+	final String fullPath = context.fileSystem().baseDir().getPath();
 
-	}
+	return Files.walk(Paths.get(fullPath))
+		.filter(p -> !p.getParent().toString().contains(".git") && !p.getParent().toString().contains(".sonar")
+			&& !p.getParent().toString().contains(".scannerwork")
+			&& !p.getFileName().toString().startsWith(".") && isNotAnExcludedPath(p, context));
 
-	public Stream<Path> createStream(SensorContext context) throws IOException {
-		final String fullPath = context.fileSystem().baseDir().getPath();
+    }
 
-		return Files.walk(Paths.get(fullPath))
-				.filter(p -> !p.getParent().toString().contains(".git") && !p.getParent().toString().contains(".sonar")
-						&& !p.getParent().toString().contains(".scannerwork")
-						&& !p.getFileName().toString().startsWith(".") && isNotAnExcludedPath(p, context));
+    @Override
+    public void execute(SensorContext context) {
 
-	}
+	try (Stream<Path> paths = createStream(context)) {
+	    paths.forEach(filePath -> {
+		if (Files.isDirectory(filePath)) {
+		    final String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
+		    final File f = new File(filePath + File.separator + reportPath);
+		    if (f.exists()) {
+			LOGGER.info("Analyse for " + f.getPath());
 
-	@Override
-	public void execute(SensorContext context) {
+			final CoverageParser coverParser = new CoverageParser(context);
 
-		try (Stream<Path> paths = createStream(context)) {
-			paths.forEach(filePath -> {
-				if (Files.isDirectory(filePath)) {
-					final String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
-					final File f = new File(filePath + File.separator + reportPath);
-					if (f.exists()) {
-						LOGGER.info("Analyse for " + f.getPath());
-
-						final CoverageParser coverParser = new CoverageParser(context);
-
-						try {
-							coverParser.parse(f.getPath());
-							save(context, coverParser.getCoveragePerFile());
-						} catch (ParserConfigurationException | SAXException | IOException e) {
-							LOGGER.error("Exception: ", e);
-						}
-
-					} else {
-						LOGGER.info("no coverage file in package " + f.getPath());
-					}
-				}
-			});
-		} catch (final IOException e) {
-			LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
-		}
-	}
-
-	public static void save(SensorContext context, Map<String, List<LineCoverage>> coveragePerFile) {
-		for (Map.Entry<String, List<LineCoverage>> entry : coveragePerFile.entrySet()) {
-			final String filePath = entry.getKey();
-			final List<LineCoverage> lines = entry.getValue();
-			final FileSystem fileSystem = context.fileSystem();
-			final FilePredicates predicates = fileSystem.predicates();
-			final InputFile inputFile = fileSystem.inputFile(
-					predicates.or(predicates.hasRelativePath(filePath), predicates.hasAbsolutePath(filePath)));
-
-			if (inputFile == null) {
-				LOGGER.warn("unable to create InputFile object: " + filePath);
-				return;
+			try {
+			    coverParser.parse(f.getPath());
+			    save(context, coverParser.getCoveragePerFile());
+			} catch (ParserConfigurationException | IOException e) {
+			    LOGGER.error("Exception: ", e);
 			}
 
-			final NewCoverage coverage = context.newCoverage().onFile(inputFile);
-
-			for (final LineCoverage line : lines) {
-				try {
-					coverage.lineHits(line.getLineNumber(), line.getHits());
-				} catch (final Exception ex) {
-					LOGGER.error(ex.getMessage() + line);
-				}
-			}
-			coverage.ofType(CoverageType.UNIT);
-			coverage.save();
+		    } else {
+			LOGGER.info("no coverage file in package " + f.getPath());
+		    }
 		}
+	    });
+	} catch (final IOException e) {
+	    LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
 	}
+    }
+
+    public static void save(SensorContext context, Map<String, List<LineCoverage>> coveragePerFile) {
+	for (Map.Entry<String, List<LineCoverage>> entry : coveragePerFile.entrySet()) {
+	    final String filePath = entry.getKey();
+	    final List<LineCoverage> lines = entry.getValue();
+	    final FileSystem fileSystem = context.fileSystem();
+	    final FilePredicates predicates = fileSystem.predicates();
+	    final InputFile inputFile = fileSystem.inputFile(
+		    predicates.or(predicates.hasRelativePath(filePath), predicates.hasAbsolutePath(filePath)));
+
+	    if (inputFile == null) {
+		LOGGER.warn("unable to create InputFile object: " + filePath);
+		return;
+	    }
+
+	    final NewCoverage coverage = context.newCoverage().onFile(inputFile);
+
+	    for (final LineCoverage line : lines) {
+		try {
+		    coverage.lineHits(line.getLineNumber(), line.getHits());
+		} catch (final Exception ex) {
+		    LOGGER.error(ex.getMessage() + line);
+		}
+	    }
+	    coverage.ofType(CoverageType.UNIT);
+	    coverage.save();
+	}
+    }
 
 }
