@@ -34,6 +34,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
@@ -141,10 +142,10 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
     private void getResourceAndSaveIssue(final GoError error) {
 
-	InputFile inputFile = fileSystem.inputFile(fileSystem.predicates()
-		.and(fileSystem.predicates().or(fileSystem.predicates().hasRelativePath(error.getFilePath()),
-			fileSystem.predicates().hasAbsolutePath(error.getFilePath()),
-			fileSystem.predicates().hasType(InputFile.Type.MAIN))));
+	FilePredicates predicates = fileSystem.predicates();
+
+	InputFile inputFile = fileSystem.inputFile(
+		predicates.and(predicates.hasPath(error.getFilePath()), predicates.hasType(InputFile.Type.MAIN)));
 
 	GoKeyRule.init();
 	if (inputFile != null) {
