@@ -62,7 +62,8 @@ public class GoTestReportSaver {
 
     private static <T extends Serializable> void saveMeasure(SensorContext context, InputFile inputFile,
 	    Metric<T> metric, T value) {
-
+	LOGGER.warn(inputFile.absolutePath());
+	LOGGER.warn(metric.toString());
 	context.<T>newMeasure().forMetric(metric).on(inputFile).withValue(value).save();
     }
 }
