@@ -106,19 +106,12 @@ This is an example of script for create all coverage files for all packages in o
 for D in `find . -type d`
 do
     echo $D
-    if  [[ $D == ./.git/* ]] 
-    then
-        continue    
-    fi
-
-    if  [[ $D == .. ]] 
-    then
-        continue    
-    fi
-
-    if  [[ $D == . ]] 
-    then
-        continue    
+    if [[ $D == ./.git/* ]]; then
+        continue
+    elif [[ $D == .. ]]; then
+        continue
+    elif [[ $D == . ]]; then
+        continue
     fi
 
     cd $D
