@@ -61,4 +61,12 @@ Examples:
 |error return value not checked (core.NewConfiguration(ConfigName, ConfigPath).ReadInConfig())|errcheck:ValueNotChecked|
 |unnecessary conversion|unconvert:UnnecessaryConversion|
 |unused struct field projectblackwhitego.ImageService.req|structcheck:UnusedStructField|
+|exported method BaseGS1.CodingSet should have comment or be unexported|golint:ExportedHaveComment|
+|exported method Rule.CodingSet should have comment or be unexported|golint:ExportedHaveComment|
+|struct field Id should be ID|golint:StructFieldInitialisms|
+|unreachable code|vet:Unreachable|
+|declaration of "configuration" shadows declaration at line.go:142|vet:Shadow|
+|declaration of "err" shadows declaration at tcp_client_test.go:155|vet:Shadow|
+|possible misuse of unsafe.Pointer|vet:Misuse|
+|NotificationEventsHandler passes lock by value: sync.WaitGroup contains sync.noCopy|vet:Lock|
 |a message error not found|null|
