@@ -56,12 +56,12 @@ public class FunctionFinder {
 		int indexBrace = s.indexOf('{');
 
 		if (indexTesting == -1) {
-			LOGGER.warn("This function name is not correct: " + s);
+			LOGGER.debug("This function name is not correct: " + s);
 			return null;
 		}
 		int indexParen = s.indexOf("(", indexTesting);
 		if (indexParen == -1) {
-			LOGGER.warn("This function name is not correct: " + s);
+			LOGGER.debug("This function name is not correct: " + s);
 			return null;
 		}
 		int indexCloseParen = s.indexOf(")");
