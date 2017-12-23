@@ -46,10 +46,14 @@ the new version of the plugin, follow those steps after the installation:
 sonar.projectKey=yourprojectid
 sonar.projectName=name of project
 sonar.projectVersion=1.0
-sonar.golint.reportPath=report.xml #default
-sonar.coverage.reportPath=coverage.xml # default
-sonar.coverage.dtdVerification=false # if you want disabled the DTD verification for a proxy problem for example 
-sonar.test.reportPath=test.xml #default
+# GoLint report path, default value is report.xml 
+sonar.golint.reportPath=report.xml 
+# Cobertura like coverage report path, default value is coverage.xml 
+sonar.coverage.reportPath=coverage.xml 
+# if you want disabled the DTD verification for a proxy problem for example, true by default 
+sonar.coverage.dtdVerification=false
+# JUnit like test report, default value is test.xml
+sonar.test.reportPath=test.xml 
 sonar.sources=./
 ```
 
