@@ -63,30 +63,27 @@ public class CoverageSensor implements Sensor {
     private List<String> getExcludedPath(SensorContext context) {
 
 	String globalExcludedPath = context.settings().getString(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY);
-	LOGGER.debug("EXCLUDED PATH " + globalExcludedPath);
 	List<String> listExcludedPath = Arrays.asList(StringUtils.split(globalExcludedPath, ","));
 
 	return listExcludedPath;
     }
 
-    private boolean isNotAnExcludedPath(Path p, SensorContext context) {
+    private boolean isAnExcludedPath(Path candidatePath, SensorContext context) {
 	List<String> listExcludedPath = getExcludedPath(context);
 
 	for (String s : listExcludedPath) {
 	    if (s.contains("*")) {
 		PathMatcher pathMatcher = java.nio.file.FileSystems.getDefault().getPathMatcher("glob:" + s);
-		if (pathMatcher.matches(p)) {
-		    return false;
+		if (pathMatcher.matches(candidatePath)) {
+		    return true;
 		}
 	    }
 
-	    Path pe = Paths.get(s);
-
-	    if (p.equals(pe)) {
-		return false;
+	    if ((candidatePath.isAbsolute() && candidatePath.endsWith(s)) || (candidatePath.getFileName().equals(s))) {
+		return true;
 	    }
 	}
-	return true;
+	return false;
 
     }
 
@@ -96,7 +93,7 @@ public class CoverageSensor implements Sensor {
 	return Files.walk(Paths.get(fullPath))
 		.filter(p -> !p.getParent().toString().contains(".git") && !p.getParent().toString().contains(".sonar")
 			&& !p.getParent().toString().contains(".scannerwork")
-			&& !p.getFileName().toString().startsWith("."));
+			&& !p.getFileName().toString().startsWith(".") && !isAnExcludedPath(p, context));
 
     }
 
@@ -139,8 +136,8 @@ public class CoverageSensor implements Sensor {
 	    final List<LineCoverage> lines = entry.getValue();
 	    final FileSystem fileSystem = context.fileSystem();
 	    final FilePredicates predicates = fileSystem.predicates();
-	    final InputFile inputFile = fileSystem.inputFile(
-		    predicates.or(predicates.hasRelativePath(filePath), predicates.hasAbsolutePath(filePath)));
+	    final InputFile inputFile = fileSystem
+		    .inputFile(predicates.or(predicates.hasRelativePath(filePath), predicates.hasPath(filePath)));
 
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);

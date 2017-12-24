@@ -44,7 +44,7 @@ public class GoTestReportSaver {
 		String key = entry.getKey();
 		GoTestFile value = entry.getValue();
 		LOGGER.debug("file " + value.getFile());
-		InputFile file = context.fileSystem().inputFile(predicates.hasAbsolutePath(value.getFile()));
+		InputFile file = context.fileSystem().inputFile(predicates.hasPath(value.getFile()));
 		if (file == null) {
 		    LOGGER.warn("file not found " + value.getFile());
 		    continue;
