@@ -67,8 +67,6 @@ public class FunctionFinder {
 	if (indexCloseParen < indexParen) {
 	    indexTesting = s.indexOf("Test", indexCloseParen);
 	}
-
 	return s.substring(indexTesting, indexParen);
     }
-
 }
