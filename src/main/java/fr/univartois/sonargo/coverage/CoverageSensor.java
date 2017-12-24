@@ -30,8 +30,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -117,7 +115,7 @@ public class CoverageSensor implements Sensor {
 			try {
 			    coverParser.parse(f.getPath());
 			    save(context, coverParser.getCoveragePerFile());
-			} catch (ParserConfigurationException | SAXException | IOException e) {
+			} catch (ParserConfigurationException | IOException e) {
 			    LOGGER.error("Exception: ", e);
 			}
 
@@ -137,8 +135,7 @@ public class CoverageSensor implements Sensor {
 	    final List<LineCoverage> lines = entry.getValue();
 	    final FileSystem fileSystem = context.fileSystem();
 	    final FilePredicates predicates = fileSystem.predicates();
-	    final InputFile inputFile = fileSystem
-		    .inputFile(predicates.hasPath(filePath));
+	    final InputFile inputFile = fileSystem.inputFile(predicates.hasPath(filePath));
 
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);

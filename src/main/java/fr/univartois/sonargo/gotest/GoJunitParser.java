@@ -114,18 +114,18 @@ public class GoJunitParser implements Parser {
 
     }
 
-    public List<HashMap<String, GoTestFile>> getListTestSuite() {
-
-		String path = eElement.getAttribute(NAME_TEST_ATTR);
-		String fileName = path.substring(path.lastIndexOf("/") + 1) + "_test.go";
-		listTestSuiteByPackage.add(groupTestCaseByFile(eElement, fileName));
-
-	    }
-	}
-
-    }
-
-    
+    // public List<HashMap<String, GoTestFile>> getListTestSuite() {
+    //
+    // String path = eElement.getAttribute(NAME_TEST_ATTR);
+    // String fileName = path.substring(path.lastIndexOf("/") + 1) + "_test.go";
+    // listTestSuiteByPackage.add(groupTestCaseByFile(eElement, fileName));
+    //
+    // }
+    // }
+    //
+    // }
+    //
+    //
     public List<Map<String, GoTestFile>> getListTestSuite() {
 	return listTestSuiteByPackage;
     }
