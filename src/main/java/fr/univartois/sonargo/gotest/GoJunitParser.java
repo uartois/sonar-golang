@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -53,12 +54,12 @@ public class GoJunitParser implements Parser {
 
     private static final Logger LOGGER = Loggers.get(GoJunitParser.class);
 
-    private final List<HashMap<String, GoTestFile>> listTestSuiteByPackage = new ArrayList<>();
+    private final List<Map<String, GoTestFile>> listTestSuiteByPackage = new ArrayList<>();
 
-    private HashMap<String, String> functionFileName;
+    private Map<String, String> functionFileName;
 
-    public GoJunitParser(HashMap<String, String> map) {
-	this.functionFileName = map;
+    public GoJunitParser(Map<String, String> functionFileName) {
+	this.functionFileName = functionFileName;
     }
 
     @Override
@@ -75,6 +76,7 @@ public class GoJunitParser implements Parser {
 	    final Node nNode = testSuiteList.item(i);
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 		final Element eElement = (Element) nNode;
+
 		listTestSuiteByPackage.add(groupTestCaseByFile(eElement));
 	    }
 	}
@@ -113,6 +115,18 @@ public class GoJunitParser implements Parser {
     }
 
     public List<HashMap<String, GoTestFile>> getListTestSuite() {
+
+		String path = eElement.getAttribute(NAME_TEST_ATTR);
+		String fileName = path.substring(path.lastIndexOf("/") + 1) + "_test.go";
+		listTestSuiteByPackage.add(groupTestCaseByFile(eElement, fileName));
+
+	    }
+	}
+
+    }
+
+    
+    public List<Map<String, GoTestFile>> getListTestSuite() {
 	return listTestSuiteByPackage;
     }
 

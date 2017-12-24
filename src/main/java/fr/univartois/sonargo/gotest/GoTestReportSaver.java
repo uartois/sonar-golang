@@ -22,7 +22,6 @@
 package fr.univartois.sonargo.gotest;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,14 +36,14 @@ import org.sonar.api.utils.log.Loggers;
 public class GoTestReportSaver {
     private static final Logger LOGGER = Loggers.get(GoTestReportSaver.class);
 
-    public static void save(SensorContext context, List<HashMap<String, GoTestFile>> list) {
+    public static void save(SensorContext context, List<Map<String, GoTestFile>> list) {
 	FilePredicates predicates = context.fileSystem().predicates();
-	for (HashMap<String, GoTestFile> map : list) {
+	for (Map<String, GoTestFile> map : list) {
 	    for (Map.Entry<String, GoTestFile> entry : map.entrySet()) {
-		String key = entry.getKey();
 		GoTestFile value = entry.getValue();
 		LOGGER.debug("file " + value.getFile());
 		InputFile file = context.fileSystem().inputFile(predicates.hasPath(value.getFile()));
+
 		if (file == null) {
 		    LOGGER.warn("file not found " + value.getFile());
 		    continue;
@@ -65,7 +64,8 @@ public class GoTestReportSaver {
 
     private static <T extends Serializable> void saveMeasure(SensorContext context, InputFile inputFile,
 	    Metric<T> metric, T value) {
-
+	LOGGER.warn(inputFile.absolutePath());
+	LOGGER.warn(metric.toString());
 	context.<T>newMeasure().forMetric(metric).on(inputFile).withValue(value).save();
     }
 }

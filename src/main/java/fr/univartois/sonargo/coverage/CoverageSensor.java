@@ -30,6 +30,8 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -46,7 +48,6 @@ import org.sonar.api.batch.sensor.coverage.CoverageType;
 import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
-import org.xml.sax.SAXException;
 
 import fr.univartois.sonargo.core.language.GoLanguage;
 import fr.univartois.sonargo.core.settings.GoProperties;
@@ -137,7 +138,7 @@ public class CoverageSensor implements Sensor {
 	    final FileSystem fileSystem = context.fileSystem();
 	    final FilePredicates predicates = fileSystem.predicates();
 	    final InputFile inputFile = fileSystem
-		    .inputFile(predicates.or(predicates.hasRelativePath(filePath), predicates.hasPath(filePath)));
+		    .inputFile(predicates.hasPath(filePath));
 
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);
