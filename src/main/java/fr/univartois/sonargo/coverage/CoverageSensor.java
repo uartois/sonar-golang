@@ -35,7 +35,6 @@ import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang3.StringUtils;
 import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
@@ -63,14 +62,22 @@ public class CoverageSensor implements Sensor {
     private Set<String> getExcludedPath(SensorContext context) {
 
 	String globalExcludedPath = context.settings().getString(CoreProperties.GLOBAL_EXCLUSIONS_PROPERTY);
+	LOGGER.debug("global execlud path " + globalExcludedPath);
 
-	Set<String> listExcludedPath = new TreeSet<>(Arrays.asList(StringUtils.split(globalExcludedPath, ",")));
+	if (globalExcludedPath == null) {
+	    return null;
+	}
+
+	Set<String> listExcludedPath = new TreeSet<>(Arrays.asList(globalExcludedPath.split(",")));
 
 	return listExcludedPath;
     }
 
     private boolean isNotAnExcludedPath(Path p, SensorContext context) {
-	return !getExcludedPath(context).contains(p.toFile().getPath());
+
+	Set<String> listExcludedPath = getExcludedPath(context);
+
+	return listExcludedPath != null && !listExcludedPath.contains(p.toFile().getPath());
     }
 
     public Stream<Path> createStream(SensorContext context) throws IOException {
@@ -119,8 +126,7 @@ public class CoverageSensor implements Sensor {
 	    final List<LineCoverage> lines = entry.getValue();
 	    final FileSystem fileSystem = context.fileSystem();
 	    final FilePredicates predicates = fileSystem.predicates();
-	    final InputFile inputFile = fileSystem.inputFile(
-		    predicates.or(predicates.hasRelativePath(filePath), predicates.hasAbsolutePath(filePath)));
+	    final InputFile inputFile = fileSystem.inputFile(predicates.hasPath(filePath));
 
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);
