@@ -77,48 +77,55 @@ public class GoJunitParser implements Parser {
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 		final Element eElement = (Element) nNode;
 
-		String path = eElement.getAttribute(NAME_TEST_ATTR);
-		String fileName = path.substring(path.lastIndexOf("/") + 1) + "_test.go";
-		listTestSuiteByPackage.add(groupTestCaseByFile(eElement, fileName));
-
+		listTestSuiteByPackage.add(groupTestCaseByFile(eElement));
 	    }
 	}
 
     }
 
-    private HashMap<String, GoTestFile> groupTestCaseByFile(Element testSuite, String fileName) {
+    private HashMap<String, GoTestFile> groupTestCaseByFile(Element testSuite) {
 	final NodeList testCaseList = testSuite.getElementsByTagName(TEST_CASE_TAG);
-	HashMap<String, GoTestFile> goTestFileMap = new HashMap<>();
+	HashMap<String, GoTestFile> mapResult = new HashMap<>();
 	for (int i = 0; i < testCaseList.getLength(); i++) {
 	    final Node nNode = testCaseList.item(i);
 	    if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 		final Element testCase = (Element) nNode;
 		String functionName = testCase.getAttribute(NAME_TEST_ATTR);
-		String key = fileName + "#" + functionName;
-		String absolutPahtOfFile = functionFileName.get(key);
-		if (absolutPahtOfFile == null) {
-		    LOGGER.warn(functionName + " not found in expected test file named " + fileName);
-		    continue;
-		}
+		String fileName = functionFileName.get(functionName);
 		GoTestFile goTest = null;
-		if (goTestFileMap.containsKey(key)) {
-		    goTest = goTestFileMap.get(key);
-		} else {
+		if (mapResult.containsKey(fileName)) {
+		    goTest = mapResult.get(fileName);
+		} else if (fileName != null) {
 		    goTest = new GoTestFile();
-		    goTest.setFile(absolutPahtOfFile);
+		    goTest.setFile(fileName);
+		} else {
+		    LOGGER.warn("The key is null");
+		    continue;
 		}
 
 		goTest.addTestCase(new GoTestCase(testCase.getElementsByTagName(FAILURE_TAG).getLength() > 0,
 			testCase.getElementsByTagName(TEST_SKIPPED_TAG).getLength() > 0,
 			Double.parseDouble(testCase.getAttribute(TIME_TEST_ATTR)), functionName));
-		goTestFileMap.put(key, goTest);
+		mapResult.put(fileName, goTest);
 	    }
 
 	}
-	return goTestFileMap;
+	return mapResult;
 
     }
 
+    // public List<HashMap<String, GoTestFile>> getListTestSuite() {
+    //
+    // String path = eElement.getAttribute(NAME_TEST_ATTR);
+    // String fileName = path.substring(path.lastIndexOf("/") + 1) + "_test.go";
+    // listTestSuiteByPackage.add(groupTestCaseByFile(eElement, fileName));
+    //
+    // }
+    // }
+    //
+    // }
+    //
+    //
     public List<Map<String, GoTestFile>> getListTestSuite() {
 	return listTestSuiteByPackage;
     }

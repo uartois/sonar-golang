@@ -41,7 +41,9 @@ public class GoTestReportSaver {
 	for (Map<String, GoTestFile> map : list) {
 	    for (Map.Entry<String, GoTestFile> entry : map.entrySet()) {
 		GoTestFile value = entry.getValue();
-		InputFile file = context.fileSystem().inputFile(predicates.hasAbsolutePath(value.getFile()));
+		LOGGER.debug("file " + value.getFile());
+		InputFile file = context.fileSystem().inputFile(predicates.hasPath(value.getFile()));
+
 		if (file == null) {
 		    LOGGER.warn("file not found " + value.getFile());
 		    continue;
