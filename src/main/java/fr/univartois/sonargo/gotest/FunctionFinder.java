@@ -52,7 +52,6 @@ public class FunctionFinder {
 
     public String searchInLine(String s) {
 	int indexTesting = s.indexOf("Test");
-	int indexBrace = s.indexOf('{');
 
 	if (indexTesting == -1) {
 	    LOGGER.warn("This function name is not correct: " + s);
