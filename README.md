@@ -95,9 +95,10 @@ gocov test ./... | gocov-xml > coverage.xml
 
 Note that `gocov test ./...` internally calls `go test` with the `-coverprofile` flag for
 all folders and subfolders, and assembles the coverprofile accordingly by itself (this is
-nessecary, as Golang up to 1.9 did not support the combination `gocov test ./... -coverprofile=...`).
+necessary, as Golang [up to 1.9](https://tip.golang.org/doc/go1.10#test) does not support the
+combination `go test ./... -coverprofile=...`).
 
-If you want to invoke `go test` manually, you need to do this and the conversion by each
+If you want to invoke `go test` manually, you need to do this and the conversion for each
 package by yourself. For example:
 
 * For all packages execute those commands:
