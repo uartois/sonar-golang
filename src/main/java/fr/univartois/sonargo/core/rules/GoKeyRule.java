@@ -51,8 +51,8 @@ public class GoKeyRule {
 
 	/**
 	 * Allow to load the key.properties file where there is a map that can
-	 * correspond lint a internal key with a Pattern for match with the message
-	 * of the report
+	 * correspond lint a internal key with a Pattern for match with the message of
+	 * the report
 	 */
 	public static synchronized void init() {
 		if (prop == null) {

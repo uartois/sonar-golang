@@ -21,7 +21,7 @@ import fr.univartois.sonargo.coverage.CoverageSensor;
 
 public class GoGrammarTest {
 	private Rule rule;
-	private Parser parser;
+	private Parser<Grammar> parser;
 	private ArrayList<String> goCodes;
 
 	@Before
