@@ -1,6 +1,7 @@
 package fr.univartois.sonargo.coverage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -33,6 +34,8 @@ public class CoverageSensorTest extends AbstractSonarTest {
 	public void testCreateStream() {
 		final CoverageSensor sensor = new CoverageSensor();
 		try (Stream<Path> paths = sensor.createStream(testerContext)) {
+			assertNotNull(paths);
+			LOGGER.info(paths.count() + "");
 			assertEquals(22, paths.count());
 
 		} catch (final IOException e) {
