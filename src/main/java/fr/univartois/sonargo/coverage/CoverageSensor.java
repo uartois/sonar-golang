@@ -27,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,11 @@ public class CoverageSensor implements Sensor {
 	private List<String> getExcludedPath(SensorContext context) {
 
 		String globalExcludedPath = context.settings().getString(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY);
+
+		if (globalExcludedPath == null) {
+			return new ArrayList<String>();
+		}
+
 		List<String> listExcludedPath = Arrays.asList(globalExcludedPath.split(","));
 
 		return listExcludedPath;

@@ -39,6 +39,7 @@ public class GoPluginTest {
 		final Plugin.Context context = new Plugin.Context(runtime);
 
 		javaPlugin.define(context);
+
 		assertEquals(13, context.getExtensions().size());
 
 	}
