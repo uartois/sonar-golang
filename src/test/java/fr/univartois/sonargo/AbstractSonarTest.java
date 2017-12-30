@@ -1,5 +1,6 @@
 package fr.univartois.sonargo;
 
+import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 
@@ -22,6 +23,8 @@ public class AbstractSonarTest {
 		testerContext.settings().appendProperty(GoProperties.REPORT_PATH_KEY, GoProperties.REPORT_PATH_DEFAULT);
 		testerContext.settings().appendProperty(GoProperties.JUNIT_REPORT_PATH_KEY,
 				GoProperties.JUNIT_REPORT_PATH_DEFAULT);
+
+		testerContext.settings().appendProperty(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY, "");
 
 	}
 
