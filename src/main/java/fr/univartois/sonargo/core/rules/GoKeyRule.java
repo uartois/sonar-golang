@@ -98,7 +98,7 @@ public class GoKeyRule {
 			return (String) e.getKey();
 		}
 
-		LOGGER.warn("This description \"" + error.getMessage() + "\" is not usable");
+		LOGGER.debug("This description \"" + error.getMessage() + "\" is not usable");
 		return null;
 
 	}

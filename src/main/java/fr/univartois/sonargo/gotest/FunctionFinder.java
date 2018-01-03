@@ -54,7 +54,11 @@ public class FunctionFinder {
 		try {
 			Matcher matcher = MATCH_FUNC_NAME.matcher(getFileAsBufferFromPath(p));
 			while (matcher.find()) {
-				result.put(matcher.group(1), absolutePath);
+				String func = matcher.group(1);
+				LOGGER.debug("Found function " + func + " at path " + absolutePath);
+				if (func != null && absolutePath != null) {
+					result.put(func, absolutePath);
+				}
 			}
 		} catch (IOException e) {
 			LOGGER.warn("IO Exception caught -", e);

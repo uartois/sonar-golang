@@ -149,7 +149,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 		if (inputFile != null) {
 			saveIssue(inputFile, error.getLine(), GoKeyRule.getKeyFromError(error), error.getMessage());
 		} else {
-			LOGGER.error("Not able to find a InputFile with " + error.getFilePath());
+			LOGGER.error("Not able to find an InputFile from " + error.getFilePath());
 		}
 	}
 
@@ -175,9 +175,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 		if (externalRuleKey == null) {
 			if (isAnErrorConfigOrImport(message)) {
-				LOGGER.warn("This issue is create because there is a problem with gometalinter analyse: " + message);
+				LOGGER.warn("This issue was created because there is a problem with gometalinter analyse: " + message);
 			} else {
-				LOGGER.warn("The key for the message " + message + " is null, issue not saved");
+				LOGGER.info("The key for the message " + message + " is null, issue will not be saved");
 			}
 			return;
 		}
