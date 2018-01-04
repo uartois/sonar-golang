@@ -12,3 +12,4 @@ doc
 .sonar
 .idea/
 *.iml
+!./src/test/resources/coverage/.sonar
