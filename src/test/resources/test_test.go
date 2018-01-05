@@ -39,3 +39,7 @@ func TestNested(t *testing.T) {
 		assert.True(t, true, "Should match")
 	})
 }
+
+func (suite *ExampleTestSuite) TestSuite() {
+    suite.Equal(5, suite.VariableThatShouldStartAtFive)
+}
