@@ -148,7 +148,7 @@
 				<version>2.19.1</version>
 				<configuration>
 					<enableAssertions>true</enableAssertions>
-					<testFailureIgnore>true</testFailureIgnore>
+					<testFailureIgnore>false</testFailureIgnore>
 					<includes>
 						<include>**/*Test*</include>
 					</includes>
