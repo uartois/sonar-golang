@@ -39,6 +39,6 @@ import fr.univartois.sonargo.coverage.CoverageSensorTest;
 @RunWith(Suite.class)
 @SuiteClasses({ EvalTest.class, GoErrorTest.class, GoLanguageTest.class, GoQualityProfileTest.class,
 		GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class, GoPropertiesTest.class,
-		CoverageParserTest.class, CoverageSensorTest.class, GoLexerTest.class })
+		CoverageSensorTest.class, GoLexerTest.class })
 public class AllTests {
 }
