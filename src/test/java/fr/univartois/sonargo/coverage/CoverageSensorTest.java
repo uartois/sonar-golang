@@ -37,7 +37,6 @@ public class CoverageSensorTest extends AbstractSonarTest {
 
 	    assertNotNull(paths);
 
-	    paths.forEach((s) -> System.out.println(s));
 
 	} catch (final IOException e) {
 	    // TODO Auto-generated catch block
@@ -51,7 +50,6 @@ public class CoverageSensorTest extends AbstractSonarTest {
 	Stream<Path> paths;
 	try {
 	    paths = sensor.createStream(testerContext);
-	    paths.forEach((s) -> System.out.println(s));
 	    assertEquals(25, paths.count());
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
