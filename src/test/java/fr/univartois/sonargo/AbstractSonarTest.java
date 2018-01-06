@@ -16,6 +16,9 @@ public class AbstractSonarTest {
 
 	public void init(DefaultFileSystem fileSystem) {
 		this.fileSystem = fileSystem;
+
+		System.out.println("init with dir " + fileSystem.baseDirPath());
+
 		testerContext = SensorContextTester.create(fileSystem.baseDir());
 
 		testerContext.settings().appendProperty(GoProperties.COVERAGE_REPORT_PATH_KEY,

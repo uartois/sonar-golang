@@ -15,6 +15,8 @@ import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 import fr.univartois.sonargo.AbstractSonarTest;
 import fr.univartois.sonargo.TestUtils;
@@ -24,6 +26,8 @@ import fr.univartois.sonargo.TestUtils;
  *
  */
 public class FunctionFinderTest extends AbstractSonarTest {
+	private static final Logger LOGGER = Loggers.get(FunctionFinderTest.class);
+
 	@Before
 	@Override
 	public void init() {
@@ -33,8 +37,8 @@ public class FunctionFinderTest extends AbstractSonarTest {
 	@Test
 	public void testSearchInFile() {
 		try {
-			String path = new File(testerContext.fileSystem().baseDir(), "test_test.go").getPath();
-
+			String path = new File(TestUtils.getTestBaseDir().baseDir(), "test_test.go").getAbsolutePath();
+			LOGGER.info("testSearchInFile " + path);
 			FunctionFinder f = new FunctionFinder(testerContext);
 			f.searchFunctionInFile(Paths.get(path));
 			HashMap<String, String> result = f.getResult();
@@ -56,6 +60,7 @@ public class FunctionFinderTest extends AbstractSonarTest {
 	@Test
 	public void testSearchFunction() {
 		try {
+			LOGGER.info("testSearchFunction " + testerContext.fileSystem().baseDir());
 			FunctionFinder f = new FunctionFinder(testerContext);
 			HashMap<String, String> nameFunction = f.searchFunction();
 			assertTrue(nameFunction.containsKey("TestAverage"));

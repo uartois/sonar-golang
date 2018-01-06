@@ -25,11 +25,14 @@ public class FunctionFinder {
 	private String baseDir;
 	private Stream<Path> paths;
 
-	private static final Pattern MATCH_FUNC_NAME = Pattern
-			.compile("func\\s+(\\(suite\\s+[a-zA-Z0-9\\*\\._-]*\\)\\s+)?(?<functionName>Test[^\\s]+)\\s*\\([a-zA-Z0-9\\*\\s\\.\\,_-]*\\)\\s*\\{");
+	private static final Pattern MATCH_FUNC_NAME = Pattern.compile(
+			"func\\s+(\\(suite\\s+[a-zA-Z0-9\\*\\._-]*\\)\\s+)?(?<functionName>Test[^\\s]+)\\s*\\([a-zA-Z0-9\\*\\s\\.\\,_-]*\\)\\s*\\{");
 
 	public FunctionFinder(SensorContext context) throws IOException {
 		this.baseDir = context.fileSystem().baseDir().getPath();
+
+		LOGGER.info("base dir " + baseDir);
+
 		paths = Files.walk(Paths.get(baseDir)).filter(p -> p.toFile().getName().endsWith("_test.go"));
 	}
 
@@ -51,6 +54,9 @@ public class FunctionFinder {
 
 	public void searchFunctionInFile(Path p) {
 		String absolutePath = p.toFile().getAbsolutePath();
+
+		System.err.println("search function in file " + absolutePath);
+
 		try {
 			Matcher matcher = MATCH_FUNC_NAME.matcher(getFileAsBufferFromPath(p));
 			while (matcher.find()) {

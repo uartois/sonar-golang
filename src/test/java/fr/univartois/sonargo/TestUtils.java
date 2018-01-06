@@ -36,7 +36,7 @@ public class TestUtils {
 	}
 
 	public static DefaultFileSystem getTestBaseDir() {
-		return new DefaultFileSystem(new File(TEST_RESSOURCES + File.separator + TEST_PATH));
+		return new DefaultFileSystem((new File(TEST_RESSOURCES + File.separator + TEST_PATH)).getAbsoluteFile());
 	}
 
 	public static DefaultFileSystem getCoverageBaseDir() {
