@@ -43,16 +43,16 @@ import fr.univartois.sonargo.highlighter.HighlighterSensor;
  */
 public class SonarGoPlugin implements Plugin {
 
-	@Override
-	public void define(Context context) {
-		context.addExtensions(GoProperties.getProperties());
-		context.addExtensions(GoLanguage.class, GoQualityProfile.class);
-		context.addExtensions(GoLintRulesDefinition.class, GoLintIssueLoaderSensor.class);
-		context.addExtension(CoverageSensor.class);
-		context.addExtension(GoTestSensor.class);
-		context.addExtension(HighlighterSensor.class);
-		context.addExtension(GoMetricSensor.class);
+    @Override
+    public void define(Context context) {
+	context.addExtensions(GoProperties.getProperties());
+	context.addExtensions(GoLanguage.class, GoQualityProfile.class);
+	context.addExtensions(GoLintRulesDefinition.class, GoLintIssueLoaderSensor.class);
+	context.addExtension(CoverageSensor.class);
+	context.addExtension(GoTestSensor.class);
+	context.addExtension(HighlighterSensor.class);
+	context.addExtension(GoMetricSensor.class);
 
-	}
+    }
 
 }

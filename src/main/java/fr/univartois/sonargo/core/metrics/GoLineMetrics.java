@@ -13,45 +13,45 @@ import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
 public class GoLineMetrics {
-	private static final Logger LOGGER = Loggers.get(GoLineMetrics.class);
+    private static final Logger LOGGER = Loggers.get(GoLineMetrics.class);
 
-	private int numberLineOfCode = 0;
-	private int numberLineComment = 0;
-	private final InputFile file;
-	private final SensorContext context;
+    private int numberLineOfCode = 0;
+    private int numberLineComment = 0;
+    private final InputFile file;
+    private final SensorContext context;
 
-	public GoLineMetrics(InputFile f, SensorContext c) {
-		file = f;
-		context = c;
-	}
+    public GoLineMetrics(InputFile f, SensorContext c) {
+	file = f;
+	context = c;
+    }
 
-	public void analyseFile() {
+    public void analyseFile() {
 
-		final File f = file.file();
+	final File f = file.file();
 
-		try (final BufferedReader br = new BufferedReader(
-				new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
+	try (final BufferedReader br = new BufferedReader(
+		new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8))) {
 
-			String line;
-			while ((line = br.readLine()) != null) {
-				if (!line.startsWith("//")) {
-					numberLineOfCode++;
-				} else {
-					numberLineComment++;
-				}
-			}
-			br.close();
-		} catch (final IOException e) {
-			LOGGER.error("IO Exception", e);
+	    String line;
+	    while ((line = br.readLine()) != null) {
+		if (!line.startsWith("//")) {
+		    numberLineOfCode++;
+		} else {
+		    numberLineComment++;
 		}
+	    }
+	    br.close();
+	} catch (final IOException e) {
+	    LOGGER.error("IO Exception", e);
 	}
+    }
 
-	public int getNumberLineOfCode() {
-		return numberLineOfCode;
-	}
+    public int getNumberLineOfCode() {
+	return numberLineOfCode;
+    }
 
-	public int getNumberLineComment() {
-		return numberLineComment;
-	}
+    public int getNumberLineComment() {
+	return numberLineComment;
+    }
 
 }
