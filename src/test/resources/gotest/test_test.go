@@ -43,3 +43,7 @@ func TestNested(t *testing.T) {
 func (suite *ExampleTestSuite) TestSuite() {
     suite.Equal(5, suite.VariableThatShouldStartAtFive)
 }
+
+func (alias *AnotherExampleTestSuite) TestAnotherSuite() {
+    alias.Equal(5, alias.VariableThatShouldStartAtFive)
+}

@@ -50,6 +50,7 @@ public class FunctionFinderTest extends AbstractSonarTest {
 			expected.add("TestTwoLines2");
 			expected.add("TestNested");
 			expected.add("TestSuite");
+            expected.add("TestAnotherSuite");
 			assertEquals(expected, result.keySet());
 
 		} catch (IOException e) {

@@ -26,7 +26,7 @@ public class FunctionFinder {
 	private Stream<Path> paths;
 
 	private static final Pattern MATCH_FUNC_NAME = Pattern.compile(
-			"func\\s+(\\(suite\\s+[a-zA-Z0-9\\*\\._-]*\\)\\s+)?(?<functionName>Test[^\\s]+)\\s*\\([a-zA-Z0-9\\*\\s\\.\\,_-]*\\)\\s*\\{");
+			"func\\s+(\\([^\\s)]+\\s+[a-zA-Z0-9\\*\\._-]*\\)\\s+)?(?<functionName>Test[^\\s]+)\\s*\\([a-zA-Z0-9\\*\\s\\.\\,_-]*\\)\\s*\\{");
 
 	public FunctionFinder(SensorContext context) throws IOException {
 		this.baseDir = context.fileSystem().baseDir().getPath();
