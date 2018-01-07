@@ -24,34 +24,34 @@ import fr.univartois.sonargo.gotest.FunctionFinder;
  */
 @Ignore
 public class FunctionFinderTest extends AbstractSonarTest {
-	@Before
-	@Override
-	public void init() {
-		init(TestUtils.getDefaultFileSystem());
+    @Before
+    @Override
+    public void init() {
+	init(TestUtils.getDefaultFileSystem());
+    }
+
+    @Test
+    public void testSearchInFile() {
+	try {
+	    String path = new File(testerContext.fileSystem().baseDir(), "test_test.go").getPath();
+
+	    FunctionFinder f = new FunctionFinder(testerContext);
+	    f.searchFunctionInFile(Paths.get(path));
+	    HashMap<String, String> result = f.getResult();
+	    Set<String> expected = new java.util.HashSet<String>();
+	    expected.add("TestEasyDef");
+	    expected.add("TestSpaceDef");
+	    expected.add("TestNoSpaceDef");
+	    expected.add("TestTwoLines1");
+	    expected.add("TestTwoLines2");
+	    expected.add("TestNested");
+	    expected.add("TestSuite");
+	    assertEquals(expected, result.keySet());
+
+	} catch (IOException e) {
+	    fail("IOException thrown in test.");
 	}
 
-	@Test
-	public void testSearchInFile() {
-		try {
-			String path = new File(testerContext.fileSystem().baseDir(), "test_test.go").getPath();
-
-			FunctionFinder f = new FunctionFinder(testerContext);
-			f.searchFunctionInFile(Paths.get(path));
-			HashMap<String, String> result = f.getResult();
-			Set<String> expected = new java.util.HashSet<String>();
-			expected.add("TestEasyDef");
-			expected.add("TestSpaceDef");
-			expected.add("TestNoSpaceDef");
-			expected.add("TestTwoLines1");
-			expected.add("TestTwoLines2");
-			expected.add("TestNested");
-			expected.add("TestSuite");
-			assertEquals(expected, result.keySet());
-
-		} catch (IOException e) {
-			fail("IOException thrown in test.");
-		}
-
-	}
+    }
 
 }

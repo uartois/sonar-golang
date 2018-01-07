@@ -38,7 +38,7 @@ import fr.univartois.sonargo.gotest.FunctionFinderTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ EvalTest.class, GoErrorTest.class, GoLanguageTest.class, GoQualityProfileTest.class,
-		GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class, GoPropertiesTest.class,
-		CoverageSensorTest.class, GoLexerTest.class, FunctionFinderTest.class })
+	GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class, GoPropertiesTest.class,
+	CoverageSensorTest.class, GoLexerTest.class, FunctionFinderTest.class })
 public class AllTests {
 }

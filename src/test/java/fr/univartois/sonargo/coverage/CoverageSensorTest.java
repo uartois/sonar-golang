@@ -37,7 +37,6 @@ public class CoverageSensorTest extends AbstractSonarTest {
 
 	    assertNotNull(paths);
 
-
 	} catch (final IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
