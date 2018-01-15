@@ -40,17 +40,25 @@ public class GoTestReportSaver {
 	FilePredicates predicates = context.fileSystem().predicates();
 	for (Map<String, GoTestFile> map : list) {
 	    for (Map.Entry<String, GoTestFile> entry : map.entrySet()) {
+		String key = entry.getKey();
+		LOGGER.debug("Key is " + key);
 		GoTestFile value = entry.getValue();
-		LOGGER.debug("file " + value.getFile());
-		InputFile file = context.fileSystem().inputFile(predicates.hasPath(value.getFile()));
-
-		if (file == null) {
-		    LOGGER.warn("file not found " + value.getFile());
+		LOGGER.debug("saving measures for file " + value.getFile());
+		if (value.getFile() == null) {
+		    LOGGER.warn("No file could be determined from " + value.getFile());
 		    continue;
 		}
-		saveMeasure(value, context, file);
+		InputFile file = context.fileSystem().inputFile(predicates.hasAbsolutePath(value.getFile()));
+		if (file == null) {
+		    LOGGER.warn("File not found " + value.getFile());
+		    continue;
+		}
+		try {
+		    saveMeasure(value, context, file);
+		} catch (Exception e) { // yes, I know this is naughty...
+		    LOGGER.warn(e.getMessage());
+		}
 	    }
-
 	}
 
     }

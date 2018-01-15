@@ -57,7 +57,7 @@ import fr.univartois.sonargo.core.settings.GoProperties;
 
 /**
  * GoLintIssueLoaderSensor This class can load a report file and create issue
- * 
+ *
  * @author thibault
  */
 public class GoLintIssueLoaderSensor implements Sensor {
@@ -73,7 +73,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
     /**
      * Allow to create a new GoLintIssueLoaderSensor
-     * 
+     *
      * @param se
      * @see {@link Settings}
      * @param fileSystem
@@ -86,7 +86,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
     /**
      * Create the description of the sensor
-     * 
+     *
      * @param descriptor
      *            A sensor descriptor @see {@link SensorDescriptor}
      */
@@ -151,7 +151,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 	if (inputFile != null) {
 	    saveIssue(inputFile, error.getLine(), GoKeyRule.getKeyFromError(error), error.getMessage());
 	} else {
-	    LOGGER.error("Not able to find a InputFile with " + error.getFilePath());
+	    LOGGER.error("Not able to find an InputFile from " + error.getFilePath());
 	}
     }
 
@@ -177,9 +177,9 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 	if (externalRuleKey == null) {
 	    if (isAnErrorConfigOrImport(message)) {
-		LOGGER.warn("This issue is create because there is a problem with gometalinter analyse: " + message);
+		LOGGER.warn("This issue was created because there is a problem with gometalinter analyse: " + message);
 	    } else {
-		LOGGER.warn("The key for the message " + message + " is null, issue not saved");
+		LOGGER.info("The key for the message " + message + " is null, issue will not be saved");
 	    }
 	    return;
 	}
@@ -209,7 +209,7 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 	/**
 	 * GoLintResultParser allows parsing a checkstyle report file
-	 * 
+	 *
 	 * @param file
 	 *            The path to checktyle report
 	 * @return A list of violations
@@ -252,7 +252,6 @@ public class GoLintIssueLoaderSensor implements Sensor {
 
 		    }
 		}
-
 		return listError;
 
 	    } catch (SAXException e) {

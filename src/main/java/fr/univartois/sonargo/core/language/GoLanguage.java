@@ -32,41 +32,41 @@ import org.sonar.api.resources.AbstractLanguage;
  */
 public class GoLanguage extends AbstractLanguage {
 
-	public static final String NAME = "GO";
-	public static final String KEY = "go";
+    public static final String NAME = "GO";
+    public static final String KEY = "go";
 
-	private static final String[] DEFAULT_FILE_SUFFIXES = { "go" };
+    private static final String[] DEFAULT_FILE_SUFFIXES = { "go" };
 
-	/**
-	 * Create the GoLangage
-	 */
-	public GoLanguage() {
-		super(KEY, NAME);
+    /**
+     * Create the GoLangage
+     */
+    public GoLanguage() {
+	super(KEY, NAME);
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public String[] getFileSuffixes() {
+	return DEFAULT_FILE_SUFFIXES;
+    }
+
+    /**
+     * Allows to know if the given file name has a valid suffix
+     * 
+     * @param filename
+     *            String representing the file name
+     * @return boolean <code>true</code> if the file name's suffix is known,
+     *         <code>false</code> any other way
+     */
+    public boolean hasValidSuffixes(String filename) {
+	for (String str : DEFAULT_FILE_SUFFIXES) {
+	    if (StringUtils.lowerCase(filename).endsWith("." + str)) {
+		return true;
+	    }
 	}
-
-	/**
-	 * {@inheritDoc}}
-	 */
-	@Override
-	public String[] getFileSuffixes() {
-		return DEFAULT_FILE_SUFFIXES;
-	}
-
-	/**
-	 * Allows to know if the given file name has a valid suffix
-	 * 
-	 * @param filename
-	 *            String representing the file name
-	 * @return boolean <code>true</code> if the file name's suffix is known,
-	 *         <code>false</code> any other way
-	 */
-	public boolean hasValidSuffixes(String filename) {
-		for (String str : DEFAULT_FILE_SUFFIXES) {
-			if (StringUtils.lowerCase(filename).endsWith("." + str)) {
-				return true;
-			}
-		}
-		return false;
-	}
+	return false;
+    }
 
 }

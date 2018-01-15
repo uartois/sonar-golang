@@ -46,10 +46,14 @@ the new version of the plugin, follow those steps after the installation:
 sonar.projectKey=yourprojectid
 sonar.projectName=name of project
 sonar.projectVersion=1.0
-sonar.golint.reportPath=report.xml #default
-sonar.coverage.reportPath=coverage.xml # default
-sonar.coverage.dtdVerification=false # if you want disabled the DTD verification for a proxy problem for example 
-sonar.test.reportPath=test.xml #default
+# GoLint report path, default value is report.xml 
+sonar.golint.reportPath=report.xml 
+# Cobertura like coverage report path, default value is coverage.xml 
+sonar.coverage.reportPath=coverage.xml 
+# if you want disabled the DTD verification for a proxy problem for example, true by default 
+sonar.coverage.dtdVerification=false
+# JUnit like test report, default value is test.xml
+sonar.test.reportPath=test.xml 
 sonar.sources=./
 ```
 
@@ -76,7 +80,7 @@ gometalinter.v1 --checkstyle > report.xml
 
 # Coverage (since release 1.1)
 
-For coverage metrics you must have a `coverage.xml` (cobertura xml format) file *per package*.
+For coverage metrics you must have one or multiple  `coverage.xml` (cobertura xml format) files.
 
 * First install the tools for converting a coverprofile in cobertura file:
 ```shell
@@ -84,13 +88,26 @@ go get github.com/axw/gocov/...
 go get github.com/AlekSi/gocov-xml
 ```
 
-* Then for all packages execute those commands:
+* Then from the root of your project:
+```shell
+gocov test ./... | gocov-xml > coverage.xml
+```
+
+Note that `gocov test ./...` internally calls `go test` with the `-coverprofile` flag for
+all folders and subfolders, and assembles the coverprofile accordingly by itself (this is
+necessary, as Golang [up to 1.9](https://tip.golang.org/doc/go1.10#test) does not support the
+combination `go test ./... -coverprofile=...`).
+
+If you want to invoke `go test` manually, you need to do this and the conversion for each
+package by yourself. For example:
+
+* For all packages execute those commands:
 ```shell
 go test -coverprofile=cover.out
 gocov convert cover.out | gocov-xml > coverage.xml
 ```
 
-You must end-up with one coverage file per directory:
+You then end-up with one coverage file per directory:
 ```
 pkg1/coverage.xml
 pkg2/coverage.xml
@@ -99,35 +116,28 @@ pkg3/coverage.xml
 ```
 
 
-This is an example of script for create all coverage files for all packages in one time. 
+This is an example of script for create all coverage files for all packages in one time.
 
 
 ```bash
 for D in `find . -type d`
 do
     echo $D
-    if  [[ $D == ./.git/* ]] 
-    then
-        continue    
-    fi
-
-    if  [[ $D == .. ]] 
-    then
-        continue    
-    fi
-
-    if  [[ $D == . ]] 
-    then
-        continue    
+    if [[ $D == ./.git/* ]]; then
+        continue
+    elif [[ $D == .. ]]; then
+        continue
+    elif [[ $D == . ]]; then
+        continue
     fi
 
     cd $D
     go test -coverprofile=cover.out
     gocov convert cover.out | gocov-xml > coverage.xml
-    cd .. 
+    cd ..
 done
 ```
-or 
+or
 
 ```bash
 go list -f '{{if len .TestGoFiles}}"go test -coverprofile={{.Dir}}/cover.out {{.ImportPath}}"{{end}}' ./... | xargs -L 1 sh -c

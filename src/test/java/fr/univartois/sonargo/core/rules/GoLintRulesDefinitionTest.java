@@ -30,20 +30,20 @@ import org.sonar.api.server.rule.RulesDefinition;
 import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class GoLintRulesDefinitionTest {
-	@Test
-	public void testForVersion6() {
-		GoLintRulesDefinition definition = new GoLintRulesDefinition();
-		RulesDefinition.Context context = new RulesDefinition.Context();
-		definition.define(context);
-		RulesDefinition.Repository repository = context.repository(GoLintRulesDefinition.REPO_KEY);
+    @Test
+    public void testForVersion6() {
+	GoLintRulesDefinition definition = new GoLintRulesDefinition();
+	RulesDefinition.Context context = new RulesDefinition.Context();
+	definition.define(context);
+	RulesDefinition.Repository repository = context.repository(GoLintRulesDefinition.REPO_KEY);
 
-		assertEquals(GoLintRulesDefinition.REPO_NAME, repository.name());
-		assertEquals(GoLanguage.KEY, repository.language());
-		GoKeyRule.init();
-		assertEquals(GoKeyRule.getProp().size(), repository.rules().size());
+	assertEquals(GoLintRulesDefinition.REPO_NAME, repository.name());
+	assertEquals(GoLanguage.KEY, repository.language());
+	GoKeyRule.init();
+	assertEquals(GoKeyRule.getProp().size(), repository.rules().size());
 
-		for (Object key : GoKeyRule.getProp().keySet()) {
-			assertNotNull(repository.rule((String) key));
-		}
+	for (Object key : GoKeyRule.getProp().keySet()) {
+	    assertNotNull(repository.rule((String) key));
 	}
+    }
 }
