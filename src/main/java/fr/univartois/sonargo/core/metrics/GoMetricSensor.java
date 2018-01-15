@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
+import org.sonar.api.batch.fs.InputFile.Type;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
@@ -45,13 +44,10 @@ public class GoMetricSensor implements Sensor {
     public void execute(SensorContext context) {
 	final FileSystem fileSystem = context.fileSystem();
 	final FilePredicates predicates = fileSystem.predicates();
-	final Iterable<InputFile> files = fileSystem.inputFiles(predicates.all());
-	final List<InputFile> listFiles = new ArrayList<>();
-	files.forEach(listFiles::add);
+	final Iterable<InputFile> files = fileSystem.inputFiles(
+		predicates.not(predicates.and(predicates.hasLanguage(GoLanguage.KEY), predicates.hasType(Type.MAIN))));
 
-	listFiles.stream().filter((i) -> {
-	    return GoLanguage.KEY.equals(i.language());
-	}).forEach((i) -> {
+	files.forEach((i) -> {
 	    final GoLineMetrics goline = new GoLineMetrics(i, context);
 	    goline.analyseFile();
 	    saveMetrics(context, i, CoreMetrics.NCLOC, goline.getNumberLineOfCode());
