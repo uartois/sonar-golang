@@ -72,13 +72,16 @@ public class CoverageSensor implements Sensor {
 	return listExcludedPath;
     }
 
-    private boolean isAnExcludedPath(Path candidatePath, SensorContext context) {
+    public boolean isAnExcludedPath(Path candidatePath, SensorContext context) {
 	List<String> listExcludedPath = getExcludedPath(context);
 
 	for (String s : listExcludedPath) {
+	    Path pathAbsolute = candidatePath.toAbsolutePath();
+	    Path pathBase = context.fileSystem().baseDir().toPath();
+	    Path pathRelative = pathBase.relativize(pathAbsolute);
 	    if (s.contains("*")) {
 		PathMatcher pathMatcher = java.nio.file.FileSystems.getDefault().getPathMatcher("glob:" + s);
-		if (pathMatcher.matches(candidatePath)) {
+		if (pathMatcher.matches(pathRelative)) {
 		    return true;
 		}
 	    }

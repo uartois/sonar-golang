@@ -27,7 +27,7 @@ public class AbstractSonarTest {
 	testerContext.settings().appendProperty(GoProperties.JUNIT_REPORT_PATH_KEY,
 		GoProperties.JUNIT_REPORT_PATH_DEFAULT);
 
-	testerContext.settings().appendProperty(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY, "");
+	testerContext.settings().appendProperty(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY, "vendor/**,.git/**");
 
     }
 
