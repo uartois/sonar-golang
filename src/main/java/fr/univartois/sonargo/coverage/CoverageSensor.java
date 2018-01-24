@@ -36,8 +36,6 @@ import java.util.stream.Stream;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.sonar.api.CoreProperties;
-import org.sonar.api.batch.fs.FilePredicates;
-import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -47,6 +45,7 @@ import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
+import fr.univartois.sonargo.core.ProjectExplorer;
 import fr.univartois.sonargo.core.language.GoLanguage;
 import fr.univartois.sonargo.core.settings.GoProperties;
 
@@ -141,9 +140,8 @@ public class CoverageSensor implements Sensor {
 	for (Map.Entry<String, List<LineCoverage>> entry : coveragePerFile.entrySet()) {
 	    final String filePath = entry.getKey();
 	    final List<LineCoverage> lines = entry.getValue();
-	    final FileSystem fileSystem = context.fileSystem();
-	    final FilePredicates predicates = fileSystem.predicates();
-	    final InputFile inputFile = fileSystem.inputFile(predicates.hasPath(filePath));
+	    ProjectExplorer explorer = new ProjectExplorer(context);
+	    final InputFile inputFile = explorer.getByPath(filePath);
 
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);
