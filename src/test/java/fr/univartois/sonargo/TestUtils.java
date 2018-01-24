@@ -23,24 +23,59 @@ package fr.univartois.sonargo;
 
 import java.io.File;
 
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
+
+import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class TestUtils {
     private static final String TEST_RESSOURCES = "src/test/resources";
     private static final String COVERAGE_REPORT_PATH = "coverage";
     private static final String TEST_PATH = "gotest";
     private static final String HIGLIGHTER_CODE_PATH = "highlighter";
+    private static final String PROJECT_CODE_PATH = "project";
 
     public static DefaultFileSystem getDefaultFileSystem() {
 	return new DefaultFileSystem(getModuleBaseDir());
     }
 
     public static DefaultFileSystem getTestBaseDir() {
-	return new DefaultFileSystem((new File(TEST_RESSOURCES + File.separator + TEST_PATH)).getAbsoluteFile());
+	DefaultFileSystem fs = new DefaultFileSystem(
+		(new File(TEST_RESSOURCES + File.separator + TEST_PATH)).getAbsoluteFile());
+
+	DefaultInputFile f1 = new DefaultInputFile("module", "test1_test.go");
+	f1 = f1.setType(InputFile.Type.TEST);
+	f1 = f1.setLanguage(GoLanguage.KEY);
+
+	DefaultInputFile f2 = new DefaultInputFile("module", "test_test.go");
+	f2 = f2.setType(InputFile.Type.TEST);
+	f2 = f2.setLanguage(GoLanguage.KEY);
+
+	fs = fs.add(f1);
+	fs = fs.add(f2);
+
+	return fs;
     }
 
     public static DefaultFileSystem getCoverageBaseDir() {
 	return new DefaultFileSystem(new File(TEST_RESSOURCES + File.separator + COVERAGE_REPORT_PATH));
+    }
+
+    public static DefaultFileSystem getProjectDir() {
+	DefaultFileSystem fs = new DefaultFileSystem(new File(TEST_RESSOURCES + File.separator + PROJECT_CODE_PATH));
+	DefaultInputFile f = new DefaultInputFile("module", "package1.go");
+	f = f.setType(InputFile.Type.MAIN);
+	f = f.setLanguage(GoLanguage.KEY);
+
+	DefaultInputFile f2 = new DefaultInputFile("module", "package1_test.go");
+	f2 = f2.setType(InputFile.Type.TEST);
+	f2 = f2.setLanguage(GoLanguage.KEY);
+
+	fs = fs.add(f);
+	fs = fs.add(f2);
+
+	return fs;
     }
 
     public static DefaultFileSystem getColorizeDir() {
