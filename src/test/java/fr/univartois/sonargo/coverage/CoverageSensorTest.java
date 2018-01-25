@@ -110,7 +110,7 @@ public class CoverageSensorTest extends AbstractSonarTest {
 		    .setLanguage(GoLanguage.KEY).initMetadata(sb.toString()));
 
 	    reader = new BufferedReader(new FileReader(
-		    new File(CoverageSensor.class.getResource("/coverage/mathutil/filewithnotcoverage.go").getFile())));
+		    new File(CoverageSensor.class.getResource("/coverage/mathutil/filewithnocoverage.go").getFile())));
 
 	    sb = new StringBuilder();
 	    while ((sCurrentLine = reader.readLine()) != null) {
