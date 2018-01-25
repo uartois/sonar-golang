@@ -72,8 +72,13 @@ public class TestUtils {
 	f2 = f2.setType(InputFile.Type.TEST);
 	f2 = f2.setLanguage(GoLanguage.KEY);
 
+	DefaultInputFile f3 = new DefaultInputFile("module", "test.py");
+	f3 = f3.setType(InputFile.Type.MAIN);
+	f3 = f3.setLanguage("python");
+
 	fs = fs.add(f);
 	fs = fs.add(f2);
+	fs = fs.add(f3);
 
 	return fs;
     }
