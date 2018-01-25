@@ -24,27 +24,24 @@ public class ProjectExplorerTest extends AbstractSonarTest {
 
     @Test
     public void testSearchByType() {
-	ProjectExplorer explorer = new ProjectExplorer(testerContext);
 
-	List<InputFile> list = explorer.searchByType(InputFile.Type.MAIN);
+	List<InputFile> list = ProjectExplorer.searchByType(testerContext, InputFile.Type.MAIN);
 	assertFalse(list.isEmpty());
 	assertEquals(1, list.size());
     }
 
     @Test
     public void testSearchFileWithTypeMainOrTest() {
-	ProjectExplorer explorer = new ProjectExplorer(testerContext);
-	List<InputFile> list = explorer.searchFileWithTypeMainOrTest();
+	List<InputFile> list = ProjectExplorer.searchFileWithTypeMainOrTest(testerContext);
 	assertFalse(list.isEmpty());
 	assertEquals(2, list.size());
     }
 
     @Test
     public void testGetByPath() {
-	ProjectExplorer explorer = new ProjectExplorer(testerContext);
-	assertNotNull(explorer.getByPath("package1.go"));
-	assertNotNull(explorer.getByPath("package1.go").language());
-	assertEquals(GoLanguage.KEY, explorer.getByPath("package1.go").language());
+	assertNotNull(ProjectExplorer.getByPath(testerContext, "package1.go"));
+	assertNotNull(ProjectExplorer.getByPath(testerContext, "package1.go").language());
+	assertEquals(GoLanguage.KEY, ProjectExplorer.getByPath(testerContext, "package1.go").language());
     }
 
 }
