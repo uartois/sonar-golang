@@ -67,9 +67,6 @@ public class FunctionFinder {
 
     public void searchFunctionInFile(Path p) {
 	String absolutePath = p.toFile().getAbsolutePath();
-
-	System.err.println("search function in file " + absolutePath);
-
 	Matcher matcher = MATCH_FUNC_NAME.matcher(getFileAsBufferFromPath(p));
 	while (matcher.find()) {
 	    String func = matcher.group("functionName");
