@@ -109,7 +109,6 @@ public class CoverageSensor implements Sensor {
 
     @Override
     public void execute(SensorContext context) {
-	explorer = new ProjectExplorer(context);
 	try (Stream<Path> paths = createStream(context)) {
 	    paths.forEach(filePath -> {
 
@@ -136,8 +135,8 @@ public class CoverageSensor implements Sensor {
 		}
 	    });
 
-	    explorer.searchByType(InputFile.Type.MAIN).stream().filter(i -> !inputFileWithCoverage.contains(i))
-		    .forEach(i -> {
+	    ProjectExplorer.searchByType(context, InputFile.Type.MAIN).stream()
+		    .filter(i -> !inputFileWithCoverage.contains(i)).forEach(i -> {
 			saveForAllLine(context, i, 0);
 		    });
 
@@ -159,7 +158,7 @@ public class CoverageSensor implements Sensor {
 	for (Map.Entry<String, List<LineCoverage>> entry : coveragePerFile.entrySet()) {
 	    final String filePath = entry.getKey();
 	    final List<LineCoverage> lines = entry.getValue();
-	    final InputFile inputFile = explorer.getByPath(filePath);
+	    final InputFile inputFile = ProjectExplorer.getByPath(context, filePath);
 	    inputFileWithCoverage.add(inputFile);
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);

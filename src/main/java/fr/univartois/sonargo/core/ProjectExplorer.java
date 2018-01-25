@@ -11,13 +11,12 @@ import org.sonar.api.batch.sensor.SensorContext;
 import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class ProjectExplorer {
-    private SensorContext context;
 
-    public ProjectExplorer(SensorContext context) {
-	this.context = context;
+    private ProjectExplorer() {
+	// prevent the instantiation
     }
 
-    public List<InputFile> searchByType(InputFile.Type type) {
+    public static List<InputFile> searchByType(final SensorContext context, final InputFile.Type type) {
 	FileSystem system = context.fileSystem();
 	FilePredicates predicate = system.predicates();
 	Iterable<InputFile> iter = system
@@ -28,7 +27,7 @@ public class ProjectExplorer {
 	return listFiles;
     }
 
-    public List<InputFile> searchFileWithTypeMainOrTest() {
+    public static List<InputFile> searchFileWithTypeMainOrTest(final SensorContext context) {
 	FilePredicates predicate = context.fileSystem().predicates();
 	Iterable<InputFile> iter = context.fileSystem().inputFiles(predicate.and(predicate.hasLanguage(GoLanguage.KEY),
 		predicate.or(predicate.hasType(InputFile.Type.MAIN), predicate.hasType(InputFile.Type.TEST))));
@@ -38,7 +37,7 @@ public class ProjectExplorer {
 	return listFiles;
     }
 
-    public InputFile getByPath(String filePath) {
+    public static InputFile getByPath(final SensorContext context, final String filePath) {
 	final FileSystem fileSystem = context.fileSystem();
 	final FilePredicates predicates = fileSystem.predicates();
 	return fileSystem.inputFile(predicates.hasPath(filePath));

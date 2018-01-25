@@ -29,8 +29,7 @@ public class HighlighterSensor implements Sensor {
 	    return;
 	}
 
-	ProjectExplorer exporer = new ProjectExplorer(context);
-	final List<InputFile> listFiles = exporer.searchFileWithTypeMainOrTest();
+	final List<InputFile> listFiles = ProjectExplorer.searchFileWithTypeMainOrTest(context);
 	listFiles.forEach(i -> new Colorizer(context).colorize(i));
     }
 

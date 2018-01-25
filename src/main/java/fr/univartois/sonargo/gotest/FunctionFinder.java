@@ -36,9 +36,8 @@ public class FunctionFinder {
 
 	LOGGER.info("base dir " + baseDir);
 
-	ProjectExplorer explorer = new ProjectExplorer(context);
 	paths = new ArrayList<>();
-	explorer.searchByType(InputFile.Type.TEST).forEach(i -> paths.add(i.file().toPath()));
+	ProjectExplorer.searchByType(context, InputFile.Type.TEST).forEach(i -> paths.add(i.file().toPath()));
 
     }
 
