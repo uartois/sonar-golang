@@ -117,7 +117,7 @@ public class CoverageSensorTest extends AbstractSonarTest {
 		sb.append(sCurrentLine + "\n");
 	    }
 
-	    testerContext.fileSystem().add(new DefaultInputFile("myProjectKey", "mathutil/filewithnotcoverage.go")
+	    testerContext.fileSystem().add(new DefaultInputFile("myProjectKey", "mathutil/filewithnocoverage.go")
 		    .setLanguage(GoLanguage.KEY).initMetadata(sb.toString()));
 
 	    sensor.execute(testerContext);
