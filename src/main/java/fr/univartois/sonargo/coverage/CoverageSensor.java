@@ -55,7 +55,6 @@ public class CoverageSensor implements Sensor {
 
     private static final Logger LOGGER = Loggers.get(CoverageSensor.class);
     private Set<InputFile> inputFileWithCoverage = new HashSet<>();
-    private ProjectExplorer explorer;
 
     @Override
     public void describe(SensorDescriptor descriptor) {
