@@ -132,7 +132,7 @@ public class CoverageSensorTest extends AbstractSonarTest {
 		    testerContext.lineHits("myProjectKey:pixel/pixel.go", CoverageType.UNIT, 37));
 
 	    assertEquals(Integer.valueOf(0),
-		    testerContext.lineHits("myProjectKey:mathutil/filewithnotcoverage.go", CoverageType.UNIT, 3));
+		    testerContext.lineHits("myProjectKey:mathutil/filewithnocoverage.go", CoverageType.UNIT, 3));
 
 	    LOGGER.info(testerContext.measures("myProjectKey").toString());
 
