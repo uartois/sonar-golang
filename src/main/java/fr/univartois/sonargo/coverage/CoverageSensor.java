@@ -29,8 +29,10 @@ import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -52,6 +54,8 @@ import fr.univartois.sonargo.core.settings.GoProperties;
 public class CoverageSensor implements Sensor {
 
     private static final Logger LOGGER = Loggers.get(CoverageSensor.class);
+    private Set<InputFile> inputFileWithCoverage = new HashSet<>();
+    private ProjectExplorer explorer;
 
     @Override
     public void describe(SensorDescriptor descriptor) {
@@ -105,7 +109,7 @@ public class CoverageSensor implements Sensor {
 
     @Override
     public void execute(SensorContext context) {
-
+	explorer = new ProjectExplorer(context);
 	try (Stream<Path> paths = createStream(context)) {
 	    paths.forEach(filePath -> {
 
@@ -131,18 +135,32 @@ public class CoverageSensor implements Sensor {
 		    }
 		}
 	    });
+
+	    explorer.searchByType(InputFile.Type.MAIN).stream().filter(i -> !inputFileWithCoverage.contains(i))
+		    .forEach(i -> {
+			saveForAllLine(context, i, 0);
+		    });
+
 	} catch (final IOException e) {
 	    LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
 	}
     }
 
-    public static void save(SensorContext context, Map<String, List<LineCoverage>> coveragePerFile) {
+    public void saveForAllLine(final SensorContext context, final InputFile i, final int hits) {
+	final NewCoverage coverage = context.newCoverage().onFile(i);
+	for (int n = 1; n < i.lines(); n++) {
+	    coverage.lineHits(n, hits);
+	}
+	coverage.ofType(CoverageType.UNIT);
+	coverage.save();
+    }
+
+    public void save(SensorContext context, Map<String, List<LineCoverage>> coveragePerFile) {
 	for (Map.Entry<String, List<LineCoverage>> entry : coveragePerFile.entrySet()) {
 	    final String filePath = entry.getKey();
 	    final List<LineCoverage> lines = entry.getValue();
-	    ProjectExplorer explorer = new ProjectExplorer(context);
 	    final InputFile inputFile = explorer.getByPath(filePath);
-
+	    inputFileWithCoverage.add(inputFile);
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);
 		return;
