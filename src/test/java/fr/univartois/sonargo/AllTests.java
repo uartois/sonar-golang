@@ -25,6 +25,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import fr.univartois.sonargo.core.ProjectExplorerTest;
 import fr.univartois.sonargo.core.language.GoLanguageTest;
 import fr.univartois.sonargo.core.language.GoLexerTest;
 import fr.univartois.sonargo.core.language.GoQualityProfileTest;
@@ -39,6 +40,6 @@ import fr.univartois.sonargo.gotest.FunctionFinderTest;
 @RunWith(Suite.class)
 @SuiteClasses({ EvalTest.class, GoErrorTest.class, GoLanguageTest.class, GoQualityProfileTest.class,
 	GoLintIssueLoaderSendorTest.class, GoLintRulesDefinitionTest.class, GoPluginTest.class, GoPropertiesTest.class,
-	CoverageSensorTest.class, GoLexerTest.class, FunctionFinderTest.class })
+	CoverageSensorTest.class, GoLexerTest.class, FunctionFinderTest.class, ProjectExplorerTest.class })
 public class AllTests {
 }

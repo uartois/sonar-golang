@@ -29,15 +29,15 @@ import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.sonar.api.CoreProperties;
-import org.sonar.api.batch.fs.FilePredicates;
-import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
@@ -47,12 +47,14 @@ import org.sonar.api.batch.sensor.coverage.NewCoverage;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
+import fr.univartois.sonargo.core.ProjectExplorer;
 import fr.univartois.sonargo.core.language.GoLanguage;
 import fr.univartois.sonargo.core.settings.GoProperties;
 
 public class CoverageSensor implements Sensor {
 
     private static final Logger LOGGER = Loggers.get(CoverageSensor.class);
+    private Set<InputFile> inputFileWithCoverage = new HashSet<>();
 
     @Override
     public void describe(SensorDescriptor descriptor) {
@@ -106,7 +108,6 @@ public class CoverageSensor implements Sensor {
 
     @Override
     public void execute(SensorContext context) {
-
 	try (Stream<Path> paths = createStream(context)) {
 	    paths.forEach(filePath -> {
 
@@ -132,19 +133,32 @@ public class CoverageSensor implements Sensor {
 		    }
 		}
 	    });
+
+	    ProjectExplorer.searchByType(context, InputFile.Type.MAIN).stream()
+		    .filter(i -> !inputFileWithCoverage.contains(i)).forEach(i -> {
+			saveForAllLine(context, i, 0);
+		    });
+
 	} catch (final IOException e) {
 	    LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
 	}
     }
 
-    public static void save(SensorContext context, Map<String, List<LineCoverage>> coveragePerFile) {
+    public void saveForAllLine(final SensorContext context, final InputFile i, final int hits) {
+	final NewCoverage coverage = context.newCoverage().onFile(i);
+	for (int n = 1; n < i.lines(); n++) {
+	    coverage.lineHits(n, hits);
+	}
+	coverage.ofType(CoverageType.UNIT);
+	coverage.save();
+    }
+
+    public void save(SensorContext context, Map<String, List<LineCoverage>> coveragePerFile) {
 	for (Map.Entry<String, List<LineCoverage>> entry : coveragePerFile.entrySet()) {
 	    final String filePath = entry.getKey();
 	    final List<LineCoverage> lines = entry.getValue();
-	    final FileSystem fileSystem = context.fileSystem();
-	    final FilePredicates predicates = fileSystem.predicates();
-	    final InputFile inputFile = fileSystem.inputFile(predicates.hasPath(filePath));
-
+	    final InputFile inputFile = ProjectExplorer.getByPath(context, filePath);
+	    inputFileWithCoverage.add(inputFile);
 	    if (inputFile == null) {
 		LOGGER.warn("unable to create InputFile object: " + filePath);
 		return;
