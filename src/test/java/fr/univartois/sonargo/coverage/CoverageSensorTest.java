@@ -1,6 +1,8 @@
 package fr.univartois.sonargo.coverage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import org.junit.Before;
@@ -33,12 +36,36 @@ public class CoverageSensorTest extends AbstractSonarTest {
     public void testCreateStream() {
 	final CoverageSensor sensor = new CoverageSensor();
 	try (Stream<Path> paths = sensor.createStream(testerContext)) {
-	    assertEquals(22, paths.count());
+
+	    assertNotNull(paths);
 
 	} catch (final IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
+    }
+
+    @Test
+    public void testExcludedPathProperty() {
+	final CoverageSensor sensor = new CoverageSensor();
+	boolean check = sensor.isAnExcludedPath(Paths.get(fileSystem.baseDir().getAbsolutePath(), "vendor/test"),
+		testerContext);
+	assertTrue(check);
+    }
+
+    @Test
+    public void testIgnoreFileStream() {
+	final CoverageSensor sensor = new CoverageSensor();
+	Stream<Path> paths;
+	try {
+	    paths = sensor.createStream(testerContext);
+	    assertEquals(26, paths.count());
+
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+
     }
 
     @Test

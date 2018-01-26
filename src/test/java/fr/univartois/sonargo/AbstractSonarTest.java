@@ -1,5 +1,6 @@
 package fr.univartois.sonargo;
 
+import org.sonar.api.CoreProperties;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.batch.sensor.internal.SensorContextTester;
 
@@ -15,6 +16,9 @@ public class AbstractSonarTest {
 
     public void init(DefaultFileSystem fileSystem) {
 	this.fileSystem = fileSystem;
+
+	System.out.println("init with dir " + fileSystem.baseDirPath());
+
 	testerContext = SensorContextTester.create(fileSystem.baseDir());
 
 	testerContext.settings().appendProperty(GoProperties.COVERAGE_REPORT_PATH_KEY,
@@ -22,6 +26,8 @@ public class AbstractSonarTest {
 	testerContext.settings().appendProperty(GoProperties.REPORT_PATH_KEY, GoProperties.REPORT_PATH_DEFAULT);
 	testerContext.settings().appendProperty(GoProperties.JUNIT_REPORT_PATH_KEY,
 		GoProperties.JUNIT_REPORT_PATH_DEFAULT);
+
+	testerContext.settings().appendProperty(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY, "vendor/**,.git/**");
 
     }
 

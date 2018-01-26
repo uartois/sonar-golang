@@ -28,8 +28,6 @@ import org.junit.Test;
 import org.sonar.api.server.rule.RulesDefinition;
 
 import fr.univartois.sonargo.core.language.GoLanguage;
-import fr.univartois.sonargo.core.rules.GoKeyRule;
-import fr.univartois.sonargo.core.rules.GoLintRulesDefinition;
 
 public class GoLintRulesDefinitionTest {
     @Test

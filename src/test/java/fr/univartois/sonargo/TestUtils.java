@@ -28,10 +28,15 @@ import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 public class TestUtils {
     private static final String TEST_RESSOURCES = "src/test/resources";
     private static final String COVERAGE_REPORT_PATH = "coverage";
+    private static final String TEST_PATH = "gotest";
     private static final String HIGLIGHTER_CODE_PATH = "highlighter";
 
     public static DefaultFileSystem getDefaultFileSystem() {
 	return new DefaultFileSystem(getModuleBaseDir());
+    }
+
+    public static DefaultFileSystem getTestBaseDir() {
+	return new DefaultFileSystem((new File(TEST_RESSOURCES + File.separator + TEST_PATH)).getAbsoluteFile());
     }
 
     public static DefaultFileSystem getCoverageBaseDir() {

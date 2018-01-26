@@ -20,49 +20,49 @@ import com.sonar.sslr.impl.matcher.RuleDefinition;
 import fr.univartois.sonargo.coverage.CoverageSensor;
 
 public class GoGrammarTest {
-	private Rule rule;
-	private Parser parser;
-	private ArrayList<String> goCodes;
+    private Rule rule;
+    private Parser<Grammar> parser;
+    private ArrayList<String> goCodes;
 
-	@Before
-	public void init() {
-		Lexer lexer = GoLexer.create();
-		rule = new RuleDefinition("ruleName").is("foo");
-		Grammar grammar = GoGrammar.create();
-		parser = Parser.builder(grammar).withLexer(lexer).build();
-		goCodes = new ArrayList<>();
-		try {
-			parseGoCode();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+    @Before
+    public void init() {
+	Lexer lexer = GoLexer.create();
+	rule = new RuleDefinition("ruleName").is("foo");
+	Grammar grammar = GoGrammar.create();
+	parser = Parser.builder(grammar).withLexer(lexer).build();
+	goCodes = new ArrayList<>();
+	try {
+	    parseGoCode();
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+    }
+
+    public void parseGoCode() throws IOException {
+	Files.list(new File(CoverageSensor.class.getResource("/grammar").getFile()).toPath()).forEach(path -> {
+	    try {
+		BufferedReader reader = new BufferedReader(new FileReader(path.toFile()));
+		String sCurrentLine;
+		StringBuilder sb = new StringBuilder();
+		while ((sCurrentLine = reader.readLine()) != null) {
+		    sb.append(sCurrentLine + "\n");
 		}
-	}
+		goCodes.add(sb.toString());
+	    } catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	    }
+	});
 
-	public void parseGoCode() throws IOException {
-		Files.list(new File(CoverageSensor.class.getResource("/grammar").getFile()).toPath()).forEach(path -> {
-			try {
-				BufferedReader reader = new BufferedReader(new FileReader(path.toFile()));
-				String sCurrentLine;
-				StringBuilder sb = new StringBuilder();
-				while ((sCurrentLine = reader.readLine()) != null) {
-					sb.append(sCurrentLine + "\n");
-				}
-				goCodes.add(sb.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
+    }
 
+    @Test
+    public void ok() {
+	for (String s : goCodes) {
+	    System.out.println(s);
+	    new ParserAssert(parser).matches(s);
 	}
-
-	@Test
-	public void ok() {
-		for (String s : goCodes) {
-			System.out.println(s);
-			new ParserAssert(parser).matches(s);
-		}
-	}
+    }
 
 }

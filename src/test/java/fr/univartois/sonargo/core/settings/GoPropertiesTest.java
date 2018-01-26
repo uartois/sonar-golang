@@ -30,14 +30,14 @@ import org.sonar.api.config.PropertyDefinition;
 
 public class GoPropertiesTest {
 
-	@Test
-	public void test() {
-		List<PropertyDefinition> l = GoProperties.getProperties();
-		assertEquals(5, l.size());
-		assertEquals(GoProperties.REPORT_PATH_DEFAULT, l.get(0).defaultValue());
-		assertEquals(GoProperties.COVERAGE_REPORT_PATH_DEFAULT, l.get(1).defaultValue());
-		assertEquals(GoProperties.JUNIT_REPORT_PATH_DEFAULT, l.get(2).defaultValue());
+    @Test
+    public void test() {
+	List<PropertyDefinition> l = GoProperties.getProperties();
+	assertEquals(5, l.size());
+	assertEquals(GoProperties.REPORT_PATH_DEFAULT, l.get(0).defaultValue());
+	assertEquals(GoProperties.COVERAGE_REPORT_PATH_DEFAULT, l.get(1).defaultValue());
+	assertEquals(GoProperties.JUNIT_REPORT_PATH_DEFAULT, l.get(2).defaultValue());
 
-	}
+    }
 
 }

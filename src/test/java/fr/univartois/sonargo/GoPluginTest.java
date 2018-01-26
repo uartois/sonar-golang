@@ -37,8 +37,10 @@ public class GoPluginTest {
     public void test() {
 	final SonarRuntime runtime = SonarRuntimeImpl.forSonarLint(VERSION_6_0);
 	final Plugin.Context context = new Plugin.Context(runtime);
+
 	javaPlugin.define(context);
-	assertEquals(10, context.getExtensions().size());
+
+	assertEquals(13, context.getExtensions().size());
 
     }
 
