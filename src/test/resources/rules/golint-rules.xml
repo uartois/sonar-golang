@@ -618,7 +618,7 @@
 	
 	<rule>
 		<key>gocyclo:CyclomaticComplexity</key>
-		<name>Cyclomatic complexity is hight</name>
+		<name>Cyclomatic complexity is high</name>
 		<internalKey>gocyclo:CyclomaticComplexity</internalKey>
 		<description>
       		The cyclomatic complexity is greater than 10
