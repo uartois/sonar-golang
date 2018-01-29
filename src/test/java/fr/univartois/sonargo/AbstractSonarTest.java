@@ -17,8 +17,6 @@ public class AbstractSonarTest {
     public void init(DefaultFileSystem fileSystem) {
 	this.fileSystem = fileSystem;
 
-	System.out.println("init with dir " + fileSystem.baseDirPath());
-
 	testerContext = SensorContextTester.create(fileSystem.baseDir());
 
 	testerContext.settings().appendProperty(GoProperties.COVERAGE_REPORT_PATH_KEY,
@@ -28,6 +26,12 @@ public class AbstractSonarTest {
 		GoProperties.JUNIT_REPORT_PATH_DEFAULT);
 
 	testerContext.settings().appendProperty(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY, "vendor/**,.git/**");
+	testerContext.settings().appendProperty(CoreProperties.PROJECT_TEST_INCLUSIONS_PROPERTY, "**/**_test.go");
+	testerContext.settings().appendProperty(CoreProperties.PROJECT_INCLUSIONS_PROPERTY, "**/**.go");
+	testerContext.settings().appendProperty("sonar.sources", "./");
+	testerContext.settings().appendProperty("sonar.tests", "./");
+
+	testerContext.setFileSystem(fileSystem);
 
     }
 

@@ -63,6 +63,7 @@ public class FunctionFinderTest extends AbstractSonarTest {
 	    LOGGER.info("testSearchFunction " + testerContext.fileSystem().baseDir());
 	    FunctionFinder f = new FunctionFinder(testerContext);
 	    HashMap<String, String> nameFunction = f.searchFunction();
+
 	    assertTrue(nameFunction.containsKey("TestAverage"));
 
 	} catch (IOException e) {
