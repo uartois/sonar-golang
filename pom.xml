@@ -155,6 +155,7 @@
 					<excludes>
             					<exclude>**/GoGrammarTest.java</exclude>
 					</excludes> 
+
 				</configuration>
 
 
