@@ -88,7 +88,8 @@ public class CoverageSensor implements Sensor {
 		}
 	    }
 
-	    if ((candidatePath.isAbsolute() && candidatePath.endsWith(s)) || (candidatePath.getFileName().equals(s))) {
+	    if ((candidatePath.isAbsolute() && candidatePath.endsWith(s))
+		    || (candidatePath.getFileName().toFile().getName().equals(s))) {
 		return true;
 	    }
 	}
