@@ -6,7 +6,7 @@ addons:
   sonarcloud:
     organization: "thibaultfalque-github"
     token:
-      secure: "$sonartoken"
+      secure: "$SONAR_TOKEN"
 jdk:
   - oraclejdk8
 script:
