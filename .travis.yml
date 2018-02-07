@@ -1,8 +1,16 @@
-dist: trusty
 language: java
+sudo: false
+install: true
 addons:
-  sonarqube:
-    organization: "thibaultfalque-github" # the key of the org you chose at step #3
+  sonarcloud:
+    organization: "thibaultfalque-github"
+    token:
+      secure: "$sonartoken"
+jdk:
+  - oraclejdk8
 script:
-  # the following command line builds the project, runs the tests with coverage and then execute the SonarQube analysis
-  - mvn clean install sonar:sonar
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
