@@ -40,7 +40,7 @@ public class GoPluginTest {
 
 	javaPlugin.define(context);
 
-	assertEquals(13, context.getExtensions().size());
+	assertEquals(15, context.getExtensions().size());
 
     }
 
