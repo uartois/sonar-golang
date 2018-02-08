@@ -25,6 +25,7 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
+import org.sonar.api.CoreProperties;
 import org.sonar.api.config.PropertyDefinition;
 
 public class GoProperties {
@@ -61,7 +62,10 @@ public class GoProperties {
 			.description("false if you want disabled the DTD verification for coverage file").build(),
 		PropertyDefinition.builder(HIGHLIGHTING_KEY).defaultValue(HIGHLIGHTING_DEFAULT).category("Go")
 			.name("Boolean for highlighting verification")
-			.description("false if you want disabled the highlighting").build());
+			.description("false if you want disabled the highlighting").build(),
+		PropertyDefinition.builder(CoreProperties.PROJECT_INCLUSIONS_PROPERTY).defaultValue("**/**.go").build(),
+		PropertyDefinition.builder(CoreProperties.PROJECT_TEST_INCLUSIONS_PROPERTY)
+			.defaultValue("**/**_test.go").build());
 
     }
 }

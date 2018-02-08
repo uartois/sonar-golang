@@ -169,7 +169,7 @@ public enum GoGrammar implements GrammarRuleKey {
      * @see https://golang.org/ref/spec#Function_declarations
      */
     private static void createFunctionDefinition() {
-
+	// not implemented for the moment
     }
 
     private static void createIdentifierList() {

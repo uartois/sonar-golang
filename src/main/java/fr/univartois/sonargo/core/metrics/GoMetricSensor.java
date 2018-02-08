@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.sonar.api.batch.fs.FilePredicates;
@@ -14,7 +16,6 @@ import org.sonar.api.batch.sensor.Sensor;
 import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.measures.FileLinesContextFactory;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
@@ -23,10 +24,10 @@ import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class GoMetricSensor implements Sensor {
     private static final Logger LOGGER = Loggers.get(GoMetricSensor.class);
-    private final FileLinesContextFactory fileLinesContextFactory;
+    private Map<Metric<Integer>, Integer> measures;
 
-    public GoMetricSensor(FileLinesContextFactory fileLinesContextFactory) {
-	this.fileLinesContextFactory = fileLinesContextFactory;
+    public GoMetricSensor() {
+	measures = new HashMap<>();
     }
 
     public Stream<Path> createStream(SensorContext context) throws IOException {
@@ -56,7 +57,10 @@ public class GoMetricSensor implements Sensor {
 
     public void saveMetrics(SensorContext context, InputFile inputFile, Metric<Integer> metric, Integer value) {
 	context.<Integer>newMeasure().withValue(value).forMetric(metric).on(inputFile).save();
-
+	measures.put(metric, value);
     }
 
+    public Map<Metric<Integer>, Integer> getMeasures() {
+	return measures;
+    }
 }
