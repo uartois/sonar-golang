@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 import org.junit.Before;
@@ -19,6 +21,8 @@ import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.batch.sensor.coverage.CoverageType;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
+
+import com.google.common.collect.ImmutableMap;
 
 import fr.univartois.sonargo.AbstractSonarTest;
 import fr.univartois.sonargo.TestUtils;
@@ -60,7 +64,7 @@ public class CoverageSensorTest extends AbstractSonarTest {
 	Stream<Path> paths;
 	try {
 	    paths = sensor.createStream(testerContext);
-	    assertEquals(27, paths.count());
+	    assertEquals(28, paths.count());
 
 	} catch (IOException e) {
 	    // TODO Auto-generated catch block
@@ -120,27 +124,44 @@ public class CoverageSensorTest extends AbstractSonarTest {
 	    testerContext.fileSystem().add(new DefaultInputFile("myProjectKey", "mathutil/filewithnocoverage.go")
 		    .setLanguage(GoLanguage.KEY).initMetadata(sb.toString()));
 
+	    reader = new BufferedReader(
+		    new FileReader(new File(CoverageSensor.class.getResource("/coverage/mathutil/a.go").getFile())));
+
+	    sb = new StringBuilder();
+	    while ((sCurrentLine = reader.readLine()) != null) {
+		sb.append(sCurrentLine + "\n");
+	    }
+
+	    testerContext.fileSystem().add(new DefaultInputFile("myProjectKey", "mathutil/a.go")
+		    .setLanguage(GoLanguage.KEY).initMetadata(sb.toString()));
+
 	    sensor.execute(testerContext);
 
-	    assertEquals(Integer.valueOf(1),
-		    testerContext.lineHits("myProjectKey:mathutil/mathutil.go", CoverageType.UNIT, 7));
+	    Map<String, Map<Integer, Integer>> map = new HashMap<>();
+	    map.put("myProjectKey:mathutil/mathutil.go", ImmutableMap.of(7, 1));
+	    map.put("myProjectKey:pixel/pixel.go", ImmutableMap.of(21, 0, 37, 0));
 
-	    assertEquals(Integer.valueOf(0),
-		    testerContext.lineHits("myProjectKey:pixel/pixel.go", CoverageType.UNIT, 28));
+	    Map<Integer, Integer> testValuesMap = new HashMap<>();
 
-	    assertEquals(Integer.valueOf(0),
-		    testerContext.lineHits("myProjectKey:pixel/pixel.go", CoverageType.UNIT, 37));
+	    testValuesMap.put(3, null);
+	    testValuesMap.put(1, null);
+	    testValuesMap.put(4, null);
+	    testValuesMap.put(8, 0);
+	    testValuesMap.put(12, 0);
 
-	    assertEquals(Integer.valueOf(0),
-		    testerContext.lineHits("myProjectKey:mathutil/filewithnocoverage.go", CoverageType.UNIT, 3));
+	    map.put("myProjectKey:mathutil/filewithnocoverage.go", testValuesMap);
+	    map.put("myProjectKey:mathutil/a.go", ImmutableMap.of(8, 0, 9, 0));
 
-	    LOGGER.info(testerContext.measures("myProjectKey").toString());
+	    map.forEach((key, mapValue) -> {
+		mapValue.forEach((line, value) -> {
+		    assertEquals("line " + line + " " + key, value,
+			    testerContext.lineHits(key, CoverageType.UNIT, line));
+		});
+	    });
 
 	} catch (final FileNotFoundException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} catch (final IOException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
