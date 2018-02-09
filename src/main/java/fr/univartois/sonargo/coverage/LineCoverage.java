@@ -24,11 +24,18 @@ package fr.univartois.sonargo.coverage;
 public class LineCoverage {
     private int lineNumber;
     private int hits;
+    private String line;
 
     public LineCoverage(int lineNumber, int hits) {
 	super();
 	this.lineNumber = lineNumber;
 	this.hits = hits;
+	this.line = null;
+    }
+
+    public LineCoverage(int lineNumber, int hits, String line) {
+	this(lineNumber, hits);
+	this.line = line;
     }
 
     public int getLineNumber() {
@@ -37,6 +44,10 @@ public class LineCoverage {
 
     public int getHits() {
 	return hits;
+    }
+
+    public String getLine() {
+	return line;
     }
 
     @Override
