@@ -41,8 +41,11 @@ public class GoTestReportSaver {
 	for (Map<String, GoTestFile> map : list) {
 	    for (Map.Entry<String, GoTestFile> entry : map.entrySet()) {
 		String key = entry.getKey();
-		LOGGER.debug("Key is " + key);
 		GoTestFile value = entry.getValue();
+		if (value == null) {
+		    LOGGER.warn("Value for " + key + " is null");
+		    continue;
+		}
 		LOGGER.debug("saving measures for file " + value.getFile());
 		if (value.getFile() == null) {
 		    LOGGER.warn("No file could be determined from " + value.getFile());
