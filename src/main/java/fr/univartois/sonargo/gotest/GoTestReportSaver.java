@@ -46,8 +46,8 @@ public class GoTestReportSaver {
 		    LOGGER.warn("Value for " + key + " is null");
 		    continue;
 		}
-		LOGGER.debug("saving measures for file " + value.getFile());
 		if (value.getFile() == null) {
+		    LOGGER.debug("saving measures for file " + value.getFile());
 		    LOGGER.warn("No file could be determined from " + value.getFile());
 		    continue;
 		}
