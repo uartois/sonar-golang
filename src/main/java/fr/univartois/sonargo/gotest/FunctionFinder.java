@@ -1,7 +1,6 @@
 package fr.univartois.sonargo.gotest;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -11,6 +10,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +43,7 @@ public class FunctionFinder {
 
     public Map<String, String> searchFunction() {
 
-	paths.forEach((p) -> {
+	paths.forEach(p -> {
 	    LOGGER.info("search test function in " + p.toFile().getAbsolutePath());
 	    searchFunctionInFile(p);
 	});
@@ -56,8 +56,6 @@ public class FunctionFinder {
 	    FileChannel channel = input.getChannel();
 	    ByteBuffer bbuf = channel.map(FileChannel.MapMode.READ_ONLY, 0, (int) channel.size());
 	    return Charset.forName("utf8").newDecoder().decode(bbuf);
-	} catch (FileNotFoundException e) {
-	    LOGGER.warn("IO Exception caught -", e);
 	} catch (IOException e) {
 	    LOGGER.warn("IO Exception caught -", e);
 	}
