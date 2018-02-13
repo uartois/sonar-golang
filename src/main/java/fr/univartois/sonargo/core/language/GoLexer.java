@@ -32,7 +32,7 @@ public final class GoLexer {
     private GoLexer() {
     }
 
-    public static enum Literals implements TokenType {
+    public enum Literals implements TokenType {
 
 	INTEGER(DECIMAL_LIT + "|" + HEXADECIMAL_LIT + "|" + OCTAL_LIT),
 	FLOAT(FLOAT_LIT),
