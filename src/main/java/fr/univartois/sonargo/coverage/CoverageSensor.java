@@ -66,7 +66,7 @@ public class CoverageSensor implements Sensor {
 	String globalExcludedPath = context.settings().getString(CoreProperties.PROJECT_EXCLUSIONS_PROPERTY);
 
 	if (globalExcludedPath == null) {
-	    return new ArrayList<String>();
+	    return new ArrayList<>();
 	}
 
 	List<String> listExcludedPath = Arrays.asList(globalExcludedPath.split(","));
