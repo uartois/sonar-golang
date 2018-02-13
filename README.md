@@ -1,4 +1,6 @@
-# SonarQube Plugin for the Go language  [![Build Status](https://travis-ci.org/uartois/sonar-golang.svg?branch=master)](https://travis-ci.org/uartois/sonar-golang)
+# SonarQube Plugin for the Go language  
+
+[![Build Status](https://travis-ci.org/uartois/sonar-golang.svg?branch=master)](https://travis-ci.org/uartois/sonar-golang) ![Quality Gates](https://sonarcloud.io/api/project_badges/measure?project=fr.univartois%3Asonar-golang-plugin%3Amaintenance&metric=alert_status) 
 
 ![Sonarque for GoLang Logo](logo.jpeg)
 
