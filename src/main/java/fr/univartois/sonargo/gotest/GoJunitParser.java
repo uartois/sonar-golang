@@ -45,8 +45,6 @@ import fr.univartois.sonargo.core.Parser;
 public class GoJunitParser implements Parser {
     private static final String TEST_SUITE_TAG = "testsuite";
     private static final String TEST_SKIPPED_TAG = "skipped";
-    private static final String NB_TOTAL_TEST_ATTR = "tests";
-    private static final String NB_TEST_FAILURE_ATRR = "failures";
     private static final String NAME_TEST_ATTR = "name";
     private static final String TIME_TEST_ATTR = "time";
     private static final String FAILURE_TAG = "failure";
