@@ -36,6 +36,10 @@ import org.sonar.api.utils.log.Loggers;
 public class GoTestReportSaver {
     private static final Logger LOGGER = Loggers.get(GoTestReportSaver.class);
 
+    private GoTestReportSaver() {
+	throw new IllegalStateException("Utility class");
+    }
+
     public static void save(SensorContext context, List<Map<String, GoTestFile>> list) {
 	FilePredicates predicates = context.fileSystem().predicates();
 	for (Map<String, GoTestFile> map : list) {
