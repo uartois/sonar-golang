@@ -44,7 +44,7 @@ public class GoMetricSensor implements Sensor {
 	final FilePredicates predicates = fileSystem.predicates();
 	final Iterable<InputFile> files = fileSystem
 		.inputFiles(predicates.and(predicates.hasLanguage(GoLanguage.KEY), predicates.hasType(Type.MAIN)));
-	files.forEach((i) -> {
+	files.forEach(i -> {
 	    final GoLineMetrics goline = new GoLineMetrics(i);
 	    goline.analyseFile();
 	    saveMetrics(context, i, CoreMetrics.NCLOC, goline.getNumberLineOfCode());
