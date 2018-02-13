@@ -7,6 +7,8 @@ addons:
     organization: thibaultfalque-github
     token:
       secure: "fmvXUI+OCn3UThPkooHMJ7c/iwLQ4e8ZPBEP4lKNnMPvnO8jox4V9jBPhTcBZNHAn+SlMgV0C2ttZ6LjpJI+6ZEYi+AVBIGQb7RNdjpEue3nLNG1WzUbl0Byy/xwgWiIG1ffVXTkPdEoD6d9WoDvYr9p3Ff3n0/Op6GN0J27OU/7yq5OEXpwwsmS32yw4aAltZISLRWUPhqRrnV7aopfFr1zRGe4ddBe2UFIVH8gnTgYtYNF1FTiWdtPKeVDea3dnW9R/kwF/IFiVEk/gOXPFTWSOulFssc3o1p89yCFmnS4JZ8kK5IOnY1TZCVZ7MhprXLLRjy9+MlKIcwjlzsvAKHHc17krRKDsY4wZBT9QUa7nOG926YForIa9DOigQ4F+oMhiu2LRo/5qe2p9GgzRLx5RXsJ4rgGHPn6IkuVaX9qpvoyMwnS2fOy1NU93C8JDF1WKM/9RRBAKDpdI3iQIXqkPA3v86Jj/fkNTAKijqOPSKNiZzl5/5uysXLDIlSOKGkDurjRZ+H5gibx47nBm5Vx9ufq23hRWH55g1oMvUDj3XAs39Ih+Hqn1CwOfnTOC4gy6TE3fy5beE2cz7GVrO90eaog9IlGF0umIwAHb1PaEDkcLSpg3uWbAP7jrkqhhceqBeJJi98Ly+Hn0Nfkme6oBwbE9YqN/v7mSNLBa/g="
+    branches: 
+      - maintenance
 jdk:
 - oraclejdk8
 script:
