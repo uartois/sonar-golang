@@ -123,7 +123,6 @@ public final class GoLexer {
 
 	@Override
 	public boolean hasToBeSkippedFromAst(AstNode arg0) {
-	    // TODO Auto-generated method stub
 	    return false;
 	}
 
