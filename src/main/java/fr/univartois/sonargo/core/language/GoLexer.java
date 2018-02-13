@@ -139,7 +139,7 @@ public final class GoLexer {
 
     public static final String COMMENT_SYMBOL = "//";
 
-    public static enum Punctuators implements TokenType {
+    public enum Punctuators implements TokenType {
 
 	PAREN_L("("),
 	PAREN_R(")"),
