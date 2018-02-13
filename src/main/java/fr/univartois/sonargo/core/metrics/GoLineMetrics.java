@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
 import org.sonar.api.batch.fs.InputFile;
-import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 
@@ -18,11 +17,9 @@ public class GoLineMetrics {
     private int numberLineOfCode = 0;
     private int numberLineComment = 0;
     private final InputFile file;
-    private final SensorContext context;
 
-    public GoLineMetrics(InputFile f, SensorContext c) {
+    public GoLineMetrics(InputFile f) {
 	file = f;
-	context = c;
     }
 
     public void analyseFile() {
@@ -40,7 +37,6 @@ public class GoLineMetrics {
 		    numberLineComment++;
 		}
 	    }
-	    br.close();
 	} catch (final IOException e) {
 	    LOGGER.error("IO Exception", e);
 	}
