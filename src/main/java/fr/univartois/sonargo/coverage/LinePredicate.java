@@ -5,6 +5,10 @@ public class LinePredicate {
     private static boolean commentFound = false;
     private static boolean typeFound = false;
 
+    private LinePredicate() {
+	throw new IllegalStateException("Utility class");
+    }
+
     public static void init() {
 	funcFound = false;
 	commentFound = false;
