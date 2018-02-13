@@ -9,7 +9,6 @@ import org.sonar.colorizer.KeywordsTokenizer;
 import org.sonar.colorizer.Tokenizer;
 
 import fr.univartois.sonargo.core.language.GoLexer;
-import fr.univartois.sonargo.core.language.GoLexer.Keyword;
 
 public final class GoColorizer {
 
