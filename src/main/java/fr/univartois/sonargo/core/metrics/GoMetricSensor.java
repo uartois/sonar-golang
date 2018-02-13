@@ -17,13 +17,10 @@ import org.sonar.api.batch.sensor.SensorContext;
 import org.sonar.api.batch.sensor.SensorDescriptor;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Metric;
-import org.sonar.api.utils.log.Logger;
-import org.sonar.api.utils.log.Loggers;
 
 import fr.univartois.sonargo.core.language.GoLanguage;
 
 public class GoMetricSensor implements Sensor {
-    private static final Logger LOGGER = Loggers.get(GoMetricSensor.class);
     private Map<Metric<Integer>, Integer> measures;
 
     public GoMetricSensor() {
