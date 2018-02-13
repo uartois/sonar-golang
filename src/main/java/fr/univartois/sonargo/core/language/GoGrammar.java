@@ -165,13 +165,6 @@ public enum GoGrammar implements GrammarRuleKey {
 	b.rule(FUNC_TYPE).is(GoLexer.Keyword.FUNC, SIGNATURE);
     }
 
-    /**
-     * @see https://golang.org/ref/spec#Function_declarations
-     */
-    private static void createFunctionDefinition() {
-	// not implemented for the moment
-    }
-
     private static void createIdentifierList() {
 	b.rule(IDENTIFIER_LIST).is(IDENTIFIER, b.optional(b.oneOrMore(COMMA, IDENTIFIER)));
     }
