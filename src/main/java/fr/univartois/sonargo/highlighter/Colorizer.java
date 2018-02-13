@@ -40,7 +40,6 @@ public class Colorizer {
 		searchAndColor(line, lineNumber);
 		lineNumber++;
 	    }
-	    br.close();
 	} catch (final IOException e) {
 	    LOGGER.error("IO Exception", e);
 	}
