@@ -31,7 +31,7 @@ public class FunctionFinder {
     private static final Pattern MATCH_FUNC_NAME = Pattern.compile(
 	    "func\\s+(\\(suite\\s+[a-zA-Z0-9\\*\\._-]*\\)\\s+)?(?<functionName>Test[^\\s]+)\\s*\\([a-zA-Z0-9\\*\\s\\.\\,_-]*\\)\\s*\\{");
 
-    public FunctionFinder(SensorContext context) throws IOException {
+    public FunctionFinder(SensorContext context) {
 	this.baseDir = context.fileSystem().baseDir().getPath();
 
 	LOGGER.info("base dir " + baseDir);
