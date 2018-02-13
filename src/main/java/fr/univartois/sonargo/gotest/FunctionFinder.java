@@ -74,7 +74,7 @@ public class FunctionFinder {
 	}
     }
 
-    public HashMap<String, String> getResult() {
+    public Map<String, String> getResult() {
 	return result;
     }
 }
