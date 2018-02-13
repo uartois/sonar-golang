@@ -134,21 +134,20 @@ public class CoverageSensor implements Sensor {
 	    });
 
 	    ProjectExplorer.searchByType(context, InputFile.Type.MAIN).stream()
-		    .filter(i -> !inputFileWithCoverage.contains(i)).forEach(i -> saveForAllLine(context, i, 0));
+		    .filter(i -> !inputFileWithCoverage.contains(i)).forEach(i -> saveForAllLine(context, i));
 
 	} catch (final IOException e) {
 	    LOGGER.error("IO Exception " + context.fileSystem().baseDir().getPath());
 	}
     }
 
-    public void saveForAllLine(final SensorContext context, final InputFile i, final int hits) {
+    public void saveForAllLine(final SensorContext context, final InputFile i) {
 	final NewCoverage coverage = context.newCoverage().onFile(i);
 	try (Stream<String> fileLine = Files.lines(i.path())) {
 	    FactoryLine.init();
 	    LinePredicate.init();
-	    fileLine.map(FactoryLine::create).filter(LinePredicate::filterLine).forEach((l) -> {
-		coverage.lineHits(l.getLineNumber(), l.getHits());
-	    });
+	    fileLine.map(FactoryLine::create).filter(LinePredicate::filterLine)
+		    .forEach(l -> coverage.lineHits(l.getLineNumber(), l.getHits()));
 
 	    coverage.ofType(CoverageType.UNIT);
 	    coverage.save();
