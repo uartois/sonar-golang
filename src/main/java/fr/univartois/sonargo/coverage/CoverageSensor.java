@@ -153,7 +153,7 @@ public class CoverageSensor implements Sensor {
 	    coverage.ofType(CoverageType.UNIT);
 	    coverage.save();
 	} catch (IOException e) {
-	    e.printStackTrace();
+	    LOGGER.warn("IO Exception" + e);
 	}
 
     }
