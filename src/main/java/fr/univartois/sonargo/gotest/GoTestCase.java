@@ -25,14 +25,12 @@ public class GoTestCase {
     private boolean fail;
     private boolean skipped;
     private Double time;
-    private String nameFunction;
 
-    public GoTestCase(boolean fail, boolean skipped, Double time, String nameFunction) {
+    public GoTestCase(boolean fail, boolean skipped, Double time) {
 	super();
 	this.fail = fail;
 	this.skipped = skipped;
 	this.time = time;
-	this.nameFunction = nameFunction;
     }
 
     public boolean isFail() {

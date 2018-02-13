@@ -103,7 +103,7 @@ public class GoJunitParser implements Parser {
 
 		goTest.addTestCase(new GoTestCase(testCase.getElementsByTagName(FAILURE_TAG).getLength() > 0,
 			testCase.getElementsByTagName(TEST_SKIPPED_TAG).getLength() > 0,
-			Double.parseDouble(testCase.getAttribute(TIME_TEST_ATTR)), functionName));
+			Double.parseDouble(testCase.getAttribute(TIME_TEST_ATTR))));
 		mapResult.put(fileName, goTest);
 	    }
 
