@@ -112,7 +112,7 @@ public class CoverageSensor implements Sensor {
 
 		LOGGER.debug("Path in stream" + filePath.toFile().getAbsolutePath());
 
-		if (Files.isDirectory(filePath)) {
+		if (filePath.toFile().isDirectory()) {
 		    final String reportPath = context.settings().getString(GoProperties.COVERAGE_REPORT_PATH_KEY);
 		    final File f = new File(filePath + File.separator + reportPath);
 		    if (f.exists()) {
