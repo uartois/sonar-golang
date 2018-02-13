@@ -6,7 +6,7 @@ import org.sonar.api.batch.sensor.internal.SensorContextTester;
 
 import fr.univartois.sonargo.core.settings.GoProperties;
 
-public class AbstractSonarTest {
+public abstract class AbstractSonarTest {
     protected DefaultFileSystem fileSystem;
     protected SensorContextTester testerContext;
 
