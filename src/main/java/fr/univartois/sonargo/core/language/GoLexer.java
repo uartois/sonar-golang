@@ -60,7 +60,7 @@ public final class GoLexer {
 
     }
 
-    public static enum Keyword implements TokenType {
+    public enum Keyword implements TokenType {
 	BREAK("break"),
 	DEFAULT("default"),
 	FUNC("func"),
