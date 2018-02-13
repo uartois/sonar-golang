@@ -126,12 +126,7 @@ public class CoverageParser implements Parser {
     }
 
     private List<LineCoverage> getListForFile(String filepath) {
-	List<LineCoverage> list = coverageByFile.get(filepath);
-	if (list == null) {
-	    list = new ArrayList<>();
-	    coverageByFile.put(filepath, list);
-	}
-	return list;
+	return coverageByFile.computeIfAbsent(filepath, k -> new ArrayList<>());
     }
 
     private void parseMethodTag(NodeList methodsList, List<LineCoverage> listOfCoverage) {
