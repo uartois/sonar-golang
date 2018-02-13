@@ -21,7 +21,6 @@ public final class GoLexer {
     private static final String EXPONENT = "[eE][+-]?+" + DECIMALS;
     private static final String FLOAT_LIT = "(" + DECIMALS + FLOAT_SEPARATOR + "(" + DECIMALS + ")*(" + EXPONENT
 	    + ")*)|(" + DECIMALS + EXPONENT + ")|(" + FLOAT_SEPARATOR + DECIMALS + "(" + EXPONENT + ")" + "?)";
-    private static final String IMAGINARY_LIT = "(" + DECIMALS + "|" + FLOAT_LIT + ")i";
 
     private static final String UNICODE_CHAR = "^\\u000A";
     private static final String NEWLINE = "\\u000A";
