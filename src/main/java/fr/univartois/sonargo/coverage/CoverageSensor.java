@@ -69,9 +69,7 @@ public class CoverageSensor implements Sensor {
 	    return new ArrayList<>();
 	}
 
-	List<String> listExcludedPath = Arrays.asList(globalExcludedPath.split(","));
-
-	return listExcludedPath;
+	return Arrays.asList(globalExcludedPath.split(","));
     }
 
     public boolean isAnExcludedPath(Path candidatePath, SensorContext context) {
