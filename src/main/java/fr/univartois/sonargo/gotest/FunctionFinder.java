@@ -41,7 +41,7 @@ public class FunctionFinder {
 
     }
 
-    public HashMap<String, String> searchFunction() {
+    public Map<String, String> searchFunction() {
 
 	paths.forEach((p) -> {
 	    LOGGER.info("search test function in " + p.toFile().getAbsolutePath());
