@@ -146,6 +146,11 @@ go list -f '{{if len .TestGoFiles}}"go test -coverprofile={{.Dir}}/cover.out {{.
 go list -f '{{if len .TestGoFiles}}"gocov convert {{.Dir}}/cover.out | gocov-xml > {{.Dir}}/coverage.xml"{{end}}' ./... | xargs -L 1 sh -c
 ```
 
+> Note for docker users: by default, `gocov-xml` uses absolute paths which prevents this plugin to use
+> coverage files built on a different file system than the one used to run the plugin.
+> A workaround is to use a [patched version of gocov](https://github.com/Centny/gocov-xml.git) which provides
+> the `-pwd` option to use relative paths instead of absolute paths. See [#35](https://github.com/uartois/sonar-golang/issues/35) for details.
+
 # Tests (since release 1.1)
 
 For test metrics you must generate a junit report file.
