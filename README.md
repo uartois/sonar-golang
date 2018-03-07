@@ -57,6 +57,9 @@ sonar.coverage.dtdVerification=false
 # JUnit like test report, default value is test.xml
 sonar.test.reportPath=test.xml 
 sonar.sources=./
+sonar.tests=./
+sonar.test.inclusions=**/**_test.go
+sonar.sources.inclusions=**/**.go
 ```
 
 * start the analysis
