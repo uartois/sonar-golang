@@ -1,8 +1,11 @@
-# SonarQube Plugin for the Go language  
+# Community SonarQube Plugin for the Go language  
 
 [![Build Status](https://travis-ci.org/uartois/sonar-golang.svg?branch=master)](https://travis-ci.org/uartois/sonar-golang) ![Quality Gates](https://sonarcloud.io/api/project_badges/measure?project=fr.univartois%3Asonar-golang-plugin%3Amaintenance&metric=alert_status) 
 
 ![Sonarque for GoLang Logo](logo.jpeg)
+
+**This is a community plugin for SonarQube to support the Go language started in April 2017 at Artois University.
+Since May 2018, Go is officially supported by SonarSource with [SonarGo](https://github.com/SonarSource/sonar-go).**
 
 It integrates [GoMetaLinter](https://github.com/alecthomas/gometalinter) reports
 within SonarQube dashboard.
