@@ -10,7 +10,7 @@ Since May 2018, Go is officially supported by SonarSource with [SonarGo](https:/
 It integrates [GoMetaLinter](https://github.com/alecthomas/gometalinter) reports
 within SonarQube dashboard.
 
-The user must generate a GoMetaLinter report for his code using the checkstyle
+The user must generate a GoMetaLinter report for the code using the checkstyle
 format. The report is thus integrated to SonarQube using
 [sonar-scanner](https://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner).
 
